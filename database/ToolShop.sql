@@ -109,100 +109,106 @@ CREATE TABLE ORDER_LINE (
 
 -- CUSTOMER
 
-INSERT INTO CUSTOMER VALUES(1, 'Tom',' ' ,'Hanks', 'New York');
-INSERT INTO CUSTOMER VALUES(2, 'Brad',' ' ,'Pitt', 'California');
-INSERT INTO CUSTOMER VALUES(3, 'John',' ' ,'Wick', 'Paris');
-INSERT INTO CUSTOMER VALUES(4, 'Keanu',' ' ,'Reeves', 'London');
-INSERT INTO CUSTOMER VALUES(5, 'Elon',' ' ,'Musk', 'DC Washington');
-INSERT INTO CUSTOMER VALUES(6, 'Mark',' ' ,'Alan', 'Boston');
-INSERT INTO CUSTOMER VALUES(7, 'Dwayne',' ' ,'Johnson', 'Florida');
-INSERT INTO CUSTOMER VALUES(8, 'John',' ' ,'Cena', 'New York');
-INSERT INTO CUSTOMER VALUES(9, 'Robert',' ' ,'Deniro', 'New York');
-INSERT INTO CUSTOMER VALUES(10, 'Tom',' ' ,'Hardy', 'Boston');
-
+INSERT INTO CUSTOMER VALUES
+    (1, 'Tom',' ' ,'Hanks', 'New York'),
+    (2, 'Brad',' ' ,'Pitt', 'California'),
+    (3, 'John',' ' ,'Wick', 'Paris'),
+    (4, 'Keanu',' ' ,'Reeves', 'London'),
+    (5, 'Elon',' ' ,'Musk', 'DC Washington'),
+    (6, 'Mark',' ' ,'Alan', 'Boston'),
+    (7, 'Dwayne',' ' ,'Johnson', 'Florida'),
+    (8, 'John',' ' ,'Cena', 'New York'),
+    (9, 'Robert',' ' ,'Deniro', 'New York'),
+    (10, 'Tom',' ' ,'Hardy', 'Boston');
 
 
 -- EMPLOYEE
 
-INSERT INTO EMPLOYEE VALUES (1, 'Lionel', ' ', 'Messi', '+37 2354272');
-INSERT INTO EMPLOYEE VALUES (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832');
-INSERT INTO EMPLOYEE VALUES (3, 'Neymar', ' ', 'Junior', '+37 247562659');
-INSERT INTO EMPLOYEE VALUES (4, 'Diego', ' ', 'Maradona', '+44 8765349');
-INSERT INTO EMPLOYEE VALUES (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272');
-INSERT INTO EMPLOYEE VALUES (6, 'Robert', ' ', 'Lewandowski', '+1 5054272');
-INSERT INTO EMPLOYEE VALUES (7, 'Vinicous', ' ', 'Junior', '+1 63954272');
-INSERT INTO EMPLOYEE VALUES (8, 'Kareem', ' ', 'Benzema', '+1 7384272');
-INSERT INTO EMPLOYEE VALUES (9, 'Andy', ' ', 'Roberts', '+1 8354772');
-INSERT INTO EMPLOYEE VALUES (10, 'Wayne', ' ', 'Rooney', '+1 9356272');
+INSERT INTO EMPLOYEE VALUES 
+    (1, 'Lionel', ' ', 'Messi', '+37 2354272'),
+    (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832'),
+    (3, 'Neymar', ' ', 'Junior', '+37 247562659'),
+    (4, 'Diego', ' ', 'Maradona', '+44 8765349'),
+    (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272'),
+    (6, 'Robert', ' ', 'Lewandowski', '+1 5054272'),
+    (7, 'Vinicous', ' ', 'Junior', '+1 63954272'),
+    (8, 'Kareem', ' ', 'Benzema', '+1 7384272'),
+    (9, 'Andy', ' ', 'Roberts', '+1 8354772'),
+    (10, 'Wayne', ' ', 'Rooney', '+1 9356272');
 
 
 -- Manager 
 
-INSERT INTO MANAGER VALUES(1, 20000.00);
-INSERT INTO MANAGER VALUES(3, 15000.00);
-INSERT INTO MANAGER VALUES(5, 18000.00);
+INSERT INTO MANAGER VALUES
+    (1, 20000.00),
+    (3, 15000.00),
+    (5, 18000.00);
 
 
 -- SUPPLIER
 
-INSERT INTO SUPPLIER VALUES(1, '+1 62321893','New York');
-INSERT INTO SUPPLIER VALUES(2, '+1 39874923','DC Washington');
-INSERT INTO SUPPLIER VALUES(3, '+44 24525467','London');
-INSERT INTO SUPPLIER VALUES(4, '+1 29857933','New York');
-INSERT INTO SUPPLIER VALUES(5, '+37 23786585','Paris');
-INSERT INTO SUPPLIER VALUES(6, '+1 29384332','New York');
-INSERT INTO SUPPLIER VALUES(7, '+1 234769245','Florida');
-INSERT INTO SUPPLIER VALUES(8, '+44 93874904','Manchester');
-INSERT INTO SUPPLIER VALUES(9, '+1 215548589','Boston');
-INSERT INTO SUPPLIER VALUES(10, '+1 34547883','New York');
+INSERT INTO SUPPLIER VALUES
+    (1, '+1 62321893','New York'),
+    (2, '+1 39874923','DC Washington'),
+    (3, '+44 24525467','London'),
+    (4, '+1 29857933','New York'),
+    (5, '+37 23786585','Paris'),
+    (6, '+1 29384332','New York'),
+    (7, '+1 234769245','Florida'),
+    (8, '+44 93874904','Manchester'),
+    (9, '+1 215548589','Boston'),
+    (10, '+1 34547883','New York');
 
 
 -- SALES_ASSOCIATE
 
-INSERT into SALES_ASSOCIATE VALUES(2, 4.0);
-INSERT into SALES_ASSOCIATE VALUES(4, 4.0);
-INSERT into SALES_ASSOCIATE VALUES(6, 4.5);
-INSERT into SALES_ASSOCIATE VALUES(7, 5.0);
-INSERT into SALES_ASSOCIATE VALUES(8, 5.0);
-INSERT into SALES_ASSOCIATE VALUES(9, 5.0);
-INSERT into SALES_ASSOCIATE VALUES(10, 3.5);
+INSERT INTO SALES_ASSOCIATE VALUES
+    (2, 4.0),
+    (4, 4.0),
+    (6, 4.5),
+    (7, 5.0),
+    (8, 5.0),
+    (9, 5.0),
+    (10, 3.5);
 
 
 -- TOOL
 
-INSERT INTO TOOL VALUES(101, 30.0, 'Mechanical', 12, 'Strippers', 2);
-INSERT INTO TOOL VALUES(102, 20.0, 'Mechanical', 200, 'Pin', 3);
-INSERT INTO TOOL VALUES(103, 200.0, 'Electrical', 10, 'Microvave oven', 4);
-INSERT INTO TOOL VALUES(104, 10.0, 'Mechanical', 45, 'Scrapper', 5);
-INSERT INTO TOOL VALUES(105, 30.0, 'Mechanical', 12, 'Piler', 6);
-INSERT INTO TOOL VALUES(106, 40.0, 'Electrical', 120, 'Bulb', 7);
-INSERT INTO TOOL VALUES(107, 40.0, 'Electrical', 110, 'cable', 8);
-INSERT INTO TOOL VALUES(108, 50.0, 'Mechanical', 59, 'Screw Driver', 2);
-INSERT INTO TOOL VALUES(109, 60.0, 'Electrical', 12, 'Strippers', 1);
-INSERT INTO TOOL VALUES(110, 70.0, 'Mechanical', 25, 'HackSaw', 3);
-INSERT INTO TOOL VALUES(111, 35.0, 'Mechanical', 29, 'Wire Cutter', 4);
-INSERT INTO TOOL VALUES(112, 45.0, 'Mechanical', 75, 'Wrench', 9);
-INSERT INTO TOOL VALUES(113, 55.0, 'Electrical', 122, 'Heat Gun', 10);
-INSERT INTO TOOL VALUES(114, 67.5, 'Mechanical', 34, 'Hand Drill', 10);
-INSERT INTO TOOL VALUES(115, 75.0, 'Electrical', 44, 'Electric Cutter', 8);
+INSERT INTO TOOL VALUES
+    (101, 30.0, 'Mechanical', 12, 'Strippers', 2),
+    (102, 20.0, 'Mechanical', 200, 'Pin', 3),
+    (103, 200.0, 'Electrical', 10, 'Microvave oven', 4),
+    (104, 10.0, 'Mechanical', 45, 'Scrapper', 5),
+    (105, 30.0, 'Mechanical', 12, 'Piler', 6),
+    (106, 40.0, 'Electrical', 120, 'Bulb', 7),
+    (107, 40.0, 'Electrical', 110, 'cable', 8),
+    (108, 50.0, 'Mechanical', 59, 'Screw Driver', 2),
+    (109, 60.0, 'Electrical', 12, 'Strippers', 1),
+    (110, 70.0, 'Mechanical', 25, 'HackSaw', 3),
+    (111, 35.0, 'Mechanical', 29, 'Wire Cutter', 4),
+    (112, 45.0, 'Mechanical', 75, 'Wrench', 9),
+    (113, 55.0, 'Electrical', 122, 'Heat Gun', 10),
+    (114, 67.5, 'Mechanical', 34, 'Hand Drill', 10),
+    (115, 75.0, 'Electrical', 44, 'Electric Cutter', 8);
 
 
 
 -- ORDERS 
 
-INSERT INto ORDERS VALUES(1001, '2022-10-01', 35.0 , 1 );
-INSERT INto ORDERS VALUES(1002, '2022-11-11', 70.0 , 1 );
-INSERT INto ORDERS VALUES(1003, '2022-11-21', 82.0 , 3 );
-INSERT INto ORDERS VALUES(1004, '2022-11-24', 120.0 , 3 );
-INSERT INto ORDERS VALUES(1005, '2022-12-01', 55.0 , 5 );
-INSERT INto ORDERS VALUES(1006, '2022-12-11', 65.0 , 3 );
-INSERT INto ORDERS VALUES(1007, '2022-12-21', 75.0 , 5 );
-INSERT INto ORDERS VALUES(1008, '2022-12-31', 85.0 , 5 );
-INSERT INto ORDERS VALUES(1009, '2022-12-31', 95.0 , 5 );
-INSERT INto ORDERS VALUES(1010, '2023-01-01', 115.0 , 1 );
-INSERT INto ORDERS VALUES(1011, '2023-01-21', 135.0 , 5 );
-INSERT INto ORDERS VALUES(1012, '2023-02-27', 50.0 , 1 );
-INSERT INto ORDERS VALUES(1013, '2023-03-22', 60.0 , 3 );
+INSERT INTO ORDERS VALUES
+    (1001, '2022-10-01', 35.0 , 1 ),
+    (1002, '2022-11-11', 70.0 , 1 ),
+    (1003, '2022-11-21', 82.0 , 3 ),
+    (1004, '2022-11-24', 120.0 , 3 ),
+    (1005, '2022-12-01', 55.0 , 5 ),
+    (1006, '2022-12-11', 65.0 , 3 ),
+    (1007, '2022-12-21', 75.0 , 5 ),
+    (1008, '2022-12-31', 85.0 , 5 ),
+    (1009, '2022-12-31', 95.0 , 5 ),
+    (1010, '2023-01-01', 115.0 , 1 ),
+    (1011, '2023-01-21', 135.0 , 5 ),
+    (1012, '2023-02-27', 50.0 , 1 ),
+    (1013, '2023-03-22', 60.0 , 3 );
 
 
 
@@ -211,77 +217,81 @@ INSERT INto ORDERS VALUES(1013, '2023-03-22', 60.0 , 3 );
 -- ORDER_LINE 
 
 
-INSERT INto ORDER_LINE VALUES(1001, 1, 102, 2 );
-INSERT INto ORDER_LINE VALUES(1001, 2, 103, 1 );
-INSERT INto ORDER_LINE VALUES(1001, 3, 104, 1 );
-INSERT INto ORDER_LINE VALUES(1002, 4, 105, 1 );
-INSERT INto ORDER_LINE VALUES(1002, 5, 106, 1 );
-INSERT INto ORDER_LINE VALUES(1003, 6, 107, 1 );
-INSERT INto ORDER_LINE VALUES(1004, 7, 108, 1 );
-INSERT INto ORDER_LINE VALUES(1005, 8, 109, 1 );
-INSERT INto ORDER_LINE VALUES(1006, 9, 101, 1 );
-INSERT INto ORDER_LINE VALUES(1006, 10, 102, 3 );
-INSERT INto ORDER_LINE VALUES(1007, 11, 105, 1 );
-INSERT INto ORDER_LINE VALUES(1007, 12, 106, 1 );
-INSERT INto ORDER_LINE VALUES(1007, 13, 107, 1 );
-INSERT INto ORDER_LINE VALUES(1008, 14, 108, 1 );
-INSERT INto ORDER_LINE VALUES(1008, 15, 109, 1 );
-INSERT INto ORDER_LINE VALUES(1009, 16, 111, 1 );
-INSERT INto ORDER_LINE VALUES(1009, 17, 112, 1 );
-INSERT INto ORDER_LINE VALUES(1010, 18, 112, 1 );
-INSERT INto ORDER_LINE VALUES(1011, 19, 114, 1 );
-INSERT INto ORDER_LINE VALUES(1012, 20, 112, 1 );
-INSERT INto ORDER_LINE VALUES(1012, 21, 114, 1 );
-INSERT INto ORDER_LINE VALUES(1013, 22, 115, 1 );
-INSERT INto ORDER_LINE VALUES(1013, 23, 102, 2 );
+INSERT INTO ORDER_LINE VALUES
+    (1001, 1, 102, 2 ),
+    (1001, 2, 103, 1 ),
+    (1001, 3, 104, 1 ),
+    (1002, 4, 105, 1 ),
+    (1002, 5, 106, 1 ),
+    (1003, 6, 107, 1 ),
+    (1004, 7, 108, 1 ),
+    (1005, 8, 109, 1 ),
+    (1006, 9, 101, 1 ),
+    (1006, 10, 102, 3 ),
+    (1007, 11, 105, 1 ),
+    (1007, 12, 106, 1 ),
+    (1007, 13, 107, 1 ),
+    (1008, 14, 108, 1 ),
+    (1008, 15, 109, 1 ),
+    (1009, 16, 111, 1 ),
+    (1009, 17, 112, 1 ),
+    (1010, 18, 112, 1 ),
+    (1011, 19, 114, 1 ),
+    (1012, 20, 112, 1 ),
+    (1012, 21, 114, 1 ),
+    (1013, 22, 115, 1 ),
+    (1013, 23, 102, 2 );
 
 
 -- PAYMENT 
 
-INSERT INTO PAYMENT VALUES(1, 'Cash', 35, 1);
-INSERT INTO PAYMENT VALUES(2, 'Cash', 82, 2);
-INSERT INTO PAYMENT VALUES(3, 'Credit Card', 55, 3);
-INSERT INTO PAYMENT VALUES(4, 'Cash', 135, 4);
-INSERT INTO PAYMENT VALUES(5, 'Credit CardCash', 115, 5);
-INSERT INTO PAYMENT VALUES(6, 'Cash', 95, 6);
-INSERT INTO PAYMENT VALUES(7, 'Credit Card', 55, 7);
-INSERT INTO PAYMENT VALUES(8, 'Credit Card', 50, 1);
-INSERT INTO PAYMENT VALUES(9, 'Credit Card', 65, 2);
-INSERT INTO PAYMENT VALUES(10, 'Cash', 60, 8);
-INSERT INTO PAYMENT VALUES(11, 'Credit Card', 70, 9);
-INSERT INTO PAYMENT VALUES(12, 'Credit Card', 75, 1);
+INSERT INTO PAYMENT VALUES
+    (1, 'Cash', 35, 1),
+    (2, 'Cash', 82, 2),
+    (3, 'Credit Card', 55, 3),
+    (4, 'Cash', 135, 4),
+    (5, 'Credit CardCash', 115, 5),
+    (6, 'Cash', 95, 6),
+    (7, 'Credit Card', 55, 7),
+    (8, 'Credit Card', 50, 1),
+    (9, 'Credit Card', 65, 2),
+    (10, 'Cash', 60, 8),
+    (11, 'Credit Card', 70, 9),
+    (12, 'Credit Card', 75, 1);
 
 
 
 -- PURCHASE 
 
-INSERT INTO PURCHASE VALUES(1, '2022-10-10', 110, 2, 1);
-INSERT INTO PURCHASE VALUES(2, '2022-10-11', 120, 4, 2);
-INSERT INTO PURCHASE VALUES(3, '2022-11-12', 130, 6, 3);
-INSERT INTO PURCHASE VALUES(4, '2022-11-13', 140, 7, 4);
-INSERT INTO PURCHASE VALUES(5, '2022-11-14', 150, 8, 5);
-INSERT INTO PURCHASE VALUES(6, '2022-11-15', 160, 9, 1);
-INSERT INTO PURCHASE VALUES(7, '2022-11-16', 170, 10, 2);
-INSERT INTO PURCHASE VALUES(8, '2022-12-17', 180, 2, 3);
-INSERT INTO PURCHASE VALUES(9, '2022-12-18', 190, 4, 7);
-INSERT INTO PURCHASE VALUES(10, '2022-12-19', 115, 6, 8);
-INSERT INTO PURCHASE VALUES(11, '2023-01-20', 125, 8, 9);
+INSERT INTO PURCHASE VALUES
+    (1, '2022-10-10', 110, 2, 1),
+    (2, '2022-10-11', 120, 4, 2),
+    (3, '2022-11-12', 130, 6, 3),
+    (4, '2022-11-13', 140, 7, 4),
+    (5, '2022-11-14', 150, 8, 5),
+    (6, '2022-11-15', 160, 9, 1),
+    (7, '2022-11-16', 170, 10, 2),
+    (8, '2022-12-17', 180, 2, 3),
+    (9, '2022-12-18', 190, 4, 7),
+    (10, '2022-12-19', 115, 6, 8),
+    (11, '2023-01-20', 125, 8, 9);
 
 
 -- PURCHASE_LINE 
 
-INSERT INTO PURCHASE_LINE VALUES(1, 101, 1, 20);
-INSERT INTO PURCHASE_LINE VALUES(1, 102, 2, 20);
-INSERT INTO PURCHASE_LINE VALUES(2, 101, 3, 10);
-INSERT INTO PURCHASE_LINE VALUES(3, 101, 4, 10);
-INSERT INTO PURCHASE_LINE VALUES(4, 101, 5, 10);
-INSERT INTO PURCHASE_LINE VALUES(5, 101, 6, 10);
-INSERT INTO PURCHASE_LINE VALUES(6, 101, 7, 100);
-INSERT INTO PURCHASE_LINE VALUES(7, 101, 8, 200);
-INSERT INTO PURCHASE_LINE VALUES(8, 101, 9, 35);
-INSERT INTO PURCHASE_LINE VALUES(9, 101, 10, 60);
-INSERT INTO PURCHASE_LINE VALUES(10, 101, 11, 70);
-INSERT INTO PURCHASE_LINE VALUES(11, 101, 12, 50);
+INSERT INTO PURCHASE_LINE VALUES
+    (1, 101, 1, 20),
+    (1, 102, 2, 20),
+    (2, 101, 3, 10),
+    (3, 101, 4, 10),
+    (4, 101, 5, 10),
+    (5, 101, 6, 10),
+    (6, 101, 7, 100),
+    (7, 101, 8, 200),
+    (8, 101, 9, 35),
+    (9, 101, 10, 60),
+    (10, 101, 11, 70),
+    (11, 101, 12, 50);
 
 
 
