@@ -4,71 +4,91 @@ USE TOOLSHOP;
 
 DROP TABLE IF EXISTS EMPLOYEE;
 CREATE TABLE EMPLOYEE (
-    Employee_ID     INT PRIMARY KEY,
-    FirstName       VARCHAR(50),
+    Employee_ID     INT NOT NULL,
+    FirstName       VARCHAR(50) NOT NULL,
     MiddleInitial   CHAR(1),
-    LastName        VARCHAR(50),
-    PhoneNumber     VARCHAR(20)
+    LastName        VARCHAR(50) NOT NULL,
+    PhoneNumber     VARCHAR(20),
+    Email           VARCHAR(50) NOT NULL,
+    PRIMARY KEY(Employee_ID),
+    UNIQUE(Email)
 );
+
 
 DROP TABLE IF EXISTS MANAGER;
 CREATE TABLE MANAGER (
-    Employee_ID     INT PRIMARY KEY,
+    Employee_ID     INT NOT NULL,
     Manager_Salary  DECIMAL(10,2),
+    PRIMARY KEY (Employee_ID),
     FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID)
 );
 
 DROP TABLE IF EXISTS SALES_ASSOCIATE;
 CREATE TABLE SALES_ASSOCIATE (
-    Employee_ID     INT PRIMARY KEY,
+    Employee_ID     INT NOT NULL,
     Commission_Rate DECIMAL(4,2),
+    PRIMARY KEY (Employee_ID),
     FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID)
 );
 
 DROP TABLE IF EXISTS CUSTOMER;
 CREATE TABLE CUSTOMER (
-    Customer_ID     INT PRIMARY KEY,
-    FirstName       VARCHAR(50),
+    Customer_ID     INT NOT NULL,
+    FirstName       VARCHAR(50) NOT NULL,
     MiddleInitial   CHAR(1),
-    LastName        VARCHAR(50),
-    Address         VARCHAR(100)
+    LastName        VARCHAR(50) NOT NULL,
+    Address         VARCHAR(100),
+    Email           VARCHAR(50) NOT NULL,
+    UNIQUE(Email),
+    PRIMARY KEY (Customer_ID)
+);
+
+DROP TABLE IF EXISTS CUSTOMER_PHONE_NUMBERS;
+CREATE TABLE CUSTOMER_PHONE_NUMBERS (
+    Customer_ID     INT NOT NULL,
+    PhoneNumber     VARCHAR(20),
+    PRIMARY KEY (Customer_ID, PhoneNumber),
+    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID)
 );
 
 DROP TABLE IF EXISTS PURCHASE;
 CREATE TABLE PURCHASE (
-    Purchase_ID         INT PRIMARY KEY,
+    Purchase_ID         INT NOT NULL,
     Purchase_Date       DATE,
     Total_Cost          DECIMAL(10,2),
     Sales_Associate_ID   INT,
     Customer_ID         INT,
+    PRIMARY KEY(Purchase_ID),
     FOREIGN KEY (Sales_Associate_ID) REFERENCES SALES_ASSOCIATE(Employee_ID),
     FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID)
 );
 
 DROP TABLE IF EXISTS SUPPLIER;
 CREATE TABLE SUPPLIER (
-    Supplier_ID     INT PRIMARY KEY,
+    Supplier_ID     INT NOT NULL,
     Phone           VARCHAR(20),
-    Address         VARCHAR(100)
+    Address         VARCHAR(100),
+    PRIMARY KEY (Supplier_ID)
 );
 
 DROP TABLE IF EXISTS TOOL;
 CREATE TABLE TOOL (
-    Tool_ID             INT PRIMARY KEY,
+    Tool_ID             INT NOT NULL,
     Price               DECIMAL(10,2),
     Tool_Type           VARCHAR(50),
     Quantity_In_Stock   INT,
     Name                VARCHAR(50),
     Supplier_ID         INT,
+    PRIMARY KEY (Tool_ID),
     FOREIGN KEY (Supplier_ID) REFERENCES SUPPLIER(Supplier_ID)
 );
 
 DROP TABLE IF EXISTS PURCHASE_LINE;
 CREATE TABLE PURCHASE_LINE (
-    Purchase_ID     INT,
-    Tool_ID         INT,
-    Line_Number     INT,
-    Quantity        INT,
+    Purchase_ID     INT NOT NULL,
+    Tool_ID         INT NOT NULL,
+    Line_Number     INT NOT NULL,
+    Quantity        INT NOT NULL,
     PRIMARY KEY (Purchase_ID, Tool_ID, Line_Number),
     FOREIGN KEY (Purchase_ID) REFERENCES PURCHASE(Purchase_ID),
     FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID)
@@ -76,28 +96,30 @@ CREATE TABLE PURCHASE_LINE (
 
 DROP TABLE IF EXISTS PAYMENT;
 CREATE TABLE PAYMENT (
-    Payment_ID      INT PRIMARY KEY,
+    Payment_ID      INT NOT NULL,
     Payment_Type    VARCHAR(50),
     Amount          DECIMAL(10,2),
     Customer_ID     INT,
+    PRIMARY KEY (Payment_ID),
     FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID)
 );
 
 DROP TABLE IF EXISTS ORDERS;
 CREATE TABLE ORDERS (
-    Order_ID        INT PRIMARY KEY,
+    Order_ID        INT NOT NULL,
     Order_Date      DATE,
     Total_Cost      DECIMAL(10,2),
     Manager_ID      INT,
+    PRIMARY KEY (Order_ID),
     FOREIGN KEY (Manager_ID) REFERENCES MANAGER(Employee_ID)
 );
 
 DROP TABLE IF EXISTS ORDER_LINE;
 CREATE TABLE ORDER_LINE (
-    Order_ID            INT,
-    Line_No             INT,
-    Tool_ID             INT,
-    Quantity            INT,
+    Order_ID            INT NOT NULL,
+    Line_No             INT NOT NULL,
+    Tool_ID             INT NOT NULL,
+    Quantity            INT NOT NULL,
     PRIMARY KEY (Order_ID, Line_No),
     FOREIGN KEY (Order_ID) REFERENCES ORDERS(Order_ID),
     FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID)
@@ -107,34 +129,52 @@ CREATE TABLE ORDER_LINE (
 -- Data Insertion
 
 
--- CUSTOMER
+-- CUSTOMER 
 
 INSERT INTO CUSTOMER VALUES
-    (1, 'Tom',' ' ,'Hanks', 'New York'),
-    (2, 'Brad',' ' ,'Pitt', 'California'),
-    (3, 'John',' ' ,'Wick', 'Paris'),
-    (4, 'Keanu',' ' ,'Reeves', 'London'),
-    (5, 'Elon',' ' ,'Musk', 'DC Washington'),
-    (6, 'Mark',' ' ,'Alan', 'Boston'),
-    (7, 'Dwayne',' ' ,'Johnson', 'Florida'),
-    (8, 'John',' ' ,'Cena', 'New York'),
-    (9, 'Robert',' ' ,'Deniro', 'New York'),
-    (10, 'Tom',' ' ,'Hardy', 'Boston');
+    (1, 'Tom',' ' ,'Hanks', 'New York', 'tomhanks@yahoo.com'),
+    (2, 'Brad',' ' ,'Pitt', 'California', 'brad.pit@gmail.com'),
+    (3, 'John',' ' ,'Wick', 'Paris', 'johnathanwick89@hotmail.com'),
+    (4, 'Keanu',' ' ,'Reeves', 'London', 'keanu.reeves11@hotmail.com'),
+    (5, 'Elon',' ' ,'Musk', 'DC Washington','elonmusk@spacex.com'),
+    (6, 'Mark',' ' ,'Alan', 'Boston', 'mark.alan@yahoo.com'),
+    (7, 'Dwayne',' ' ,'Johnson', 'Florida', 'therock@gmail.com'),
+    (8, 'John',' ' ,'Cena', 'New York', 'johncena@gmail.com'),
+    (9, 'Robert',' ' ,'Deniro', 'New York', 'robD@yahoo.com'),
+    (10, 'Tom',' ' ,'Hardy', 'Boston', 'etomhardy@gmail.com');
+
+
+-- CUSTOMER_PHONE_NUMBERS
+
+INSERT INTO CUSTOMER_PHONE_NUMBERS VALUES
+    (1, '+1 505-644-9828'),
+    (2, '+1 412-746-8300'),
+    (2, '+1 303-254-1428'),
+    (3, '+1 303-254-1428'),
+    (4, '+1 505-671-8312'),
+    (5, '+1 505-646-9340'),
+    (5, '+1 206-558-1649'),
+    (6, '+1 207-897-6303'),
+    (7, '+1 212-494-7245'),
+    (8, '+1 505-646-3745'),
+    (9, '+1 215-646-1321'),
+    (10, '+1 210-582-8997'),
+    (10, '+1 505-606-1521');
 
 
 -- EMPLOYEE
 
 INSERT INTO EMPLOYEE VALUES 
-    (1, 'Lionel', ' ', 'Messi', '+37 2354272'),
-    (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832'),
-    (3, 'Neymar', ' ', 'Junior', '+37 247562659'),
-    (4, 'Diego', ' ', 'Maradona', '+44 8765349'),
-    (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272'),
-    (6, 'Robert', ' ', 'Lewandowski', '+1 5054272'),
-    (7, 'Vinicous', ' ', 'Junior', '+1 63954272'),
-    (8, 'Kareem', ' ', 'Benzema', '+1 7384272'),
-    (9, 'Andy', ' ', 'Roberts', '+1 8354772'),
-    (10, 'Wayne', ' ', 'Rooney', '+1 9356272');
+    (1, 'Lionel', ' ', 'Messi', '+37 2354272', 'lmessi@gmail.com'),
+    (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832', 'cristiano.ronaldo@yahoo.com'),
+    (3, 'Neymar', ' ', 'Junior', '+37 247562659', 'neymaj@yahoo.com'),
+    (4, 'Diego', ' ', 'Maradona', '+44 8765349', 'diegomaradona@gmail.com'),
+    (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272', 'zlatanibrah@hotmail.com'),
+    (6, 'Robert', ' ', 'Lewandowski', '+1 5054272', 'rlewandowski@hotmail.com'),
+    (7, 'Vinicous', ' ', 'Junior', '+1 63954272', 'vinicous@gmail.com'),
+    (8, 'Kareem', ' ', 'Benzema', '+1 7384272', 'benzema.kareem@yahoo.com'),
+    (9, 'Andy', ' ', 'Roberts', '+1 8354772', 'aroberts44@gmail.com'),
+    (10, 'Wayne', ' ', 'Rooney', '+1 9356272', 'wrooney1880@gmail.com');
 
 
 -- Manager 
