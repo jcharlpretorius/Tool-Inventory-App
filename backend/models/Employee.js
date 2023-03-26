@@ -1,10 +1,11 @@
 const db = require('../config/db');
 
-class Customer {
-  constructor(firstName, minit, lastName, address, email) {
+class Employee {
+  constructor(firstName, minit, lastName, phoneNumber, address, email) {
     this.firstName = firstName;
     this.minit = minit;
     this.lastName = lastName;
+    this.phoneNumber = phoneNumber;
     this.address = address;
     this.email = email;
   }
@@ -12,10 +13,11 @@ class Customer {
   // Save to DB
   async save() {
     let sql = `
-      INSERT INTO CUSTOMER(
+      INSERT INTO EMPLOYEE(
         FirstName,
         MiddleInitial,
         LastName,
+        PhoneNumber,
         Address, 
         Email
       )
@@ -23,31 +25,32 @@ class Customer {
         '${this.firstName}',
         '${this.minit}',
         '${this.lastName}',
+        '${this.phoneNumber}',
         '${this.address}',
         '${this.email}'
       )
     `;
 
     // we can use the await syntax because of the pool.promise() in db.js
-    const [newCustomer, _] = await db.execute(sql);
-    return newCustomer;
+    const [newEmployee, _] = await db.execute(sql);
+    return newEmployee;
   }
 
-  // Find all customers
+  // Find all employees
   static async findAll() {
-    let sql = 'SELECT * FROM CUSTOMER;';
+    let sql = 'SELECT * FROM EMPLOYEE;';
 
     // destructure to pull out just 1st array, don't want the field data
-    const [customers, _] = await db.execute(sql);
-    return customers;
+    const [employees, _] = await db.execute(sql);
+    return employees;
   }
 
-  // Find customer by id
-  static async findById(customerId) {
-    let sql = `SELECT * FROM CUSTOMER WHERE Customer_ID = ${customerId};`;
-    const [customer, _] = await db.execute(sql);
-    return customer;
+  // Find employee by id
+  static async findById(employeeId) {
+    let sql = `SELECT * FROM EMPLOYEE WHERE Employee_ID = ${employeeId};`;
+    const [employee, _] = await db.execute(sql);
+    return employee;
   }
 }
 
-module.exports = Customer;
+module.exports = Employee;

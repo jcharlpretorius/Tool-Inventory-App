@@ -9,8 +9,16 @@ const getAllCustomers = asyncHandler(async (req, res) => {
 //   res.send('Get single customers');
 // });
 
-// const createNewCustomer = asyncHandler(async (req, res) => {
-//   res.send('Create new customers');
-// });
+const createNewCustomer = asyncHandler(async (req, res) => {
+  // constructor(customerID, firstName, minit, lastName, address, email) //
+  const { firstName, minit, lastName, address, email } = req.body;
 
-module.exports = { getAllCustomers };
+  // need logic to validate values recieved from body
+
+  let customer = new Customer(firstName, minit, lastName, address, email);
+  customer = await customer.save();
+  console.log(customer);
+  res.send('Create new customers');
+});
+
+module.exports = { getAllCustomers, createNewCustomer };
