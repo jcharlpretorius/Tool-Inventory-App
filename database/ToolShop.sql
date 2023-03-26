@@ -33,14 +33,14 @@ CREATE TABLE SALES_ASSOCIATE (
 
 DROP TABLE IF EXISTS CUSTOMER;
 CREATE TABLE CUSTOMER (
-    Customer_ID     INT NOT NULL,
+    Customer_ID     INT NOT NULL AUTO_INCREMENT,
     FirstName       VARCHAR(50) NOT NULL,
     MiddleInitial   CHAR(1),
     LastName        VARCHAR(50) NOT NULL,
     Address         VARCHAR(100),
     Email           VARCHAR(50) NOT NULL,
     UNIQUE(Email),
-    PRIMARY KEY (Customer_ID)
+    PRIMARY KEY (Customer_ID) 
 );
 
 DROP TABLE IF EXISTS CUSTOMER_PHONE_NUMBERS;
@@ -51,18 +51,27 @@ CREATE TABLE CUSTOMER_PHONE_NUMBERS (
     FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID)
 );
 
-DROP TABLE IF EXISTS PURCHASE;
-CREATE TABLE PURCHASE (
-    Purchase_ID         INT NOT NULL,
-    Purchase_Date       DATE,
-    Total_Cost          DECIMAL(10,2),
-    Sales_Associate_ID   INT,
-    Customer_ID         INT,
-    PRIMARY KEY(Purchase_ID),
-    FOREIGN KEY (Sales_Associate_ID) REFERENCES SALES_ASSOCIATE(Employee_ID),
-    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID)
+DROP TABLE IF EXISTS PAYMENT;
+CREATE TABLE PAYMENT (
+    Payment_ID      INT NOT NULL AUTO_INCREMENT,
+    Payment_Type    VARCHAR(50),
+    Amount          DECIMAL(10,2),
+    Customer_ID     INT,
+    PRIMARY KEY (Payment_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID) 
 );
 
+DROP TABLE IF EXISTS PURCHASE;
+CREATE TABLE PURCHASE (
+    Purchase_ID         INT NOT NULL AUTO_INCREMENT,
+    Purchase_Date       DATE,
+    Sales_Associate_ID   INT,
+    Payment_ID           INT,
+    PRIMARY KEY(Purchase_ID),
+    FOREIGN KEY (Sales_Associate_ID) REFERENCES SALES_ASSOCIATE(Employee_ID),
+    FOREIGN KEY (Payment_ID) REFERENCES PAYMENT(Payment_ID)
+);
+ 
 DROP TABLE IF EXISTS SUPPLIER;
 CREATE TABLE SUPPLIER (
     Supplier_ID     INT NOT NULL,
@@ -89,29 +98,19 @@ CREATE TABLE PURCHASE_LINE (
     Tool_ID         INT NOT NULL,
     Line_Number     INT NOT NULL,
     Quantity        INT NOT NULL,
-    PRIMARY KEY (Purchase_ID, Tool_ID, Line_Number),
+    PRIMARY KEY (Purchase_ID, Line_Number),
     FOREIGN KEY (Purchase_ID) REFERENCES PURCHASE(Purchase_ID),
     FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID)
 );
 
-DROP TABLE IF EXISTS PAYMENT;
-CREATE TABLE PAYMENT (
-    Payment_ID      INT NOT NULL,
-    Payment_Type    VARCHAR(50),
-    Amount          DECIMAL(10,2),
-    Customer_ID     INT,
-    PRIMARY KEY (Payment_ID),
-    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID)
-);
 
 DROP TABLE IF EXISTS ORDERS;
 CREATE TABLE ORDERS (
-    Order_ID        INT NOT NULL,
+    Order_ID        INT NOT NULL AUTO_INCREMENT,
     Order_Date      DATE,
-    Total_Cost      DECIMAL(10,2),
     Manager_ID      INT,
     PRIMARY KEY (Order_ID),
-    FOREIGN KEY (Manager_ID) REFERENCES MANAGER(Employee_ID)
+    FOREIGN KEY (Manager_ID) REFERENCES MANAGER(Employee_ID) 
 );
 
 DROP TABLE IF EXISTS ORDER_LINE;
@@ -126,40 +125,46 @@ CREATE TABLE ORDER_LINE (
 );
 
 
+-- Set auto increment
+ALTER TABLE CUSTOMER AUTO_INCREMENT = 1000;
+ALTER TABLE PURCHASE AUTO_INCREMENT = 2000;
+ALTER TABLE PAYMENT AUTO_INCREMENT = 4000;
+ALTER TABLE ORDERS AUTO_INCREMENT = 3000;
+
 -- Data Insertion
 
 
 -- CUSTOMER 
 
 INSERT INTO CUSTOMER VALUES
-    (1, 'Tom',' ' ,'Hanks', 'New York', 'tomhanks@yahoo.com'),
-    (2, 'Brad',' ' ,'Pitt', 'California', 'brad.pit@gmail.com'),
-    (3, 'John',' ' ,'Wick', 'Paris', 'johnathanwick89@hotmail.com'),
-    (4, 'Keanu',' ' ,'Reeves', 'London', 'keanu.reeves11@hotmail.com'),
-    (5, 'Elon',' ' ,'Musk', 'DC Washington','elonmusk@spacex.com'),
-    (6, 'Mark',' ' ,'Alan', 'Boston', 'mark.alan@yahoo.com'),
-    (7, 'Dwayne',' ' ,'Johnson', 'Florida', 'therock@gmail.com'),
-    (8, 'John',' ' ,'Cena', 'New York', 'johncena@gmail.com'),
-    (9, 'Robert',' ' ,'Deniro', 'New York', 'robD@yahoo.com'),
-    (10, 'Tom',' ' ,'Hardy', 'Boston', 'etomhardy@gmail.com');
+    (1001, 'Tom',' ' ,'Hanks', 'New York', 'tomhanks@yahoo.com'),
+    (1002, 'Brad',' ' ,'Pitt', 'California', 'brad.pit@gmail.com'),
+    (1003, 'John',' ' ,'Wick', 'Paris', 'johnathanwick89@hotmail.com'),
+    (1004, 'Keanu',' ' ,'Reeves', 'London', 'keanu.reeves11@hotmail.com'),
+    (1005, 'Elon',' ' ,'Musk', 'DC Washington','elonmusk@spacex.com'),
+    (1006, 'Mark',' ' ,'Alan', 'Boston', 'mark.alan@yahoo.com'),
+    (1007, 'Dwayne',' ' ,'Johnson', 'Florida', 'therock@gmail.com'),
+    (1008, 'John',' ' ,'Cena', 'New York', 'johncena@gmail.com'),
+    (1009, 'Robert',' ' ,'Deniro', 'New York', 'robD@yahoo.com'),
+    (1010, 'Tom',' ' ,'Hardy', 'Boston', 'etomhardy@gmail.com');
 
 
 -- CUSTOMER_PHONE_NUMBERS
 
 INSERT INTO CUSTOMER_PHONE_NUMBERS VALUES
-    (1, '+1 505-644-9828'),
-    (2, '+1 412-746-8300'),
-    (2, '+1 303-254-1428'),
-    (3, '+1 303-254-1428'),
-    (4, '+1 505-671-8312'),
-    (5, '+1 505-646-9340'),
-    (5, '+1 206-558-1649'),
-    (6, '+1 207-897-6303'),
-    (7, '+1 212-494-7245'),
-    (8, '+1 505-646-3745'),
-    (9, '+1 215-646-1321'),
-    (10, '+1 210-582-8997'),
-    (10, '+1 505-606-1521');
+    (1001, '+1 505-644-9828'),
+    (1002, '+1 412-746-8300'),
+    (1002, '+1 303-254-1428'),
+    (1003, '+1 303-254-1428'),
+    (1004, '+1 505-671-8312'),
+    (1005, '+1 505-646-9340'),
+    (1005, '+1 206-558-1649'),
+    (1006, '+1 207-897-6303'),
+    (1007, '+1 212-494-7245'),
+    (1008, '+1 505-646-3745'),
+    (1009, '+1 215-646-1321'),
+    (1010, '+1 210-582-8997'),
+    (1010, '+1 505-606-1521');
 
 
 -- EMPLOYEE
@@ -236,102 +241,101 @@ INSERT INTO TOOL VALUES
 -- ORDERS 
 
 INSERT INTO ORDERS VALUES
-    (1001, '2022-10-01', 35.0 , 1 ),
-    (1002, '2022-11-11', 70.0 , 1 ),
-    (1003, '2022-11-21', 82.0 , 3 ),
-    (1004, '2022-11-24', 120.0 , 3 ),
-    (1005, '2022-12-01', 55.0 , 5 ),
-    (1006, '2022-12-11', 65.0 , 3 ),
-    (1007, '2022-12-21', 75.0 , 5 ),
-    (1008, '2022-12-31', 85.0 , 5 ),
-    (1009, '2022-12-31', 95.0 , 5 ),
-    (1010, '2023-01-01', 115.0 , 1 ),
-    (1011, '2023-01-21', 135.0 , 5 ),
-    (1012, '2023-02-27', 50.0 , 1 ),
-    (1013, '2023-03-22', 60.0 , 3 );
-
-
+    (3001, '2022-10-01', 1 ),
+    (3002, '2022-11-11', 1 ),
+    (3003, '2022-11-21', 3 ),
+    (3004, '2022-11-24', 3 ),
+    (3005, '2022-12-01', 5 ),
+    (3006, '2022-12-11', 3 ),
+    (3007, '2022-12-21', 5 ),
+    (3008, '2022-12-31', 5 ),
+    (3009, '2022-12-31', 5 ),
+    (3010, '2023-01-01', 1 ),
+    (3011, '2023-01-21', 5 ),
+    (3012, '2023-02-27', 1 ),
+    (3013, '2023-03-22', 3 );
 
 
 
 -- ORDER_LINE 
 
-
 INSERT INTO ORDER_LINE VALUES
-    (1001, 1, 102, 2 ),
-    (1001, 2, 103, 1 ),
-    (1001, 3, 104, 1 ),
-    (1002, 4, 105, 1 ),
-    (1002, 5, 106, 1 ),
-    (1003, 6, 107, 1 ),
-    (1004, 7, 108, 1 ),
-    (1005, 8, 109, 1 ),
-    (1006, 9, 101, 1 ),
-    (1006, 10, 102, 3 ),
-    (1007, 11, 105, 1 ),
-    (1007, 12, 106, 1 ),
-    (1007, 13, 107, 1 ),
-    (1008, 14, 108, 1 ),
-    (1008, 15, 109, 1 ),
-    (1009, 16, 111, 1 ),
-    (1009, 17, 112, 1 ),
-    (1010, 18, 112, 1 ),
-    (1011, 19, 114, 1 ),
-    (1012, 20, 112, 1 ),
-    (1012, 21, 114, 1 ),
-    (1013, 22, 115, 1 ),
-    (1013, 23, 102, 2 );
+    (3001, 1, 102, 2 ),
+    (3001, 2, 103, 1 ),
+    (3001, 3, 104, 1 ),
+    (3002, 1, 105, 1 ),
+    (3002, 2, 106, 1 ),
+    (3003, 1, 107, 1 ),
+    (3004, 1, 108, 1 ),
+    (3005, 1, 109, 1 ),
+    (3006, 1, 101, 1 ),
+    (3006, 2, 102, 3 ),
+    (3007, 1, 105, 1 ),
+    (3007, 2, 106, 1 ),
+    (3007, 3, 107, 1 ),
+    (3008, 1, 108, 1 ),
+    (3008, 2, 109, 1 ),
+    (3009, 1, 111, 1 ),
+    (3009, 2, 112, 1 ),
+    (3010, 1, 112, 1 ),
+    (3011, 1, 114, 1 ),
+    (3012, 1, 112, 1 ),
+    (3012, 2, 114, 1 ),
+    (3013, 1, 115, 1 ),
+    (3013, 2, 102, 2 );
 
 
 -- PAYMENT 
 
 INSERT INTO PAYMENT VALUES
-    (1, 'Cash', 35, 1),
-    (2, 'Cash', 82, 2),
-    (3, 'Credit Card', 55, 3),
-    (4, 'Cash', 135, 4),
-    (5, 'Credit CardCash', 115, 5),
-    (6, 'Cash', 95, 6),
-    (7, 'Credit Card', 55, 7),
-    (8, 'Credit Card', 50, 1),
-    (9, 'Credit Card', 65, 2),
-    (10, 'Cash', 60, 8),
-    (11, 'Credit Card', 70, 9),
-    (12, 'Credit Card', 75, 1);
+    (4001, 'Cash', 35, 1001),
+    (4002, 'Cash', 82, 1002),
+    (4003, 'Credit Card', 55, 1003),
+    (4004, 'Cash', 135, 1004),
+    (4005, 'Credit CardCash', 115, 1005),
+    (4006, 'Cash', 95, 1006),
+    (4007, 'Credit Card', 55, 1007),
+    (4008, 'Credit Card', 50, 1001),
+    (4009, 'Credit Card', 65, 1002),
+    (4010, 'Cash', 60, 1008),
+    (4011, 'Credit Card', 70, 1009),
+    (4012, 'Credit Card', 75, 1001);
 
 
 
 -- PURCHASE 
 
 INSERT INTO PURCHASE VALUES
-    (1, '2022-10-10', 110, 2, 1),
-    (2, '2022-10-11', 120, 4, 2),
-    (3, '2022-11-12', 130, 6, 3),
-    (4, '2022-11-13', 140, 7, 4),
-    (5, '2022-11-14', 150, 8, 5),
-    (6, '2022-11-15', 160, 9, 1),
-    (7, '2022-11-16', 170, 10, 2),
-    (8, '2022-12-17', 180, 2, 3),
-    (9, '2022-12-18', 190, 4, 7),
-    (10, '2022-12-19', 115, 6, 8),
-    (11, '2023-01-20', 125, 8, 9);
-
+    (2001, '2022-10-10', 2, 4001),
+    (2002, '2022-10-11', 4, 4002),
+    (2003, '2022-11-12', 6, 4003),
+    (2004, '2022-11-13', 7, 4004),
+    (2005, '2022-11-14', 8, 4005),
+    (2006, '2022-11-15', 9, 4001),
+    (2007, '2022-11-16', 10, 4002),
+    (2008, '2022-12-17', 2, 4003),
+    (2009, '2022-12-18', 4, 4007),
+    (2010, '2022-12-19', 6, 4008),
+    (2011, '2023-01-20', 8, 4009);
 
 -- PURCHASE_LINE 
 
 INSERT INTO PURCHASE_LINE VALUES
-    (1, 101, 1, 20),
-    (1, 102, 2, 20),
-    (2, 101, 3, 10),
-    (3, 101, 4, 10),
-    (4, 101, 5, 10),
-    (5, 101, 6, 10),
-    (6, 101, 7, 100),
-    (7, 101, 8, 200),
-    (8, 101, 9, 35),
-    (9, 101, 10, 60),
-    (10, 101, 11, 70),
-    (11, 101, 12, 50);
+    (2001, 101, 1, 20),
+    (2001, 102, 2, 20),
+    (2002, 101, 1, 10),
+    (2003, 101, 1, 10),
+    (2004, 101, 1, 10),
+    (2005, 101, 1, 10),
+    (2005, 102, 2, 2),
+    (2006, 101, 1, 100),
+    (2007, 101, 1, 200),
+    (2008, 101, 1, 35),
+    (2009, 101, 1, 60),
+    (2010, 101, 1, 70),
+    (2010, 102, 2, 5),
+    (2010, 103, 3, 20),
+    (2011, 101, 1, 50);
 
 
 
