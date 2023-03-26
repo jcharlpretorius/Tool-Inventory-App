@@ -95,8 +95,8 @@ CREATE TABLE TOOL (
 DROP TABLE IF EXISTS PURCHASE_LINE;
 CREATE TABLE PURCHASE_LINE (
     Purchase_ID     INT NOT NULL,
+    Line_Number     INT,
     Tool_ID         INT NOT NULL,
-    Line_Number     INT NOT NULL,
     Quantity        INT NOT NULL,
     PRIMARY KEY (Purchase_ID, Line_Number),
     FOREIGN KEY (Purchase_ID) REFERENCES PURCHASE(Purchase_ID),
@@ -116,10 +116,10 @@ CREATE TABLE ORDERS (
 DROP TABLE IF EXISTS ORDER_LINE;
 CREATE TABLE ORDER_LINE (
     Order_ID            INT NOT NULL,
-    Line_No             INT NOT NULL,
+    Line_Number             INT,
     Tool_ID             INT NOT NULL,
     Quantity            INT NOT NULL,
-    PRIMARY KEY (Order_ID, Line_No),
+    PRIMARY KEY (Order_ID, Line_Number),
     FOREIGN KEY (Order_ID) REFERENCES ORDERS(Order_ID),
     FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID)
 );
@@ -321,21 +321,21 @@ INSERT INTO PURCHASE VALUES
 -- PURCHASE_LINE 
 
 INSERT INTO PURCHASE_LINE VALUES
-    (2001, 101, 1, 20),
-    (2001, 102, 2, 20),
-    (2002, 101, 1, 10),
-    (2003, 101, 1, 10),
-    (2004, 101, 1, 10),
-    (2005, 101, 1, 10),
-    (2005, 102, 2, 2),
-    (2006, 101, 1, 100),
-    (2007, 101, 1, 200),
-    (2008, 101, 1, 35),
-    (2009, 101, 1, 60),
-    (2010, 101, 1, 70),
-    (2010, 102, 2, 5),
-    (2010, 103, 3, 20),
-    (2011, 101, 1, 50);
+    (2001, 1, 101, 20),
+    (2001, 2, 102, 20),
+    (2002, 1, 101, 10),
+    (2003, 1, 101, 10),
+    (2004, 1, 101, 10),
+    (2005, 1, 101, 10),
+    (2005, 2, 102, 2),
+    (2006, 1, 101, 100),
+    (2007, 1, 101, 200),
+    (2008, 1, 101, 35),
+    (2009, 1, 101, 60),
+    (2010, 1, 101, 70),
+    (2010, 2, 102, 5),
+    (2010, 3, 103, 20),
+    (2011, 1, 101, 50);
 
 
 
