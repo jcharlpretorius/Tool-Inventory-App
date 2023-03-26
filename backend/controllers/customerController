@@ -1,0 +1,16 @@
+const asyncHandler = require('express-async-handler');
+const Customer = require('../models/Customer');
+
+const getAllCustomers = asyncHandler(async (req, res) => {
+  res.send('Get all customers');
+});
+
+// const getCustomer = asyncHandler(async (req, res) => {
+//   res.send('Get single customers');
+// });
+
+// const createNewCustomer = asyncHandler(async (req, res) => {
+//   res.send('Create new customers');
+// });
+
+module.exports = { getAllCustomers };
