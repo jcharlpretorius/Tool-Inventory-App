@@ -1,3 +1,4 @@
+// Connect to database
 const mysql = require('mysql2');
 
 const pool = mysql.createPool({
@@ -7,5 +8,5 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
 });
 
-// Use ES6 promise wrapper
+// Use ES6 promise wrapper, lets us use async await instead of callback fncs
 module.exports = pool.promise();
