@@ -4,7 +4,7 @@ USE TOOLSHOP;
 
 DROP TABLE IF EXISTS EMPLOYEE;
 CREATE TABLE EMPLOYEE (
-    Employee_ID     INT NOT NULL,
+    Employee_ID     INT NOT NULL AUTO_INCREMENT,
     FirstName       VARCHAR(50) NOT NULL,
     MiddleInitial   CHAR(1),
     LastName        VARCHAR(50) NOT NULL,
