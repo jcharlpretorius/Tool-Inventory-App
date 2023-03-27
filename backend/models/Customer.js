@@ -68,7 +68,7 @@ class Customer {
     WHERE Customer_ID = ?
     `;
     const payload = [firstName, minit, lastName, address, email, customerId];
-    const [newCustomer, _] = await db.execute(sql, payload);
+    await db.execute(sql, payload);
     return { firstName, minit, lastName, address, email };
   }
 
