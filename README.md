@@ -1,16 +1,16 @@
 # Toolshop app
 
-Instructions below...
+Instructions to run
 
-**Database:**
+**Set up Database:**
 
 Paste the contents of [ToolShop.sql](database/ToolShop.sql) into MySQL workbench
 
-**Backend:**
+**Set up Backend:**
 
 create a file in backend folder called `.env`
 
-Enter the environment variables for your MySQL connection:
+Copy the following code, replaceing the \<placeholder> environment variables for your MySQL connection:
 
 ```
 # NODE APP ENVIRONMENT VARIABLES
@@ -21,9 +21,9 @@ PORT=5000
 # DATABASE CONNECTION ENVIRONMENT VARIABLES
 
 DB_HOST=localhost
-DB_USER=root
+DB_USER=<user>
 DB_NAME=toolshop
-DB_PASSWORD=<your password>
+DB_PASSWORD=<your mysql password>
 
 ```
 
