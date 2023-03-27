@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const errorHandler = require('./middleWare/errorMiddleware');
 const customerRoute = require('./routes/customerRoute');
+const employeeRoute = require('./routes/employeeRoute');
 
 // instanciate express app
 const app = express();
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 // Routes Middleware
 app.use('/api/customers', customerRoute);
+app.use('/api/employees', employeeRoute);
 
 // Error Middleware
 app.use(errorHandler);
