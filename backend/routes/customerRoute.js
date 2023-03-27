@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/', getAllCustomers);
 router.get('/:id', getCustomer);
 router.post('/', createNewCustomer);
-router.patch('/:id', updateCustomer);
+router.put('/:id', updateCustomer);
 router.delete('/:id', deleteCustomer);
 
 module.exports = router;
