@@ -8,21 +8,17 @@ class Order {
   }
 
   // Save to DB
-  async save() {
+  async create() {
     let sql = `
       INSERT INTO ORDER(
         Order_ID,
         Order_Date,
         Manager_ID
       )
-      VALUES(
-        '${this.orderId}',
-        '${this.orderDate}',
-        '${this.managerId}'
-      )
+      VALUES(?,?,?)
     `;
-
-    const [newOrder, _] = await db.execute(sql);
+    const paylod = [this.orderId, this.orderDate, this.managerId];
+    const [newOrder, _] = await db.execute(sql, payload);
     return newOrder;
   }
 
@@ -36,9 +32,9 @@ class Order {
 
   // Find order by id
   static async findById(orderId) {
-    let sql = `SELECT * FROM ORDER WHERE Order_ID = ${orderId};`;
-    const [order, _] = await db.execute(sql);
-    return order;
+    let sql = `SELECT * FROM ORDER WHERE Order_ID =?};`;
+    const [order, _] = await db.execute(sql, [orderId]);
+    return order[0];
   }
 }
 

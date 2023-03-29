@@ -69,7 +69,7 @@ class Customer {
     `;
     const payload = [firstName, minit, lastName, address, email, customerId];
     await db.execute(sql, payload);
-    return { firstName, minit, lastName, address, email };
+    return { customerId, firstName, minit, lastName, address, email };
   }
 
   // Delete Customer -> I don't think we actually need this

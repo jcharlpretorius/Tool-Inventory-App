@@ -9,7 +9,7 @@ class Payment {
   }
 
   // Save to DB
-  async save() {
+  async create() {
     let sql = `
       INSERT INTO PAYMENT(
         Payment_ID,
@@ -17,15 +17,15 @@ class Payment {
         Amount,
         Customer_ID
       )
-      VALUES(
-        '${this.paymentId}',
-        '${this.paymentType}',
-        '${this.amount}',
-        '${this.customerId}'
-      )
+      VALUES(?,?,?,?)
     `;
-
-    const [newPayment, _] = await db.execute(sql);
+    const payload = [
+      this.paymentId,
+      this.paymentType,
+      this.amount,
+      this.customerId,
+    ];
+    const [newPayment, _] = await db.execute(sql, payload);
     return newPayment;
   }
 
@@ -39,9 +39,9 @@ class Payment {
 
   // Find payment by id
   static async findById(paymentId) {
-    let sql = `SELECT * FROM PAYMENT WHERE Payment_ID = ${paymentId};`;
-    const [payment, _] = await db.execute(sql);
-    return payment;
+    let sql = `SELECT * FROM PAYMENT WHERE Payment_ID = ?;`;
+    const [payment, _] = await db.execute(sql, [paymentId]);
+    return payment[0];
   }
 }
 

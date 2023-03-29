@@ -9,7 +9,7 @@ class Purchase {
   }
 
   // Save to DB
-  async save() {
+  async create() {
     let sql = `
       INSERT INTO PURCHASE(
         Purchase_ID,
@@ -17,15 +17,15 @@ class Purchase {
         Sales_Associate_ID,
         Payment_ID
       )
-      VALUES(
-        '${this.purchaseId}',
-        '${this.purchaseDate}',
-        '${this.salesAssociateId}',
-        '${this.paymentId}'
-      )
+      VALUES(?,?,?,?)
     `;
-
-    const [newPayment, _] = await db.execute(sql);
+    const payload = [
+      this.purchaseId,
+      this.purchaseDate,
+      this.salesAssociateId,
+      this.paymentID,
+    ];
+    const [newPayment, _] = await db.execute(sql, payload);
     return newPayment;
   }
 
@@ -39,9 +39,9 @@ class Purchase {
 
   // Find purchase by id
   static async findById(purchaseId) {
-    let sql = `SELECT * FROM PURCHASE WHERE Purchase_ID = ${purchaseId};`;
-    const [purchase, _] = await db.execute(sql);
-    return purchase;
+    let sql = `SELECT * FROM PURCHASE WHERE Purchase_ID = ?;`;
+    const [purchase, _] = await db.execute(sql, [purchaseId]);
+    return purchase[0];
   }
 }
 

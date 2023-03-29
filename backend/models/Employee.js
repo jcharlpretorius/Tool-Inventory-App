@@ -82,7 +82,7 @@ class Employee {
       employeeId,
     ];
     await db.execute(sql, payload);
-    return { firstName, minit, lastName, phoneNumber, email };
+    return { employeeId, firstName, minit, lastName, phoneNumber, email };
   }
 
   // Delete Employee

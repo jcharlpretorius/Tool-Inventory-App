@@ -7,19 +7,16 @@ class CustomerPhone {
   }
 
   // Save to DB
-  async save() {
+  async create() {
     let sql = `
       INSERT INTO CUSTOMER_PHONE_NUMBERS(
         Customer_ID,
         PhoneNumber,
       )
-      VALUES(
-        '${this.customerId}',
-        '${this.phoneNumber}'
-      )
+      VALUES(?,?)
     `;
-
-    const [newPhoneNumber, _] = await db.execute(sql);
+    const payload = [this.customerId, this.phoneNumber];
+    const [newPhoneNumber, _] = await db.execute(sql, payload);
     return newPhoneNumber;
   }
 
@@ -34,9 +31,9 @@ class CustomerPhone {
   // Find phone numbers by customer id
   // Customers can have multiple phone numbers
   static async findById(customerId) {
-    let sql = `SELECT * FROM CUSTOMER_PHONE_NUMBERS WHERE Customer_ID = ${customerId};`;
-    const [customerPhones, _] = await db.execute(sql);
-    return customerPhones;
+    let sql = `SELECT * FROM CUSTOMER_PHONE_NUMBERS WHERE Customer_ID = ?`;
+    const [customerPhones, _] = await db.execute(sql, [customerId]);
+    return customerPhones[0];
   }
 }
 
