@@ -1,25 +1,32 @@
 const db = require('../config/db');
 
 class Order {
-  constructor(orderId, orderDate, managerId) {
-    this.orderId = orderId;
-    this.orderDate = orderDate;
+  constructor(managerId) {
     this.managerId = managerId;
   }
 
   // Save to DB
   async create() {
+    // Get current date
+    let d = new Date();
+    let yyyy = d.getFullYear();
+    let mm = d.getMonth() + 1; // add 1 because month is zero indexed
+    let dd = d.getDate(); // day in the year
+    this.orderDate = `${yyyy}-${mm}--${dd}`;
+
     let sql = `
       INSERT INTO ORDER(
-        Order_ID,
         Order_Date,
         Manager_ID
       )
-      VALUES(?,?,?)
+      VALUES(?,?)
     `;
-    const paylod = [this.orderId, this.orderDate, this.managerId];
+    const payload = [this.orderDate, this.managerId];
     const [newOrder, _] = await db.execute(sql, payload);
-    return newOrder;
+    const orderId = newOrder.insertId; // extract primary key
+    this.orderId = orderId;
+
+    return this;
   }
 
   // Find all orders
@@ -33,8 +40,31 @@ class Order {
   // Find order by id
   static async findById(orderId) {
     let sql = `SELECT * FROM ORDER WHERE Order_ID =?};`;
-    const [order, _] = await db.execute(sql, [orderId]);
-    return order[0];
+    const [queryResult, _] = await db.execute(sql, [orderId]);
+
+    // check if order exists
+    if (!queryResult[0]) {
+      throw new Error(`Cannot find order with id: ${orderId}`);
+    }
+
+    // parse the query result
+    // const orderId = queryResult[0].Order_ID;
+    const orderDate = queryResult[0].Order_Date;
+    const managerId = queryResult[0].Manager_ID;
+
+    const order = new Order(managerId);
+    // set orderId and date
+    order.orderDate = orderDate;
+    order.orderId = orderId;
+
+    return this;
+  }
+
+  // Delete Order
+  static async delete(orderId) {
+    let sql = `DELETE FROM ORDER WHERE Order_ID = ?;`;
+    await db.execute(sql, [orderId]);
+    return;
   }
 }
 

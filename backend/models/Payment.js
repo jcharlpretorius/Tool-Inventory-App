@@ -1,8 +1,7 @@
 const db = require('../config/db');
 
 class Payment {
-  constructor(paymentId, paymentType, amount, customerId) {
-    this.paymentId = paymentId;
+  constructor(paymentType, amount, customerId) {
     this.paymentType = paymentType;
     this.amount = amount;
     this.customerId = customerId;
@@ -12,19 +11,13 @@ class Payment {
   async create() {
     let sql = `
       INSERT INTO PAYMENT(
-        Payment_ID,
         Payment_Type,
         Amount,
         Customer_ID
       )
-      VALUES(?,?,?,?)
+      VALUES(?,?,?)
     `;
-    const payload = [
-      this.paymentId,
-      this.paymentType,
-      this.amount,
-      this.customerId,
-    ];
+    const payload = [this.paymentType, this.amount, this.customerId];
     const [newPayment, _] = await db.execute(sql, payload);
     return newPayment;
   }
