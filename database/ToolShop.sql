@@ -10,6 +10,7 @@ CREATE TABLE EMPLOYEE (
     LastName        VARCHAR(50) NOT NULL,
     PhoneNumber     VARCHAR(20),
     Email           VARCHAR(50) NOT NULL,
+    Password        VARCHAR(80) NOT NULL,
     PRIMARY KEY(Employee_ID),
     UNIQUE(Email)
 );
@@ -85,7 +86,7 @@ CREATE TABLE TOOL (
     Tool_ID             INT NOT NULL,
     Price               DECIMAL(10,2),
     Tool_Type           VARCHAR(50),
-    Quantity_In_Stock   INT,
+    Quantity_In_Stock   INT DEFAULT 0,
     Name                VARCHAR(50),
     Supplier_ID         INT,
     PRIMARY KEY (Tool_ID),
@@ -170,16 +171,16 @@ INSERT INTO CUSTOMER_PHONE_NUMBERS VALUES
 -- EMPLOYEE
 
 INSERT INTO EMPLOYEE VALUES 
-    (1, 'Lionel', ' ', 'Messi', '+37 2354272', 'lmessi@gmail.com'),
-    (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832', 'cristiano.ronaldo@yahoo.com'),
-    (3, 'Neymar', ' ', 'Junior', '+37 247562659', 'neymaj@yahoo.com'),
-    (4, 'Diego', ' ', 'Maradona', '+44 8765349', 'diegomaradona@gmail.com'),
-    (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272', 'zlatanibrah@hotmail.com'),
-    (6, 'Robert', ' ', 'Lewandowski', '+1 5054272', 'rlewandowski@hotmail.com'),
-    (7, 'Vinicous', ' ', 'Junior', '+1 63954272', 'vinicous@gmail.com'),
-    (8, 'Kareem', ' ', 'Benzema', '+1 7384272', 'benzema.kareem@yahoo.com'),
-    (9, 'Andy', ' ', 'Roberts', '+1 8354772', 'aroberts44@gmail.com'),
-    (10, 'Wayne', ' ', 'Rooney', '+1 9356272', 'wrooney1880@gmail.com');
+    (1, 'Lionel', ' ', 'Messi', '+37 2354272', 'lmessi@gmail.com', '$2a$10$uP.4eRVDKtoeidHzafp6aepOpD3axqG4BnM6eI2QXcdGw6Ko.JXRK'),
+    (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832', 'cristiano.ronaldo@yahoo.com', '$2a$10$eeOY7Eqi4hZZPX7c1Gwt0uDhFinrVl2jz6YcCNlEgOYUiErQdoceC'),
+    (3, 'Neymar', ' ', 'Junior', '+37 247562659', 'neymaj@yahoo.com', '2a$10$Aw.qL4r2gFWn0bd7vt7FqedbrQTWp5drtvAhTgSt6E4ZLN./W3Kpy'),
+    (4, 'Diego', ' ', 'Maradona', '+44 8765349', 'diegomaradona@gmail.com', '$2a$10$aSh2KIid.s5pX0GD8xHaIeQkKONCX93OeNp3Dcp9WIOQBdAeg1RMW'),
+    (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272', 'zlatanibrah@hotmail.com', '$2a$10$/qzRZf./TlY5j87w43mfZe2SRQcVFlh9COgmJt4la8ED9MDAqTi7K'),
+    (6, 'Robert', ' ', 'Lewandowski', '+1 5054272', 'rlewandowski@hotmail.com', '$2a$10$0jUKjeV1TxcX9HWXNCca0.kpZCU6e5IMrhoWhtcoHjRFjBuMLXzS6'),
+    (7, 'Vinicous', ' ', 'Junior', '+1 63954272', 'vinicous@gmail.com', '$2a$10$yl00AYNqgnMfVrO/is9JZOKWS0i77B45d0vm22xq1dRmYzniE7o7q'),
+    (8, 'Kareem', ' ', 'Benzema', '+1 7384272', 'benzema.kareem@yahoo.com', '2a$10$e3QBgzTUVROriJvNjYlrheEOXCsGkeFdtGDhOagJ1JAc/dWFyt6j2'),
+    (9, 'Andy', ' ', 'Roberts', '+1 8354772', 'aroberts44@gmail.com', '$2a$10$OCviT5hqwdTkOVzxX8sQgeabaGmcaPqJsxFhPLOcf.13RYYW/5qHK'),
+    (10, 'Wayne', ' ', 'Rooney', '+1 9356272', 'wrooney1880@gmail.com', '$2a$10$uMt/9IA8/BUJ1MiTXJJ2se/573fuEdZ9nJZGJ7497LNT60vWUKWFW');
 
 
 -- Manager 
