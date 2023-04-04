@@ -2,6 +2,7 @@ const dotenv = require('dotenv').config(); // ALLOWS ENVIRONMENT VARIABLES TO BE
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const errorHandler = require('./middleWare/errorMiddleware');
 const customerRoute = require('./routes/customerRoute');
@@ -12,6 +13,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json()); // lets us parse json bodies in the request object
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
