@@ -1,0 +1,51 @@
+.auth {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .form {
+    width: 35rem;
+    padding: 1.5rem;
+    background-color: #fff;
+    h2 {
+      color: #ae2a2a;
+      text-align: center;
+    }
+    form {
+      input[type='text'],
+      input[type='email'],
+      input[type='password'] {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 300;
+        padding: 1rem;
+        margin: 1rem auto;
+        width: 100%;
+        border: 1px solid #ccc;
+      }
+      .links {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0;
+      }
+
+      p {
+        text-align: center;
+        margin: 1rem;
+      }
+    }
+    .register {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .img {
+    display: none;
+  }
+}
