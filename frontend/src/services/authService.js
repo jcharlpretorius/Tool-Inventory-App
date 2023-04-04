@@ -1,6 +1,6 @@
 // Everything that wants to make a http requests to the backend is going to go through authService
 import axios from 'axios';
-import toast from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export const BACKEND_URL = process.env.REACT_BACKEND_URL;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './auth.scss';
 import { FiLogIn } from 'react-icons/fi';
 import Card from '../../components/card/Card';
@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice';
+import { loginUser, validateEmail } from '../../services/authService';
 import Loader from '../../components/loader/Loader';
 
 const initialState = {
@@ -77,7 +78,7 @@ const Login = () => {
               required
               name="password"
             />
-            <button type="submit" className="--btn">
+            <button type="submit" className="--btn --btn-primary --btn-block">
               Login
             </button>
           </form>
