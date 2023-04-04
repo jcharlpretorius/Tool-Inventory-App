@@ -8,6 +8,7 @@ const {
   deleteEmployee,
   loginEmployee,
   logoutEmployee,
+  loginStatus,
   addPassword,
 } = require('../controllers/employeeController');
 
@@ -20,6 +21,8 @@ router.delete('/:id', authEmp, authManager, deleteEmployee);
 router.post('/register', authEmp, authManager, registerEmployee);
 router.post('/login', loginEmployee);
 router.get('/logout', logoutEmployee);
+router.get('/loggedin', loginStatus);
+
 // router.put('/addpassword/:id', addPassword); // temporary route to get password hash to update database dummy values
 
 module.exports = router;
