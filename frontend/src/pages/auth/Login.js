@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './auth.module.scss';
+import styles from './auth.scss';
 import { FiLogIn } from 'react-icons/fi';
 import Card from '../../components/card/Card';
 import { Link, useNavigate } from 'react-router-dom';
