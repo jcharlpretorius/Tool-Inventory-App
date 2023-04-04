@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './auth.module.scss';
 import { FiLogIn } from 'react-icons/fi';
 import Card from '../../components/card/Card';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice';
+import Loader from '../../components/loader/Loader';
 
 const initialState = {
   email: '',
@@ -15,8 +16,14 @@ const initialState = {
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setformData] = useState(initialState);
   const { email, password } = formData;
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setformData({ ...formData, [name]: value });
+  };
 
   // login must be asynchronous, because we wait for a response from backend
   const login = async (e) => {
@@ -58,8 +65,7 @@ const Login = () => {
       <Card>
         <div className={styles.form}>
           <div className="--flex-center">
-            maybe set the color here
-            <FiLogIn size={35} />
+            <FiLogIn size={35} color="#999" />
           </div>
           <h2>Login</h2>
 
