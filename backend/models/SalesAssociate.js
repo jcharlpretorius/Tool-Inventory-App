@@ -7,19 +7,16 @@ class SalesAssociate {
   }
 
   // Save to DB
-  async save() {
+  async create() {
     let sql = `
       INSERT INTO SALES_ASSOCIATE(
         Employee_ID,
         Commission_Rate
       )
-      VALUES(
-        '${this.employeeId}',
-        '${this.commission}'
-      )
+      VALUES(?,?)
     `;
-
-    const [newSaleAssociate, _] = await db.execute(sql);
+    const payload = [this.employeeId, this.commission];
+    const [newSaleAssociate, _] = await db.execute(sql, payload);
     return newSaleAssociate;
   }
 
@@ -35,7 +32,25 @@ class SalesAssociate {
   static async findById(employeeId) {
     let sql = `SELECT * FROM SALES_ASSOCIATE WHERE Employee_ID = ${employeeId};`;
     const [salesAssociate, _] = await db.execute(sql);
-    return salesAssociate;
+    return salesAssociate[0];
+  }
+
+  // Update sales associate commission
+  static async update(employeeId, commission) {
+    let sql = `
+    UPDATE SALES_ASSOCIATE
+    SET Commission_Rate = ?
+    WHERE Employee_ID = ?
+    `;
+    await db.execute(sql, [commission]);
+    return { employeeId, commission };
+  }
+
+  // Delete sales associate
+  static async delete(employeeId) {
+    let sql = `DELETE FROM SALES_ASSOCIATE WHERE Employee_ID = ?;`;
+    await db.execute(sql, [employeeId]);
+    return;
   }
 }
 

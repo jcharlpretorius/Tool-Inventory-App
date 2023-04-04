@@ -10,6 +10,7 @@ CREATE TABLE EMPLOYEE (
     LastName        VARCHAR(50) NOT NULL,
     PhoneNumber     VARCHAR(20),
     Email           VARCHAR(50) NOT NULL,
+    Password        VARCHAR(80) NOT NULL,
     PRIMARY KEY(Employee_ID),
     UNIQUE(Email)
 );
@@ -20,7 +21,7 @@ CREATE TABLE MANAGER (
     Employee_ID     INT NOT NULL,
     Manager_Salary  DECIMAL(10,2),
     PRIMARY KEY (Employee_ID),
-    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID)
+    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS SALES_ASSOCIATE;
@@ -28,7 +29,7 @@ CREATE TABLE SALES_ASSOCIATE (
     Employee_ID     INT NOT NULL,
     Commission_Rate DECIMAL(4,2),
     PRIMARY KEY (Employee_ID),
-    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID)
+    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS CUSTOMER;
@@ -48,7 +49,7 @@ CREATE TABLE CUSTOMER_PHONE_NUMBERS (
     Customer_ID     INT NOT NULL,
     PhoneNumber     VARCHAR(20),
     PRIMARY KEY (Customer_ID, PhoneNumber),
-    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID)
+    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS PAYMENT;
@@ -58,7 +59,7 @@ CREATE TABLE PAYMENT (
     Amount          DECIMAL(10,2),
     Customer_ID     INT,
     PRIMARY KEY (Payment_ID),
-    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID) 
+    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS PURCHASE;
@@ -68,8 +69,8 @@ CREATE TABLE PURCHASE (
     Sales_Associate_ID   INT,
     Payment_ID           INT,
     PRIMARY KEY(Purchase_ID),
-    FOREIGN KEY (Sales_Associate_ID) REFERENCES SALES_ASSOCIATE(Employee_ID),
-    FOREIGN KEY (Payment_ID) REFERENCES PAYMENT(Payment_ID)
+    FOREIGN KEY (Sales_Associate_ID) REFERENCES SALES_ASSOCIATE(Employee_ID) ON DELETE SET NULL,
+    FOREIGN KEY (Payment_ID) REFERENCES PAYMENT(Payment_ID) ON DELETE CASCADE
 );
  
 DROP TABLE IF EXISTS SUPPLIER;
@@ -85,11 +86,11 @@ CREATE TABLE TOOL (
     Tool_ID             INT NOT NULL,
     Price               DECIMAL(10,2),
     Tool_Type           VARCHAR(50),
-    Quantity_In_Stock   INT,
+    Quantity_In_Stock   INT DEFAULT 0,
     Name                VARCHAR(50),
     Supplier_ID         INT,
     PRIMARY KEY (Tool_ID),
-    FOREIGN KEY (Supplier_ID) REFERENCES SUPPLIER(Supplier_ID)
+    FOREIGN KEY (Supplier_ID) REFERENCES SUPPLIER(Supplier_ID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS PURCHASE_LINE;
@@ -99,8 +100,8 @@ CREATE TABLE PURCHASE_LINE (
     Tool_ID         INT NOT NULL,
     Quantity        INT NOT NULL,
     PRIMARY KEY (Purchase_ID, Line_Number),
-    FOREIGN KEY (Purchase_ID) REFERENCES PURCHASE(Purchase_ID),
-    FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID)
+    FOREIGN KEY (Purchase_ID) REFERENCES PURCHASE(Purchase_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID) ON DELETE CASCADE
 );
 
 
@@ -110,7 +111,7 @@ CREATE TABLE ORDERS (
     Order_Date      DATE,
     Manager_ID      INT,
     PRIMARY KEY (Order_ID),
-    FOREIGN KEY (Manager_ID) REFERENCES MANAGER(Employee_ID) 
+    FOREIGN KEY (Manager_ID) REFERENCES MANAGER(Employee_ID) ON DELETE SET NULL 
 );
 
 DROP TABLE IF EXISTS ORDER_LINE;
@@ -120,12 +121,12 @@ CREATE TABLE ORDER_LINE (
     Tool_ID             INT NOT NULL,
     Quantity            INT NOT NULL,
     PRIMARY KEY (Order_ID, Line_Number),
-    FOREIGN KEY (Order_ID) REFERENCES ORDERS(Order_ID),
-    FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID)
+    FOREIGN KEY (Order_ID) REFERENCES ORDERS(Order_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID) ON DELETE CASCADE
 );
 
 
--- Set auto increment
+-- Set auto increment 
 ALTER TABLE CUSTOMER AUTO_INCREMENT = 1000;
 ALTER TABLE PURCHASE AUTO_INCREMENT = 2000;
 ALTER TABLE PAYMENT AUTO_INCREMENT = 4000;
@@ -134,7 +135,7 @@ ALTER TABLE ORDERS AUTO_INCREMENT = 3000;
 -- Data Insertion
 
 
--- CUSTOMER 
+--  CUSTOMER 
 
 INSERT INTO CUSTOMER VALUES
     (1001, 'Tom',' ' ,'Hanks', 'New York', 'tomhanks@yahoo.com'),
@@ -170,16 +171,16 @@ INSERT INTO CUSTOMER_PHONE_NUMBERS VALUES
 -- EMPLOYEE
 
 INSERT INTO EMPLOYEE VALUES 
-    (1, 'Lionel', ' ', 'Messi', '+37 2354272', 'lmessi@gmail.com'),
-    (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832', 'cristiano.ronaldo@yahoo.com'),
-    (3, 'Neymar', ' ', 'Junior', '+37 247562659', 'neymaj@yahoo.com'),
-    (4, 'Diego', ' ', 'Maradona', '+44 8765349', 'diegomaradona@gmail.com'),
-    (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272', 'zlatanibrah@hotmail.com'),
-    (6, 'Robert', ' ', 'Lewandowski', '+1 5054272', 'rlewandowski@hotmail.com'),
-    (7, 'Vinicous', ' ', 'Junior', '+1 63954272', 'vinicous@gmail.com'),
-    (8, 'Kareem', ' ', 'Benzema', '+1 7384272', 'benzema.kareem@yahoo.com'),
-    (9, 'Andy', ' ', 'Roberts', '+1 8354772', 'aroberts44@gmail.com'),
-    (10, 'Wayne', ' ', 'Rooney', '+1 9356272', 'wrooney1880@gmail.com');
+    (1, 'Lionel', ' ', 'Messi', '+37 2354272', 'lmessi@gmail.com', '$2a$10$uP.4eRVDKtoeidHzafp6aepOpD3axqG4BnM6eI2QXcdGw6Ko.JXRK'),
+    (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832', 'cristiano.ronaldo@yahoo.com', '$2a$10$eeOY7Eqi4hZZPX7c1Gwt0uDhFinrVl2jz6YcCNlEgOYUiErQdoceC'),
+    (3, 'Neymar', ' ', 'Junior', '+37 247562659', 'neymaj@yahoo.com', '2a$10$Aw.qL4r2gFWn0bd7vt7FqedbrQTWp5drtvAhTgSt6E4ZLN./W3Kpy'),
+    (4, 'Diego', ' ', 'Maradona', '+44 8765349', 'diegomaradona@gmail.com', '$2a$10$aSh2KIid.s5pX0GD8xHaIeQkKONCX93OeNp3Dcp9WIOQBdAeg1RMW'),
+    (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272', 'zlatanibrah@hotmail.com', '$2a$10$/qzRZf./TlY5j87w43mfZe2SRQcVFlh9COgmJt4la8ED9MDAqTi7K'),
+    (6, 'Robert', ' ', 'Lewandowski', '+1 5054272', 'rlewandowski@hotmail.com', '$2a$10$0jUKjeV1TxcX9HWXNCca0.kpZCU6e5IMrhoWhtcoHjRFjBuMLXzS6'),
+    (7, 'Vinicous', ' ', 'Junior', '+1 63954272', 'vinicous@gmail.com', '$2a$10$yl00AYNqgnMfVrO/is9JZOKWS0i77B45d0vm22xq1dRmYzniE7o7q'),
+    (8, 'Kareem', ' ', 'Benzema', '+1 7384272', 'benzema.kareem@yahoo.com', '2a$10$e3QBgzTUVROriJvNjYlrheEOXCsGkeFdtGDhOagJ1JAc/dWFyt6j2'),
+    (9, 'Andy', ' ', 'Roberts', '+1 8354772', 'aroberts44@gmail.com', '$2a$10$OCviT5hqwdTkOVzxX8sQgeabaGmcaPqJsxFhPLOcf.13RYYW/5qHK'),
+    (10, 'Wayne', ' ', 'Rooney', '+1 9356272', 'wrooney1880@gmail.com', '$2a$10$uMt/9IA8/BUJ1MiTXJJ2se/573fuEdZ9nJZGJ7497LNT60vWUKWFW');
 
 
 -- Manager 

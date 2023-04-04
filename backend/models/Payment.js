@@ -1,31 +1,24 @@
 const db = require('../config/db');
 
 class Payment {
-  constructor(paymentId, paymentType, amount, customerId) {
-    this.paymentId = paymentId;
+  constructor(paymentType, amount, customerId) {
     this.paymentType = paymentType;
     this.amount = amount;
     this.customerId = customerId;
   }
 
   // Save to DB
-  async save() {
+  async create() {
     let sql = `
       INSERT INTO PAYMENT(
-        Payment_ID,
         Payment_Type,
         Amount,
         Customer_ID
       )
-      VALUES(
-        '${this.paymentId}',
-        '${this.paymentType}',
-        '${this.amount}',
-        '${this.customerId}'
-      )
+      VALUES(?,?,?)
     `;
-
-    const [newPayment, _] = await db.execute(sql);
+    const payload = [this.paymentType, this.amount, this.customerId];
+    const [newPayment, _] = await db.execute(sql, payload);
     return newPayment;
   }
 
@@ -39,9 +32,9 @@ class Payment {
 
   // Find payment by id
   static async findById(paymentId) {
-    let sql = `SELECT * FROM PAYMENT WHERE Payment_ID = ${paymentId};`;
-    const [payment, _] = await db.execute(sql);
-    return payment;
+    let sql = `SELECT * FROM PAYMENT WHERE Payment_ID = ?;`;
+    const [payment, _] = await db.execute(sql, [paymentId]);
+    return payment[0];
   }
 }
 

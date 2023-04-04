@@ -11,7 +11,7 @@ class Tool {
   }
 
   // Save to DB
-  async save() {
+  async create() {
     let sql = `
       INSERT INTO TOOL(
         Tool_ID,
@@ -21,18 +21,19 @@ class Tool {
         Name,
         Supplier_ID
       )
-      VALUES(
-        '${this.toolId}',
-        '${this.price}',
-        '${this.toolType}',
-        '${this.quantity}',
-        '${this.name}',
-        '${this.supplierId}'
-      )
+      VALUES(?,?,?,?,?,?)
     `;
-
+    const paylod = [
+      this.toolId,
+      this.price,
+      this.toolType,
+      this.quantity,
+      this.name,
+      this.supplierId,
+    ];
     const [newTool, _] = await db.execute(sql);
-    return newTool;
+
+    return this;
   }
 
   // Find all tools
@@ -40,14 +41,53 @@ class Tool {
     let sql = 'SELECT * FROM TOOL;';
 
     const [tools, _] = await db.execute(sql);
-    return tools;
+    return tools; // return a list of tools
   }
 
   // Find tool by id
   static async findById(toolId) {
-    let sql = `SELECT * FROM TOOL WHERE Tool_ID = ${toolId};`;
-    const [tool, _] = await db.execute(sql);
-    return tool;
+    let sql = `
+    SELECT * 
+    FROM TOOL 
+    WHERE Tool_ID = ?;`;
+    const [queryResult, _] = await db.execute(sql, [toolId]);
+
+    // check if purchase exists
+    if (!queryResult[0]) {
+      throw new Error(`Cannot find tool with id: ${toolId}`);
+    }
+
+    // parse the query result
+    const price = queryResult[0].Price;
+    const toolType = queryResult[0].Tool_Type;
+    const quantity = queryResult[0].Quantity_In_Stock;
+    const name = queryResult[0].Name;
+    const supplierId = queryResult[0].Supplier_ID;
+
+    return new Tool(toolId, price, toolType, quantity, name, supplierId);
+  }
+  // Update tool
+  static async update(toolId, price, toolType, quantity, name, supplierId) {
+    let sql = `
+    UPDATE TOOL
+    SET 
+    Price = ?, 
+    Tool_Type = ?, 
+    Quantity_In_Stock = ?, 
+    Name = ?, 
+    Supplier_ID = ?, 
+    WHERE Tool_ID = ?
+    `;
+    const payload = [price, toolType, quantity, name, supplierId, toolId];
+    await db.execute(sql, payload);
+    return new Tool(toolId, price, toolType, quantity, name, supplierId);
+  }
+
+  // Delete tool
+  static async delete(toolId) {
+    let sql = `DELETE FROM TOOL WHERE Tool_ID = ?;`;
+    await db.execute(sql, [toolId]);
+    return;
   }
 }
 

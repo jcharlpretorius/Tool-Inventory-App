@@ -9,7 +9,7 @@ class PurchaseLine {
   }
 
   // Save to DB
-  async save() {
+  async create() {
     let sql = `
       INSERT INTO PURCHASE_LINE(
         Purchase_ID,
@@ -17,15 +17,15 @@ class PurchaseLine {
         Tool_ID,
         Quantity
       )
-      VALUES(
-        '${this.purchaseId}',
-        '${this.lineNumber}',
-        '${this.toolId}',
-        '${this.quantity}'
-      )
+      VALUES(?,?,?,?)
     `;
-
-    const [newPurchaseLine, _] = await db.execute(sql);
+    const payload = [
+      this.purchaseId,
+      this.lineNumber,
+      this.toolId,
+      this.quantity,
+    ];
+    const [newPurchaseLine, _] = await db.execute(sql, payload);
     return newPurchaseLine;
   }
 
@@ -40,9 +40,9 @@ class PurchaseLine {
   // Find Purchase Lines by Purchase_ID
   // Can be several purchase lines associated with a single purchase_ID
   static async findById(purchaseId) {
-    let sql = `SELECT * FROM PURCHASE_LINE WHERE Purchase_ID = ${purchaseId};`;
-    const [purchaseLines, _] = await db.execute(sql);
-    return purchaseLines;
+    let sql = `SELECT * FROM PURCHASE_LINE WHERE Purchase_ID ?;`;
+    const [purchaseLines, _] = await db.execute(sql, [purchaseId]);
+    return purchaseLines[0];
   }
 }
 

@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const Customer = require('../models/Customer');
+const Customer = require('../models/customer');
 
 // Get all customers
 const getAllCustomers = asyncHandler(async (req, res) => {
@@ -58,7 +58,7 @@ const updateCustomer = asyncHandler(async (req, res) => {
   const { id } = req.params; // customer id in params (url)
   const { firstName, minit, lastName, address, email } = req.body;
 
-  let customer = await Customer.findById(req.params.id);
+  let customer = await Customer.findById(id);
 
   // check if customer doesn't exist
   if (!customer) {
