@@ -15,11 +15,13 @@ const getAllEmployees = asyncHandler(async (req, res) => {
   res.status(200).json({ count: employees.length, employees });
 });
 
-// Get a single employee
+// Get a single employee (the currently logged in employee)
 const getEmployee = asyncHandler(async (req, res) => {
-  const employee = await Employee.findById(req.params.id);
+  // note the difference in getting id from req instead of params
+  // we used the employee set in the req object by the authEmp middleware
+  const employee = await Employee.findById(req.employee.employeeId);
 
-  // check if employee doesn't exist
+  // check if employee doesn't exist -> this should never actually happen
   if (!employee) {
     res.status(400);
     throw new Error('employee not found');
@@ -27,8 +29,9 @@ const getEmployee = asyncHandler(async (req, res) => {
   res.status(200).json(employee);
 });
 
-// Create new employee
+// Create new employee -> this isn't working completely
 const registerEmployee = asyncHandler(async (req, res) => {
+  // potentially change source of info from req.body to a form.
   const { firstName, minit, lastName, phoneNumber, email, password } = req.body;
 
   // Validation -> check anything you set as NOT NULL in schema
@@ -70,10 +73,10 @@ const registerEmployee = asyncHandler(async (req, res) => {
     role
   );
 
-  // note: create() called on obj. idk, some kind of hack because async is hurting my brain
+  // You could update this so that password is not sent back to frontend
   const newEmployee = await employee.create();
 
-  res.status(201).json({ newEmployee });
+  res.status(201).json(newEmployee);
 });
 
 // update employee information, except for commission rate
@@ -82,7 +85,8 @@ const updateEmployee = asyncHandler(async (req, res) => {
   const { id } = req.params; // employee id in params (url)
   const { firstName, minit, lastName, phoneNumber, email } = req.body;
 
-  let employee = await Employee.findById(req.params.id);
+  // let employee = await Employee.findById(req.params.id);
+  let employee = await Employee.findById(id);
 
   // check if employee doesn't exist
   if (!employee) {

@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const Employee = require('../models/employee');
 const { ROLE } = require('../data/data');
 
+// Middleware for restricting access to logged in Employees
 const authEmp = asyncHandler(async (req, res, next) => {
   try {
     const token = req.cookies.token;
@@ -23,17 +24,14 @@ const authEmp = asyncHandler(async (req, res, next) => {
       throw new Error('Employee not found');
     }
     req.employee = employee; // set employee to employee we got from the database
-    // next(employee); // need to call next, to go to the next middleware
-    // console.log('huh?');
-    next();
+    next(); // need to call next, to go to the next middleware
   } catch (error) {
     res.status(401);
     throw new Error('User not authorized, please login');
   }
 });
 
-//  function for handling manager permissions -> use after authEmp middleware
-// function authManager(employee) {
+//  middleware function for restricting permission to managers -> Must use after authEmp middleware
 const authManager = asyncHandler(async (req, res, next) => {
   if (req.employee.role !== ROLE.MNGR) {
     res.status(403);
@@ -41,15 +39,5 @@ const authManager = asyncHandler(async (req, res, next) => {
   }
   next();
 });
-//   console.log('inside authmanager');
-//   return (req, res, next) => {
-//     // need to make some attribute of employee to know if they are a manager or a sales associate
-//     if (req.employee.role !== ROLE.MNGR) {
-//       res.status(403);
-//       return res.send('Employee not authorized. Manager access only.');
-//     }
-//     next();
-//   };
-// }
 
 module.exports = { authEmp, authManager };

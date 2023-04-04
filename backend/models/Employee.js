@@ -20,32 +20,6 @@ class Employee {
     this.role = role; // default='sales', for authentication/permission levels
   }
 
-  // Parse a query result into an employee object
-  // THIS METHOD DOESN'T WORK, I DON'T KNOW WHY
-  // static async parseEmployee(queryResult) {
-  //   // if (!queryResult) {
-  //   //   throw new Error('Employee not found');
-  //   // }
-
-  //   const firstName = queryResult[0].FirstName;
-  //   const minit = queryResult[0].MiddleInitial;
-  //   const lastName = queryResult[0].LastName;
-  //   const phoneNumber = queryResult[0].PhoneNumber;
-  //   const storedPassword = queryResult[0].Password;
-
-  //   const employee = new Employee(
-  //     firstName,
-  //     minit,
-  //     lastName,
-  //     phoneNumber,
-  //     email,
-  //     storedPassword
-  //   );
-  //   // add id attribute
-  //   employee.employeeId = queryResult[0].Employee_ID;
-  //   return employee;
-  // }
-
   // Save to DB
   async create() {
     let sql = `
@@ -55,8 +29,7 @@ class Employee {
         LastName,
         PhoneNumber,
         Email,
-        Password,
-
+        Password
       )
       VALUES(?,?,?,?,?,?)
     `;
@@ -72,16 +45,9 @@ class Employee {
     // we can use the await syntax because of the pool.promise() in db.js
     const [newEmployee, _] = await db.execute(sql, payload);
     const employeeId = newEmployee.insertId; // extract primary key
-    // return Employee Object
-    return {
-      employeeId,
-      firstName: this.firstName,
-      minit: this.minit,
-      lastName: this.lastName,
-      phoneNumber: this.phoneNumber,
-      email: this.email,
-      password: this.password,
-    };
+
+    this.employeeId = employeeId;
+    return this;
   }
 
   // Find all employees
@@ -106,7 +72,7 @@ class Employee {
       throw new Error(`Cannot find employee with id: ${employeeId}`);
     }
 
-    // const employee = Employee.parseEmployee(queryResult[0]);
+    // parse the query result
     const firstName = queryResult[0].FirstName;
     const minit = queryResult[0].MiddleInitial;
     const lastName = queryResult[0].LastName;
@@ -152,7 +118,10 @@ class Employee {
       employeeId,
     ];
     await db.execute(sql, payload);
-    return { employeeId, firstName, minit, lastName, phoneNumber, email };
+
+    return this.findById(employeeId); // return the entire employee object
+
+    // return { employeeId, firstName, minit, lastName, phoneNumber, email };
   }
 
   // Delete Employee

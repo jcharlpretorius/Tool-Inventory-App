@@ -13,13 +13,13 @@ const {
 
 const router = express.Router();
 
-router.get('/', authEmp, authManager, getAllEmployees);
-router.get('/:id', getEmployee);
-router.post('/', registerEmployee); // put authManager back in here, removed for testing
+router.get('/', authEmp, authManager, getAllEmployees); // protected just for testing, can remove auth middleware here
+router.get('/getemployee', authEmp, getEmployee);
 router.put('/:id', authEmp, authManager, updateEmployee);
 router.delete('/:id', authEmp, authManager, deleteEmployee);
+router.post('/register', authEmp, authManager, registerEmployee);
 router.post('/login', loginEmployee);
-router.get('/logoutEmployee', logoutEmployee);
-router.put('/addpassword/:id', addPassword); // temporary route to add password to database
+router.get('/logout', logoutEmployee);
+// router.put('/addpassword/:id', addPassword); // temporary route to get password hash to update database dummy values
 
 module.exports = router;
