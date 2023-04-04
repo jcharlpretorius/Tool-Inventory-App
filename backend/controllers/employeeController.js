@@ -183,6 +183,20 @@ const logoutEmployee = asyncHandler(async (req, res) => {
   return res.status(200).json({ message: 'Successfully Logged Out' });
 });
 
+// Get the login status
+const loginStatus = asyncHandler(async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.json(false);
+  }
+  // Verify Token
+  const verified = jwt.verify(token, process.env.JWT_SECRET);
+  if (verified) {
+    return res.json(true);
+  }
+  return res.json(false);
+});
+
 // Add password
 // Method for adding a password to Employees who don't already have a password
 // Only exists to add dummy data to the database, should be removed eventualy
@@ -211,5 +225,6 @@ module.exports = {
   deleteEmployee,
   loginEmployee,
   logoutEmployee,
+  loginStatus,
   addPassword,
 };
