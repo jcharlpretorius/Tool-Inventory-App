@@ -82,7 +82,6 @@ section {
   align-items: center;
 }
 
-
 /* Center All */
 .--center-all {
   display: flex;
@@ -124,8 +123,6 @@ p {
   color: var(--color-dark);
 }
 
-
-
 /* Text Colors */
 .--text-light {
   color: #fff;
@@ -152,7 +149,6 @@ p {
 .--text-center {
   text-align: center;
 }
-
 
 /* Margin */
 .--m {
@@ -206,8 +202,6 @@ p {
   align-items: center;
 }
 
-
-
 /* Background styles */
 .--bg-light {
   background: #fff;
@@ -224,9 +218,3 @@ p {
 .--bg-grey {
   background: var(--color-grey);
 }
-
-
-}
-
-
-
