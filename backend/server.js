@@ -16,6 +16,12 @@ app.use(express.json()); // lets us parse json bodies in the request object
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: ['http://localhost:3000'], // frontend url
+    credentials: true, // this lets us exchange credentials between the backend to the frontend when making requests
+  })
+); // helps to resolve conflict when making requests from backend to frontend
 
 // Routes
 app.get('/', (req, res) => {
