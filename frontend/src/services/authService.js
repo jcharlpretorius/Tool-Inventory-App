@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export const BACKEND_URL = process.env.REACT_BACKEND_URL;
+export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Validate email address
 export const validateEmail = (email) => {
@@ -15,6 +15,7 @@ export const validateEmail = (email) => {
 // Login employee
 export const loginUser = async (employeeData) => {
   try {
+    // send login request to backend, employeeData has email and password
     const response = await axios.post(
       `${BACKEND_URL}/api/employees/login`,
       employeeData
@@ -22,7 +23,7 @@ export const loginUser = async (employeeData) => {
     if (response.statusText === 'OK') {
       toast.success('Login Successful');
     }
-    return response.data;
+    return response.data; // all of the user data, except password
   } catch (error) {
     // get the error message, no matter the format we recieve it
     const message =
@@ -36,6 +37,7 @@ export const loginUser = async (employeeData) => {
 // Logout the Emloyee
 export const logoutEmployee = async () => {
   try {
+    // send logout request
     await axios.get(`${BACKEND_URL}/api/employees/logout`);
   } catch (error) {
     // get the error message, no matter the format we recieve it
@@ -47,11 +49,12 @@ export const logoutEmployee = async () => {
   }
 };
 
-// Get the login status
+// Get the login status -> useful for when redux state is refreshed
 export const getLoginStatus = async () => {
   try {
+    // ask backend if the user is logged in or not
     const response = await axios.get(`${BACKEND_URL}/api/employees/loggedin`);
-    return response.data;
+    return response.data; // true or false
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
