@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// get name from local storage
-const name = JSON.parse(localStorage.getItem('name'));
+const firstName = JSON.parse(localStorage.getItem('firstName'));
 
 const initialState = {
   isLoggedIn: false,
-  name: name ? name : '',
+  firstName: firstName ? firstName : '',
   employee: {
     firstName: '',
     minit: '',
@@ -17,33 +16,34 @@ const initialState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: 'auth', // this is the slice's name, don't get confused
   initialState,
   reducers: {
-    // create actions
     SET_LOGIN(state, action) {
       state.isLoggedIn = action.payload;
     },
-    SET_NAME(state, action) {
-      // store to local storage first. need to stringify it first
-      localStorage.setItem('name', JSON.stringify(action.payload));
-      state.name = action.payload;
+    SET_FIRSTNAME(state, action) {
+      localStorage.setItem('firstName', JSON.stringify(action.payload));
+      state.firstName = action.payload;
     },
     SET_EMPLOYEE(state, action) {
       const profile = action.payload;
-      state.employee.name = profile.name;
+      state.employee.employeeId = profile.employeeId;
+      state.employee.firstName = profile.firstName;
+      state.employee.minit = profile.minit;
+      state.employee.lastName = profile.lastName;
+      state.employee.phoneNumber = profile.phoneNumber;
       state.employee.email = profile.email;
-      state.employee.phone = profile.phone;
-      state.employee.bio = profile.bio;
-      state.employee.photo = profile.photo;
+      state.employee.role = profile.role;
     },
   },
 });
 
-export const { SET_LOGIN, SET_NAME, ET_EMPLOYEE } = authSlice.actions;
+export const { SET_LOGIN, SET_FIRSTNAME, SET_EMPLOYEE } = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
-export const selectName = (state) => state.auth.name;
+export const selectFirstName = (state) => state.auth.firstName;
+export const selectRole = (state) => state.auth.role;
 export const selectEmployee = (state) => state.auth.employee;
 
 export default authSlice.reducer;
