@@ -1,7 +1,11 @@
 import React from 'react';
-import { FaToolbox } from 'react-icons/fa'; // add first 2 characters after the forward slash
+import { FaToolbox, FaTools } from 'react-icons/fa'; // add first 2 characters after the forward slash
 import { Link } from 'react-router-dom';
 import './Home.scss';
+import {
+  ShowOnLogin,
+  ShowOnLogout,
+} from '../../components/protect/HiddenLinks';
 // import heroImg from '../../assets/inv-img.png';
 
 const Home = () => {
@@ -10,19 +14,23 @@ const Home = () => {
       {/*class names like --flex-between utility classes to make my life easier, see index.css*/}
       <nav className="container --flex-between">
         <div className="logo">
-          <FaToolbox size={35} />
+          <FaTools size={60} />
         </div>
         <ul className="home-links">
-          <li>
-            <button className="--btn --btn-primary">
-              <Link to="/login">Login</Link>
-            </button>
-          </li>
-          <li>
-            <button className="--btn --btn-primary">
-              <Link to="/dashboard">Dashboard</Link>
-            </button>
-          </li>
+          <ShowOnLogout>
+            <li>
+              <button className="--btn --btn-primary">
+                <Link to="/login">Login</Link>
+              </button>
+            </li>
+          </ShowOnLogout>
+          <ShowOnLogin>
+            <li>
+              <button className="--btn --btn-primary">
+                <Link to="/dashboard">Dashboard</Link>
+              </button>
+            </li>
+          </ShowOnLogin>
         </ul>
       </nav>
       {/* HERO SECTION */}
@@ -39,17 +47,6 @@ const Home = () => {
           <img src={heroImg} alt="Toolshop" />
         </div> */}
       </section>
-    </div>
-  );
-};
-
-// create another component
-// the number and text are different
-const NumberText = ({ num, text }) => {
-  return (
-    <div className="--mr">
-      <h3 className="--color-white">{num}</h3>
-      <p className="--color-white">{text}</p>
     </div>
   );
 };
