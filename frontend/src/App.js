@@ -7,11 +7,26 @@ import Layout from './components/layout/Layout';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getLoginStatus } from './services/authService';
+import { SET_LOGIN } from './redux/features/auth/authSlice';
 
 // makes sure you are able to save the credentials of employee, whenever you make a request
 axios.defaults.withCredentials = true;
 
 function App() {
+  const dispatch = useDispatch(); // dispatch function, for updating redux state
+
+  useEffect(() => {
+    // get employee login status
+    async function loginStatus() {
+      const isLoggedIn = await getLoginStatus();
+      dispatch(SET_LOGIN(isLoggedIn));
+    }
+    loginStatus();
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>

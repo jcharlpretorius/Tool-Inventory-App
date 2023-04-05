@@ -153,16 +153,17 @@ const loginEmployee = asyncHandler(async (req, res) => {
   }
 
   if (employee && passwordIsCorrect) {
-    const { id, firstName, minit, lastName, phoneNumber, email, role } =
+    const { emplyeeId, firstName, minit, lastName, phoneNumber, email, role } =
       employee;
     res.status(200).json({
-      id,
+      emplyeeId,
       firstName,
       minit,
       lastName,
       phoneNumber,
       email,
-      token,
+      role,
+      // token, // do I need to send the token ?
     });
   } else {
     res.status(400);

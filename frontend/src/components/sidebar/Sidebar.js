@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Sidebar.scss';
 import { TbMenu2 } from 'react-icons/tb';
-import { FaToolbox } from 'react-icons/fa';
+import { FaToolbox, FaHome } from 'react-icons/fa';
 import menu from '../../data/sidebar';
 import SidebarItem from './SidebarItem';
 import { useNavigate } from 'react-router-dom';
@@ -20,11 +20,7 @@ const Sidebar = ({ children }) => {
       <div className="sidebar" style={{ width: isOpen ? '230px' : '60px' }}>
         <div className="top_section">
           <div className="logo" style={{ display: isOpen ? 'block' : 'none' }}>
-            <FaToolbox
-              size={35}
-              style={{ cursor: 'pointer' }}
-              onClick={goHome}
-            />
+            <FaHome size={35} style={{ cursor: 'pointer' }} onClick={goHome} />
           </div>
 
           <div
