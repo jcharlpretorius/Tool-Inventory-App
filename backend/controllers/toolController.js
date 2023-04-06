@@ -16,8 +16,9 @@ const getTool = asyncHandler(async (req, res) => {
 
   // check if tool doesn't exist
   if (!tool) {
-    res.status(404);
-    throw new Error('Tool not found');
+    const message = 'Tool not found';
+    res.status(404).send({ message });
+    throw new Error(message);
   }
 
   res.status(200).json(camelizeKeys(tool));
@@ -25,13 +26,18 @@ const getTool = asyncHandler(async (req, res) => {
 
 // Create new tool
 const createNewTool = asyncHandler(async (req, res) => {
-  const { toolId, price, toolType, quantity, name, supplierId } = req.body;
+  let { toolId, price, toolType, quantity, name, supplierId } = req.body;
   // Validation -> check anything you set as NOT NULL in schema
-  if (!toolId) {
-    res.status(400);
-    throw new Error('Please fill in all the required fields');
+  if (!toolId || !toolType || !name || !price || !supplierId) {
+    const message = 'Please fill in all the required fields';
+    res.status(400).send({ message });
+    throw new Error(message);
   }
 
+  // set default quanitity to 0
+  if (!quantity) {
+    quantity = 0;
+  }
   // Create new tool
   const tool = new Tool(toolId, price, toolType, quantity, name, supplierId);
   const newTool = await tool.create();
@@ -48,8 +54,9 @@ const updateTool = asyncHandler(async (req, res) => {
 
   // check if tool doesn't exist
   if (!tool) {
-    res.status(404);
-    throw new Error(`No tool with id: ${id} exists`);
+    const message = `No tool with id: ${id} exists`;
+    res.status(404).send(message);
+    throw new Error(message);
   }
 
   // Update tool
@@ -69,11 +76,12 @@ const deleteTool = asyncHandler(async (req, res) => {
   const tool = await Tool.findById(req.params.id);
   // if tool doesnt exist
   if (!tool) {
-    res.status(404);
-    throw new Error('Tool not found');
+    const message = 'Tool not found';
+    res.status(404).send(message);
+    throw new Error(message);
   }
   await Tool.delete(req.params.id);
-  res.status(200).json({ message: 'Tool deleted.' });
+  res.status(200).json({ message: 'Tool successfully deleted' });
 });
 
 module.exports = {
