@@ -1,10 +1,13 @@
 const asyncHandler = require('express-async-handler');
 const Tool = require('../models/tool');
+const camelizeKeys = require('../utilities/camelize');
 
 // Get all tools
 const getAllTools = asyncHandler(async (req, res) => {
-  const tools = await Tool.findAll();
-  res.status(200).json({ count: tools.length, tools });
+  let tools = await Tool.findAll();
+  // convert keys to camel case
+  tools = camelizeKeys(tools);
+  res.status(200).json(tools);
 });
 
 // Get a single tool
@@ -17,13 +20,12 @@ const getTool = asyncHandler(async (req, res) => {
     throw new Error('Tool not found');
   }
 
-  res.status(200).json(tool);
+  res.status(200).json(camelizeKeys(tool));
 });
 
 // Create new tool
 const createNewTool = asyncHandler(async (req, res) => {
   const { toolId, price, toolType, quantity, name, supplierId } = req.body;
-
   // Validation -> check anything you set as NOT NULL in schema
   if (!toolId) {
     res.status(400);
@@ -34,7 +36,7 @@ const createNewTool = asyncHandler(async (req, res) => {
   const tool = new Tool(toolId, price, toolType, quantity, name, supplierId);
   const newTool = await tool.create();
 
-  res.status(201).json(newTool);
+  res.status(201).json(camelizeKeys(newTool));
 });
 
 // update tool
@@ -59,7 +61,7 @@ const updateTool = asyncHandler(async (req, res) => {
     name,
     supplierId
   );
-  res.status(200).json(updatedTool);
+  res.status(200).json(camelizeKeys(updatedTool));
 });
 
 // delete tool

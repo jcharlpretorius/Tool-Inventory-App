@@ -13,9 +13,9 @@ class Customer {
   async create() {
     const sql = `
       INSERT INTO CUSTOMER(
-        FirstName,
-        MiddleInitial,
-        LastName,
+        First_Name,
+        Minit,
+        Last_Name,
         Address, 
         Email
       )
@@ -32,16 +32,8 @@ class Customer {
     ];
     // we can use the await syntax because of the pool.promise() in db.js
     const [newCustomer, _] = await db.execute(sql, payload);
-    const customerId = newCustomer.insertId; // extract primary key
-    // return customer object
-    return {
-      customerId,
-      firstName: this.firstName,
-      minit: this.minit,
-      lastName: this.lastName,
-      address: this.address,
-      email: this.email,
-    };
+    this.customerId = newCustomer.insertId; // extract primary key from auto increment
+    return this;
   }
 
   // Find all customers
@@ -56,20 +48,39 @@ class Customer {
   // Find customer by id
   static async findById(customerId) {
     let sql = `SELECT * FROM CUSTOMER WHERE Customer_ID = ?;`;
-    const [customer, _] = await db.execute(sql, [customerId]);
-    return customer[0];
+    const [queryResult, _] = await db.execute(sql, [customerId]);
+    // return customer[0];
+    // check if customer exists
+    if (!queryResult[0]) {
+      throw new Error(`Cannot find customer with id: ${customerId}`);
+    }
+
+    // parse the query result
+    const firstName = queryResult[0].First_Name;
+    const minit = queryResult[0].Minit;
+    const lastName = queryResult[0].Last_Name;
+    const address = queryResult[0].Address;
+    const email = queryResult[0].Email;
+
+    const customer = new Customer(firstName, minit, lastName, address, email);
+    // add id attribute
+    customer.customerId = queryResult[0].Customer_ID;
+    return customer;
   }
 
   // Update customer
   static async update(customerId, firstName, minit, lastName, address, email) {
     let sql = `
     UPDATE CUSTOMER
-    SET FirstName = ?, MiddleInitial = ?, LastName = ?, Address = ?, Email = ?
+    SET First_Name = ?, Minit = ?, Last_Name = ?, Address = ?, Email = ?
     WHERE Customer_ID = ?
     `;
     const payload = [firstName, minit, lastName, address, email, customerId];
     await db.execute(sql, payload);
-    return { customerId, firstName, minit, lastName, address, email };
+    // construct customer object to return
+    const customer = new Customer(firstName, minit, lastName, address, email);
+    customer.customerId = customerId;
+    return customer;
   }
 
   // Delete Customer -> I don't think we actually need this

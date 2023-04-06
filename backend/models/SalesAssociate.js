@@ -11,7 +11,7 @@ class SalesAssociate {
     let sql = `
       INSERT INTO SALES_ASSOCIATE(
         Employee_ID,
-        Commission_Rate
+        Hourly_Pay
       )
       VALUES(?,?)
     `;
@@ -40,7 +40,7 @@ class SalesAssociate {
     let sql = `
     UPDATE SALES_ASSOCIATE
     SET Commission_Rate = ?
-    WHERE Employee_ID = ?
+    WHERE Hourly_Pay = ?
     `;
     await db.execute(sql, [commission]);
     return { employeeId, commission };

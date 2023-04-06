@@ -24,10 +24,10 @@ class Employee {
   async create() {
     let sql = `
       INSERT INTO EMPLOYEE(
-        FirstName,
-        MiddleInitial,
-        LastName,
-        PhoneNumber,
+        First_Name,
+        Minit,
+        Last_Name,
+        Phone_Number,
         Email,
         Password
       )
@@ -73,11 +73,11 @@ class Employee {
     }
 
     // parse the query result
-    const firstName = queryResult[0].FirstName;
-    const minit = queryResult[0].MiddleInitial;
-    const lastName = queryResult[0].LastName;
-    const phoneNumber = queryResult[0].PhoneNumber;
-    const email = queryResult[0].email;
+    const firstName = queryResult[0].First_Name;
+    const minit = queryResult[0].Minit;
+    const lastName = queryResult[0].Last_Name;
+    const phoneNumber = queryResult[0].Phone_Number;
+    const email = queryResult[0].Email;
     const password = queryResult[0].Password;
 
     const employee = new Employee(
@@ -106,7 +106,7 @@ class Employee {
   ) {
     let sql = `
     UPDATE EMPLOYEE
-    SET FirstName = ?, MiddleInitial = ?, LastName = ?, PhoneNumber = ?, Email = ?
+    SET First_Name = ?, Minit = ?, Last_Name = ?, Phone_Number = ?, Email = ?
     WHERE Employee_ID = ?
     `;
     const payload = [
@@ -120,8 +120,6 @@ class Employee {
     await db.execute(sql, payload);
 
     return this.findById(employeeId); // return the entire employee object
-
-    // return { employeeId, firstName, minit, lastName, phoneNumber, email };
   }
 
   // Delete Employee
@@ -156,10 +154,10 @@ class Employee {
     }
 
     // let employee = this.parseEmployee(queryResult[0]);
-    const firstName = queryResult[0].FirstName;
-    const minit = queryResult[0].MiddleInitial;
-    const lastName = queryResult[0].LastName;
-    const phoneNumber = queryResult[0].PhoneNumber;
+    const firstName = queryResult[0].First_Name;
+    const minit = queryResult[0].Minit;
+    const lastName = queryResult[0].Last_Name;
+    const phoneNumber = queryResult[0].Phone_Number;
     const password = queryResult[0].Password;
 
     const employee = new Employee(

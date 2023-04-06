@@ -1,10 +1,13 @@
 const asyncHandler = require('express-async-handler');
 const Customer = require('../models/customer');
+const camelizeKeys = require('../utilities/camelize');
 
 // Get all customers
 const getAllCustomers = asyncHandler(async (req, res) => {
-  const customers = await Customer.findAll();
-  res.status(200).json({ count: customers.length, customers });
+  let customers = await Customer.findAll();
+  // convert keys to camel case
+  customers = camelizeKeys(customers);
+  res.status(200).json(customers);
 });
 
 // Get a single customer
@@ -17,7 +20,7 @@ const getCustomer = asyncHandler(async (req, res) => {
     throw new Error('Customers not found');
   }
 
-  res.status(200).json(customer);
+  res.status(200).json(camelizeKeys(customer));
 });
 
 // Create new customer
@@ -49,7 +52,7 @@ const createNewCustomer = asyncHandler(async (req, res) => {
   const customer = new Customer(firstName, minit, lastName, address, email);
   const newCustomer = await customer.create(); // note: create() called on obj
 
-  res.status(201).json({ newCustomer });
+  res.status(201).json(camelizeKeys(newCustomer));
 });
 
 // update customer information
