@@ -1,11 +1,12 @@
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { MdOutlineAddBox, MdAccountBox } from 'react-icons/md';
+import { FaWarehouse } from 'react-icons/fa';
 
 const menu = [
   {
-    title: 'Dashboard',
-    icon: <AiOutlineDashboard />,
-    path: '/dashboard',
+    title: 'Inventory',
+    icon: <FaWarehouse />,
+    path: '/inventory',
   },
   {
     title: 'Add Tool',
@@ -18,11 +19,11 @@ const menu = [
     children: [
       {
         title: 'Profile',
-        path: '/profile',
+        path: '/employee-profile',
       },
       {
         title: 'Edit Profile',
-        path: '/profile-update',
+        path: '/edit-employee-profile',
       },
     ],
   },

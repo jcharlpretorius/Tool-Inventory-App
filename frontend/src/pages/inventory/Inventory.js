@@ -5,7 +5,7 @@ import { selectIsLoggedIn } from '../../redux/features/auth/authSlice';
 import ToolList from '../../components/tool/toolList/ToolList';
 import { getTools } from '../../redux/features/tool/toolSlice';
 
-const Dashboard = () => {
+const Inventory = () => {
   useRedirectLoggedOutEmployee('/'); // redirect logged out employees to the home page
   const dispatch = useDispatch();
 
@@ -28,10 +28,10 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Dashboard</h2>
+      <h2>Inventory</h2>
       <ToolList tools={tools} isLoading={isLoading} />
     </div>
   );
 };
 
-export default Dashboard;
+export default Inventory;

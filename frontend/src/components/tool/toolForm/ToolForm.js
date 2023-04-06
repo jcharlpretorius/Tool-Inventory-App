@@ -70,14 +70,14 @@ const ToolForm = ({
             onChange={handleInputChange}
             required
           />
-          <label>Tool Description:</label>
+          {/* <label>Tool Description:</label>
           <ReactQuill
             theme="snow"
             value={description}
             onChange={setDescription}
             modules={ToolForm.modules}
             formats={ToolForm.formats}
-          />
+          /> */}
 
           <div className="--my">
             <button type="submit" className="--btn --btn-primary">
@@ -90,6 +90,7 @@ const ToolForm = ({
   );
 };
 
+// If you add description to the tool, use this
 // react quill rich text editor
 ToolForm.modules = {
   toolbar: [
@@ -129,5 +130,3 @@ ToolForm.formats = [
 ];
 
 export default ToolForm;
-
-// (115, 75.0, 'Electrical', 44, 'Electric Cutter', 8);

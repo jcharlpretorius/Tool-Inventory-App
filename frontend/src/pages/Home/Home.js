@@ -26,8 +26,8 @@ const Home = () => {
           </ShowOnLogout>
           <ShowOnLogin>
             <li>
-              <button className="--btn --btn-primary">
-                <Link to="/dashboard">Dashboard</Link>
+              <button className="--btn --btn-primary {">
+                <Link to="/inventory">Dashboard</Link>
               </button>
             </li>
           </ShowOnLogin>

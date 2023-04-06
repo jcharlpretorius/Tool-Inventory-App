@@ -7,12 +7,13 @@ import {
 } from '../../../redux/features/tool/filterSlice';
 import { SpinnerImg } from '../../loader/Loader';
 import { FaEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { AiOutlineEye } from 'react-icons/ai';
+import { ImEye } from 'react-icons/im';
 import { BsTrash } from 'react-icons/bs';
 import Search from '../../search/Search';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { deleteTool, getTools } from '../../../redux/features/tool/toolSlice';
+import { Link } from 'react-router-dom';
 
 const ToolList = ({ tools, isLoading }) => {
   const dispatch = useDispatch();
@@ -119,10 +120,14 @@ const ToolList = ({ tools, isLoading }) => {
                       </td>
                       <td className="icons">
                         <span className="eye">
-                          <AiOutlineEye size={25} color={'#0099ff'} />
+                          <Link to={`/tool-details/${toolId}`}>
+                            <ImEye size={25} color={'#0099ff'} />
+                          </Link>
                         </span>
                         <span className="edit">
-                          <FaEdit size={22} color={'#00cc00'} />
+                          <Link to={`/edit-tool/${toolId}`}>
+                            <FaEdit size={22} color={'#00cc00'} />
+                          </Link>
                         </span>
                         <span className="delete">
                           <BsTrash
