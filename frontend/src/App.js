@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Login from './pages/auth/Login';
+import AddTool from './pages/addTool/AddTool';
 import Sidebar from './components/sidebar/Sidebar';
 import Dashboard from './pages/dashboard/Dashboard';
 import Layout from './components/layout/Layout';
+import ToolDetail from './components/tool/toolDetail/ToolDetail';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -43,7 +45,28 @@ function App() {
             </Sidebar>
           }
         />
+        <Route
+          path="/add-tool"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddTool />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/tool-detail/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <ToolDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
       </Routes>
+
       <ToastContainer />
     </BrowserRouter>
   );

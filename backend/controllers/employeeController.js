@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { ROLE } = require('../data/data');
 const Employee = require('../models/employee');
+const camelizeKeys = require('../utilities/camelize');
 
 // Generate a jwt token for login
 const generateToken = (id) => {
@@ -11,8 +12,10 @@ const generateToken = (id) => {
 
 // Get all employees
 const getAllEmployees = asyncHandler(async (req, res) => {
-  const employees = await Employee.findAll();
-  res.status(200).json({ count: employees.length, employees });
+  let employees = await Employee.findAll();
+  // convert keys to camel case
+  employees = camelizeKeys(employees);
+  res.status(200).json(employees);
 });
 
 // Get a single employee (the currently logged in employee)

@@ -42,13 +42,13 @@ class Purchase {
   }
 
   // Find purchase by id
-  static async findById(purchaseId) {
+  static async findById(id) {
     let sql = `SELECT * FROM PURCHASE WHERE Purchase_ID = ?;`;
-    const [queryResult, _] = await db.execute(sql, [purchaseId]);
+    const [queryResult, _] = await db.execute(sql, [id]);
 
     // check if purchase exists
     if (!queryResult[0]) {
-      throw new Error(`Cannot find purchase with id: ${purchaseId}`);
+      throw new Error(`Cannot find purchase with id: ${id}`);
     }
 
     // parse the query result

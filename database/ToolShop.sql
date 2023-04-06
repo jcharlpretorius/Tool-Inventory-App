@@ -5,10 +5,10 @@ USE TOOLSHOP;
 DROP TABLE IF EXISTS EMPLOYEE;
 CREATE TABLE EMPLOYEE (
     Employee_ID     INT NOT NULL AUTO_INCREMENT,
-    FirstName       VARCHAR(50) NOT NULL,
-    MiddleInitial   CHAR(1),
-    LastName        VARCHAR(50) NOT NULL,
-    PhoneNumber     VARCHAR(20),
+    First_Name      VARCHAR(50) NOT NULL,
+    Minit           CHAR(1),
+    Last_Name        VARCHAR(50) NOT NULL,
+    Phone_Number     VARCHAR(20),
     Email           VARCHAR(50) NOT NULL,
     Password        VARCHAR(80) NOT NULL,
     PRIMARY KEY(Employee_ID),
@@ -27,7 +27,7 @@ CREATE TABLE MANAGER (
 DROP TABLE IF EXISTS SALES_ASSOCIATE;
 CREATE TABLE SALES_ASSOCIATE (
     Employee_ID     INT NOT NULL,
-    Commission_Rate DECIMAL(4,2),
+    Hourly_Pay      DECIMAL(4,2),
     PRIMARY KEY (Employee_ID),
     FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE
 );
@@ -35,9 +35,9 @@ CREATE TABLE SALES_ASSOCIATE (
 DROP TABLE IF EXISTS CUSTOMER;
 CREATE TABLE CUSTOMER (
     Customer_ID     INT NOT NULL AUTO_INCREMENT,
-    FirstName       VARCHAR(50) NOT NULL,
-    MiddleInitial   CHAR(1),
-    LastName        VARCHAR(50) NOT NULL,
+    First_Name      VARCHAR(50) NOT NULL,
+    Minit           CHAR(1),
+    Last_Name       VARCHAR(50) NOT NULL,
     Address         VARCHAR(100),
     Email           VARCHAR(50) NOT NULL,
     UNIQUE(Email),
@@ -47,8 +47,8 @@ CREATE TABLE CUSTOMER (
 DROP TABLE IF EXISTS CUSTOMER_PHONE_NUMBERS;
 CREATE TABLE CUSTOMER_PHONE_NUMBERS (
     Customer_ID     INT NOT NULL,
-    PhoneNumber     VARCHAR(20),
-    PRIMARY KEY (Customer_ID, PhoneNumber),
+    Phone_Number    VARCHAR(20),
+    PRIMARY KEY (Customer_ID, Phone_Number),
     FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Customer_ID) ON DELETE CASCADE
 );
 
@@ -76,7 +76,7 @@ CREATE TABLE PURCHASE (
 DROP TABLE IF EXISTS SUPPLIER;
 CREATE TABLE SUPPLIER (
     Supplier_ID     INT NOT NULL,
-    Phone           VARCHAR(20),
+    Phone_Number    VARCHAR(20),
     Address         VARCHAR(100),
     PRIMARY KEY (Supplier_ID)
 );
@@ -84,9 +84,9 @@ CREATE TABLE SUPPLIER (
 DROP TABLE IF EXISTS TOOL;
 CREATE TABLE TOOL (
     Tool_ID             INT NOT NULL,
-    Price               DECIMAL(10,2),
-    Tool_Type           VARCHAR(50),
-    Quantity_In_Stock   INT DEFAULT 0,
+    Price               DECIMAL(10,2) NOT NULL,
+    Tool_Type           VARCHAR(50) NOT NULL,
+    Quantity            INT DEFAULT 0 NOT NULL,
     Name                VARCHAR(50),
     Supplier_ID         INT,
     PRIMARY KEY (Tool_ID),
@@ -107,21 +107,21 @@ CREATE TABLE PURCHASE_LINE (
 
 DROP TABLE IF EXISTS ORDERS;
 CREATE TABLE ORDERS (
-    Order_ID        INT NOT NULL AUTO_INCREMENT,
+    Order_Id        INT NOT NULL AUTO_INCREMENT,
     Order_Date      DATE,
-    Manager_ID      INT,
-    PRIMARY KEY (Order_ID),
-    FOREIGN KEY (Manager_ID) REFERENCES MANAGER(Employee_ID) ON DELETE SET NULL 
+    Manager_Id      INT,
+    PRIMARY KEY (Order_Id),
+    FOREIGN KEY (Manager_Id) REFERENCES MANAGER(Employee_ID) ON DELETE SET NULL 
 );
 
 DROP TABLE IF EXISTS ORDER_LINE;
 CREATE TABLE ORDER_LINE (
-    Order_ID            INT NOT NULL,
+    Order_Id            INT NOT NULL,
     Line_Number             INT,
     Tool_ID             INT NOT NULL,
     Quantity            INT NOT NULL,
-    PRIMARY KEY (Order_ID, Line_Number),
-    FOREIGN KEY (Order_ID) REFERENCES ORDERS(Order_ID) ON DELETE CASCADE,
+    PRIMARY KEY (Order_Id, Line_Number),
+    FOREIGN KEY (Order_Id) REFERENCES ORDERS(Order_Id) ON DELETE CASCADE,
     FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID) ON DELETE CASCADE
 );
 

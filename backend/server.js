@@ -7,6 +7,8 @@ const path = require('path');
 const errorHandler = require('./middleWare/errorMiddleware');
 const customerRoute = require('./routes/customerRoute');
 const employeeRoute = require('./routes/employeeRoute');
+const toolRoute = require('./routes/toolRoute');
+const purchaseRoute = require('./routes/purchaseRoute');
 
 // instanciate express app
 const app = express();
@@ -31,6 +33,8 @@ app.get('/', (req, res) => {
 // Routes Middleware
 app.use('/api/customers', customerRoute);
 app.use('/api/employees', employeeRoute);
+app.use('/api/tools', toolRoute);
+app.use('/api/purchases', purchaseRoute);
 
 // Error Middleware
 app.use(errorHandler);

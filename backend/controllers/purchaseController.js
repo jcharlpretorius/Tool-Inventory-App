@@ -1,11 +1,14 @@
 const asyncHandler = require('express-async-handler');
 const Purchase = require('../models/purchase');
 const Employee = require('../models/employee');
+const camelizeKeys = require('../utilities/camelize');
 
 // Get all purchases
 const getAllPurchases = asyncHandler(async (req, res) => {
-  const purchases = await Purchase.findAll();
-  res.status(200).json({ count: purchases.length, purchases });
+  let purchases = await Purchase.findAll();
+  // convert keys to camel case
+  purchases = camelizeKeys(purchases);
+  res.status(200).json(purchases);
 });
 
 // Get a single purchase

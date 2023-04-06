@@ -8,9 +8,9 @@ const menu = [
     path: '/dashboard',
   },
   {
-    title: 'Add Product',
+    title: 'Add Tool',
     icon: <MdOutlineAddBox />,
-    path: '/add-product',
+    path: '/add-tool',
   },
   {
     title: 'Emloyee Account',

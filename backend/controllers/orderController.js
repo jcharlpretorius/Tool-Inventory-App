@@ -4,8 +4,10 @@ const Employee = require('../models/employee');
 
 // Get all orders
 const getAllOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.findAll();
-  res.status(200).json({ count: orders.length, orders });
+  let orders = await Order.findAll();
+  // convert keys to camel case
+  orders = camelizeKeys(orders);
+  res.status(200).json(orders);
 });
 
 // Get a single order

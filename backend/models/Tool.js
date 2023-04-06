@@ -17,13 +17,13 @@ class Tool {
         Tool_ID,
         Price,
         Tool_Type,
-        Quantity_In_Stock,
+        Quantity,
         Name,
         Supplier_ID
       )
       VALUES(?,?,?,?,?,?)
     `;
-    const paylod = [
+    const payload = [
       this.toolId,
       this.price,
       this.toolType,
@@ -31,7 +31,7 @@ class Tool {
       this.name,
       this.supplierId,
     ];
-    const [newTool, _] = await db.execute(sql);
+    const [newTool, _] = await db.execute(sql, payload);
 
     return this;
   }
@@ -60,7 +60,7 @@ class Tool {
     // parse the query result
     const price = queryResult[0].Price;
     const toolType = queryResult[0].Tool_Type;
-    const quantity = queryResult[0].Quantity_In_Stock;
+    const quantity = queryResult[0].Quantity;
     const name = queryResult[0].Name;
     const supplierId = queryResult[0].Supplier_ID;
 
@@ -73,7 +73,7 @@ class Tool {
     SET 
     Price = ?, 
     Tool_Type = ?, 
-    Quantity_In_Stock = ?, 
+    Quantity = ?, 
     Name = ?, 
     Supplier_ID = ?, 
     WHERE Tool_ID = ?
