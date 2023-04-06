@@ -24,7 +24,7 @@ export const createTool = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.err(message);
+      console.log(message);
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -35,7 +35,6 @@ export const getTools = createAsyncThunk(
   'tools/getAll',
   async (_, thunkAPI) => {
     try {
-      console.log('getTools in side toolSlice.js'); /////////////////////////////////
       return await toolService.getTools();
     } catch (error) {
       const message =
@@ -43,8 +42,8 @@ export const getTools = createAsyncThunk(
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString();
-      console.err(message);
+        error.toString() ||
+        error.body.message;
       return thunkAPI.rejectWithValue(message);
     }
   }

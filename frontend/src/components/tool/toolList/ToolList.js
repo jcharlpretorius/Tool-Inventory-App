@@ -1,11 +1,22 @@
-import React from 'react';
 import './ToolList.scss';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  FILTER_TOOLS,
+  selectFilderedTools,
+} from '../../../redux/features/tool/filterSlice';
 import { SpinnerImg } from '../../loader/Loader';
 import { FaEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
+import Search from '../../search/Search';
 
 const ToolList = ({ tools, isLoading }) => {
+  const dispatch = useDispatch();
+
+  const [search, setSearch] = useState('');
+  const filteredTools = useSelector(selectFilderedTools);
+
   // Used to shorten long strings such as tool name
   const shortenText = (text, n) => {
     if (text.length > n) {
@@ -14,6 +25,11 @@ const ToolList = ({ tools, isLoading }) => {
     }
     return text;
   };
+
+  // use effect that get triggered everytime the search changes
+  useEffect(() => {
+    dispatch(FILTER_TOOLS({ tools, search }));
+  }, [tools, search, dispatch]);
 
   return (
     <div className="tool-list">
@@ -24,7 +40,10 @@ const ToolList = ({ tools, isLoading }) => {
             <h3>Tools in Inventory</h3>
           </span>
           <span>
-            <h3>Search tools</h3>
+            <Search
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </span>
         </div>
         {isLoading && <SpinnerImg />}
@@ -42,11 +61,12 @@ const ToolList = ({ tools, isLoading }) => {
                   <th>price</th>
                   <th>quantity</th>
                   <th>Value</th>
-                  <th>Action</th>
+                  <th>Manage Tools</th>
                 </tr>
               </thead>
               <tbody>
-                {tools.map((tool, index) => {
+                {/* map through the filtered tools */}
+                {filteredTools.map((tool, index) => {
                   const {
                     toolId,
                     price,
@@ -57,7 +77,7 @@ const ToolList = ({ tools, isLoading }) => {
                   } = tool;
                   return (
                     <tr key={toolId}>
-                      <td>{index + 1}</td>
+                      <td>{toolId}</td>
                       <td>{shortenText(name, 20)}</td>
                       <td>{toolType}</td>
                       <td>{supplierId}</td>
@@ -71,14 +91,14 @@ const ToolList = ({ tools, isLoading }) => {
                         {quantity * price}
                       </td>
                       <td className="icons">
-                        <span>
-                          <AiOutlineEye size={25} color={'purple'} />
+                        <span className="eye">
+                          <AiOutlineEye size={25} color={'#0099ff'} />
                         </span>
-                        <span>
-                          <FaEdit size={20} color={'green'} />
+                        <span className="edit">
+                          <FaEdit size={22} color={'#00cc00'} />
                         </span>
-                        <span>
-                          <BsTrash size={25} color={'red'} />
+                        <span className="delete">
+                          <BsTrash size={23} color={'#cc2900'} />
                         </span>
                       </td>
                     </tr>

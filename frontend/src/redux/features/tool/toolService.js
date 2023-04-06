@@ -11,9 +11,7 @@ const createTool = async (formData) => {
 
 // Get all tools
 const getTools = async () => {
-  console.log(` API_URL: ${API_URL}`); ////////////////////////////////
   const response = await axios.get(`${API_URL}`);
-  console.log(`in toolService, get all tools response:: ${response}`); ////////////////////////
   return response.data; // this is all of the tools
 };
 

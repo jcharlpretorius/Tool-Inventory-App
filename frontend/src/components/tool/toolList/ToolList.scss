@@ -40,6 +40,16 @@
             cursor: pointer;
             vertical-align: middle;
             align-self: center;
+
+            // &.eye {
+            //   color: '#00ccff';
+            // }
+            // &.edit {
+            //   color: '#00cc00';
+            // }
+            // &.delete {
+            //   color: '#cc2900';
+            // }
           }
         }
       }
@@ -47,7 +57,7 @@
       tr {
         border-bottom: 1px solid #ccc;
       }
-
+      // every even row get a different background color
       tr:nth-child(even) {
         background-color: #fff;
       }

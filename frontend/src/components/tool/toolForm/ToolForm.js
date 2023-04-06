@@ -19,7 +19,7 @@ const ToolForm = ({
           <label>Tool ID:</label>
           <input
             type="text"
-            placeholder="Tool ID"
+            placeholder="Tool ID (Required)"
             name="toolId"
             value={tool?.toolId}
             onChange={handleInputChange}
