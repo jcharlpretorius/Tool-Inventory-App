@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.get('/', authEmp, authManager, getAllEmployees); // protected just for testing, can remove auth middleware here
 router.get('/getemployee', authEmp, getEmployee);
-router.put('/:id', authEmp, authManager, updateEmployee);
+router.put('/', authEmp, authManager, updateEmployee);
 router.delete('/:id', authEmp, authManager, deleteEmployee);
 router.post('/register', authEmp, authManager, registerEmployee);
 router.post('/login', loginEmployee);
