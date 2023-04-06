@@ -10,6 +10,9 @@ import { FaEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 import Search from '../../search/Search';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { deleteTool, getTools } from '../../../redux/features/tool/toolSlice';
 
 const ToolList = ({ tools, isLoading }) => {
   const dispatch = useDispatch();
@@ -24,6 +27,30 @@ const ToolList = ({ tools, isLoading }) => {
       return shortenText;
     }
     return text;
+  };
+
+  const delTool = async (id) => {
+    // to call an action in redux we have to dispatch it
+    console.log(`Delete ToolId: ${id}`);
+    await dispatch(deleteTool(id));
+    await dispatch(getTools()); // refresh the tools displayed on the page
+  };
+
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: 'Confirm  Delete ',
+      message: 'Are you sure you want to delete this tool?',
+      buttons: [
+        {
+          label: 'Delete',
+          onClick: () => delTool(id),
+        },
+        {
+          label: 'Cancel',
+          // onClick: () => alert('Click No'),
+        },
+      ],
+    });
   };
 
   // use effect that get triggered everytime the search changes
@@ -98,7 +125,11 @@ const ToolList = ({ tools, isLoading }) => {
                           <FaEdit size={22} color={'#00cc00'} />
                         </span>
                         <span className="delete">
-                          <BsTrash size={23} color={'#cc2900'} />
+                          <BsTrash
+                            size={23}
+                            color={'#cc2900'}
+                            onClick={() => confirmDelete(toolId)}
+                          />
                         </span>
                       </td>
                     </tr>

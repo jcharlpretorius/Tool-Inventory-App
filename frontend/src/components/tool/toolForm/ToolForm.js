@@ -19,10 +19,11 @@ const ToolForm = ({
           <label>Tool ID:</label>
           <input
             type="text"
-            placeholder="Tool ID (Required)"
+            placeholder="Tool ID"
             name="toolId"
             value={tool?.toolId}
             onChange={handleInputChange}
+            required
           />
           <label>Tool Name:</label>
           <input
@@ -31,6 +32,7 @@ const ToolForm = ({
             name="name"
             value={tool?.name}
             onChange={handleInputChange}
+            required
           />
           <label>Tool Type:</label>
           <input
@@ -39,6 +41,7 @@ const ToolForm = ({
             name="toolType"
             value={tool?.toolType}
             onChange={handleInputChange}
+            required
           />
           <label>Tool Price:</label>
           <input
@@ -47,10 +50,12 @@ const ToolForm = ({
             name="price"
             value={tool?.price}
             onChange={handleInputChange}
+            required
           />
           <label>Quantity:</label>
           <input
-            type="text"
+            type="number"
+            min="0"
             placeholder="Quantity"
             name="quantity"
             value={tool?.quantity}
@@ -63,6 +68,7 @@ const ToolForm = ({
             name="supplierId"
             value={tool?.supplierId}
             onChange={handleInputChange}
+            required
           />
           <label>Tool Description:</label>
           <ReactQuill

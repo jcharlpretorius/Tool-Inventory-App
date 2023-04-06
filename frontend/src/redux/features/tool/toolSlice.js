@@ -49,6 +49,25 @@ export const getTools = createAsyncThunk(
   }
 );
 
+// Delete a tool
+export const deleteTool = createAsyncThunk(
+  'tools/delete',
+  async (toolId, thunkAPI) => {
+    try {
+      return await toolService.deleteTool(toolId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString() ||
+        error.body.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const toolSlice = createSlice({
   name: 'tool',
   initialState,
@@ -60,6 +79,8 @@ const toolSlice = createSlice({
   // where we are going to store the responses we get from asyncThunk
   extraReducers: (builder) => {
     builder
+
+      // create tool
       .addCase(createTool.pending, (state) => {
         state.isLoading = true;
       })
@@ -67,7 +88,7 @@ const toolSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        console.log(action.payload); // action.payload is the tool that we added (json)
+        console.log(action.payload);
         // add tool to list of all tools
         state.tools.push(action.payload);
         toast.success('Tool added successfully');
@@ -75,9 +96,11 @@ const toolSlice = createSlice({
       .addCase(createTool.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload; // whatever error we get from backend
+        state.message = action.payload;
         toast.error(action.payload);
       })
+
+      // get all tools
       .addCase(getTools.pending, (state) => {
         state.isLoading = true;
       })
@@ -89,6 +112,23 @@ const toolSlice = createSlice({
         state.tools = action.payload;
       })
       .addCase(getTools.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+
+      // delete tool
+      .addCase(deleteTool.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteTool.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success('Product deleted successfully');
+      })
+      .addCase(deleteTool.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
