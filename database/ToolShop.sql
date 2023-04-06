@@ -84,9 +84,9 @@ CREATE TABLE SUPPLIER (
 DROP TABLE IF EXISTS TOOL;
 CREATE TABLE TOOL (
     Tool_ID             INT NOT NULL,
-    Price               DECIMAL(10,2),
-    Tool_Type           VARCHAR(50),
-    Quantity            INT DEFAULT 0,
+    Price               DECIMAL(10,2) NOT NULL,
+    Tool_Type           VARCHAR(50) NOT NULL,
+    Quantity            INT DEFAULT 0 NOT NULL,
     Name                VARCHAR(50),
     Supplier_ID         INT,
     PRIMARY KEY (Tool_ID),
