@@ -68,6 +68,43 @@ export const deleteTool = createAsyncThunk(
   }
 );
 
+// Get a tool
+export const getTool = createAsyncThunk(
+  'tools/getTool',
+  async (toolId, thunkAPI) => {
+    try {
+      return await toolService.getTool(toolId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// Update tool
+export const updateTool = createAsyncThunk(
+  'Tool/updateTool',
+  async ({ toolId, formData }, thunkAPI) => {
+    try {
+      return await toolService.updateTool(toolId, formData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const toolSlice = createSlice({
   name: 'tool',
   initialState,
@@ -108,7 +145,7 @@ const toolSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        console.log(action.payload);
+        // console.log(action.payload);
         state.tools = action.payload;
       })
       .addCase(getTools.rejected, (state, action) => {
@@ -126,9 +163,41 @@ const toolSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        toast.success('Product deleted successfully');
+        toast.success('Tool deleted successfully');
       })
       .addCase(deleteTool.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+      // Get single tool
+      .addCase(getTool.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getTool.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.tool = action.payload;
+      })
+      .addCase(getTool.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+      // Update tool
+      .addCase(updateTool.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateTool.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success('Tool updated successfully');
+      })
+      .addCase(updateTool.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -140,5 +209,6 @@ const toolSlice = createSlice({
 export const { CALC_STORE_VALUE } = toolSlice.actions;
 
 export const selectIsLoading = (state) => state.tool.isLoading;
+export const selectTool = (state) => state.tool.tool;
 
 export default toolSlice.reducer;

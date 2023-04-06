@@ -63,3 +63,34 @@ export const getLoginStatus = async () => {
     toast.error(message);
   }
 };
+
+// Get the employee who is logged in
+export const getLoggedInEmployee = async () => {
+  try {
+    const response = await axios.get(
+      `${BACKEND_URL}/api/employees/getemployee`
+    );
+    return response.data; // employee information
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};
+
+// update employee profile
+export const updateEmployeeProfile = async (formData) => {
+  try {
+    const response = await axios.put(`${BACKEND_URL}/api/employees`, formData);
+    toast.success('Employee profile successfully updated');
+    return response.data; // employee information
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};

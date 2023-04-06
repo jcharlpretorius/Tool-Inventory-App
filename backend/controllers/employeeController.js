@@ -43,13 +43,10 @@ const registerEmployee = asyncHandler(async (req, res) => {
     throw new Error('Please fill in all the required fields');
   }
   // do we need additional logic here to validate values recieved from body?
-  // Use express validator if you have time
-  // verify email is correct format -> regex?
 
   // check if employee email already exits
   const registeredEmail = await Employee.getEmail(email);
-  // console.log(registeredEmail);
-  // console.log(registeredEmail[0]);
+
   if (registeredEmail.length !== 0) {
     res.status(400);
 
@@ -85,16 +82,17 @@ const registerEmployee = asyncHandler(async (req, res) => {
 // update employee information, except for commission rate
 const updateEmployee = asyncHandler(async (req, res) => {
   // need employeeId to find employee in db
-  const { id } = req.params; // employee id in params (url)
-  const { firstName, minit, lastName, phoneNumber, email } = req.body;
+  // const { id } = req.params; // employee id in params (url)
+  const { employeeId, firstName, minit, lastName, phoneNumber, email, role } =
+    req.body;
 
   // let employee = await Employee.findById(req.params.id);
-  let employee = await Employee.findById(id);
+  const employee = await Employee.findById(employeeId);
 
   // check if employee doesn't exist
   if (!employee) {
     res.status(404);
-    throw new Error(`No employee with id: ${id} exists`);
+    throw new Error(`No employee with id: ${employeeId} exists`);
   }
 
   // Update employee
@@ -102,14 +100,14 @@ const updateEmployee = asyncHandler(async (req, res) => {
   // to fill the fields automatically (for quality of life improvement)
   // do validation on the front end too.
   const updatedEmployee = await Employee.update(
-    id,
+    employeeId,
     firstName,
     minit,
     lastName,
     phoneNumber,
     email
   );
-  res.status(200).json({ updatedEmployee });
+  res.status(200).json(updatedEmployee);
 });
 
 // Delete Employee

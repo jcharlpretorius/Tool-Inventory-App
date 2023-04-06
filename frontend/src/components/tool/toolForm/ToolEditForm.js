@@ -22,8 +22,9 @@ const ToolForm = ({
             placeholder="Tool ID"
             name="toolId"
             value={tool?.toolId}
-            onChange={handleInputChange}
-            required
+            // onChange={handleInputChange}
+            // readOnly
+            disabled
           />
           <label>Tool Name:</label>
           <input
@@ -32,7 +33,6 @@ const ToolForm = ({
             name="name"
             value={tool?.name}
             onChange={handleInputChange}
-            required
           />
           <label>Tool Type:</label>
           <input
@@ -41,7 +41,6 @@ const ToolForm = ({
             name="toolType"
             value={tool?.toolType}
             onChange={handleInputChange}
-            required
           />
           <label>Tool Price:</label>
           <input
@@ -50,7 +49,6 @@ const ToolForm = ({
             name="price"
             value={tool?.price}
             onChange={handleInputChange}
-            required
           />
           <label>Quantity:</label>
           <input
@@ -61,15 +59,7 @@ const ToolForm = ({
             value={tool?.quantity}
             onChange={handleInputChange}
           />
-          <label>Supplied ID:</label>
-          <input
-            type="text"
-            placeholder="Supplier ID"
-            name="supplierId"
-            value={tool?.supplierId}
-            onChange={handleInputChange}
-            required
-          />
+
           {/* <label>Tool Description:</label>
           <ReactQuill
             theme="snow"
@@ -90,7 +80,6 @@ const ToolForm = ({
   );
 };
 
-// If you add description to the tool, use this
 // react quill rich text editor
 ToolForm.modules = {
   toolbar: [

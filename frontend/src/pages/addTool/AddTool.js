@@ -59,8 +59,8 @@ const AddTool = () => {
 
     await dispatch(createTool(formData));
 
-    // send the employee back to the dashboard
-    navigate('/dashboard');
+    // send the employee back to the inventory
+    navigate('/inventory');
   };
 
   return (

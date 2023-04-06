@@ -38,6 +38,19 @@ const createNewTool = asyncHandler(async (req, res) => {
   if (!quantity) {
     quantity = 0;
   }
+
+  // parse values
+  try {
+    quantity = Number(quantity);
+    price = Number(quantity);
+    supplierId = Number(quantity);
+  } catch (error) {
+    const message =
+      'Please only enter number for quantity, price, and supplierId';
+    res.status(400).send({ message });
+    throw new Error(message);
+  }
+
   // Create new tool
   const tool = new Tool(toolId, price, toolType, quantity, name, supplierId);
   const newTool = await tool.create();
@@ -48,9 +61,9 @@ const createNewTool = asyncHandler(async (req, res) => {
 // update tool
 const updateTool = asyncHandler(async (req, res) => {
   const { id } = req.params; // tool id in params (url)
-  const { toolId, price, toolType, quantity, name, supplierId } = req.body;
+  let { price, toolType, quantity, name } = req.body;
 
-  let tool = await Tool.findById(id);
+  const tool = await Tool.findById(id);
 
   // check if tool doesn't exist
   if (!tool) {
@@ -59,14 +72,30 @@ const updateTool = asyncHandler(async (req, res) => {
     throw new Error(message);
   }
 
+  // get value from database tool if any form values are left blank
+  price = price ?? tool.price;
+  quantity = quantity ?? tool.quantity;
+  name = name ?? tool.name;
+  toolType = toolType ?? tool.toolType;
+
+  // parse numerical values
+  try {
+    quantity = Number(quantity);
+    price = Number(price);
+  } catch (error) {
+    const message = 'Please only enter number for quantity and price';
+    res.status(400).send({ message });
+    throw new Error(message);
+  }
+
   // Update tool
   const updatedTool = await Tool.update(
-    toolId,
+    id, // from the params
     price,
     toolType,
     quantity,
     name,
-    supplierId
+    tool.supplierId // from the database
   );
   res.status(200).json(camelizeKeys(updatedTool));
 });

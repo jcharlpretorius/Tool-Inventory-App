@@ -53,7 +53,7 @@ const Login = () => {
       await dispatch(SET_LOGIN(true)); // set login status to true
       await dispatch(SET_FIRSTNAME(data.firstName)); // set the firstName of the employee
       // maybe also set the employee ID
-      navigate('/dashboard'); // redirect the employee to the dashboard page
+      navigate('/inventory'); // redirect the employee to the inventory page
 
       // to stop displaying the loading icon
       setIsLoading(false);

@@ -75,7 +75,7 @@ class Tool {
     Tool_Type = ?, 
     Quantity = ?, 
     Name = ?, 
-    Supplier_ID = ?, 
+    Supplier_ID = ?
     WHERE Tool_ID = ?
     `;
     const payload = [price, toolType, quantity, name, supplierId, toolId];
