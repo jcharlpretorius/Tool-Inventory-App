@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Login from './pages/auth/Login';
+import AddTool from './pages/addTool/AddTool';
 import Sidebar from './components/sidebar/Sidebar';
 import Dashboard from './pages/dashboard/Dashboard';
 import Layout from './components/layout/Layout';
@@ -39,6 +40,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <Dashboard />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/add-tool"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddTool />
               </Layout>
             </Sidebar>
           }
