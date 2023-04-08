@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const Purchase = require('../models/purchase');
 const Payment = require('../models/Payment');
 const Employee = require('../models/employee');
+const Tool = require('../models/Tool');
 const camelizeKeys = require('../utilities/camelize');
 const PurchaseLine = require('../models/PurchaseLine');
 
@@ -30,7 +31,7 @@ const getPurchase = asyncHandler(async (req, res) => {
 
 // this method adds a payment, a purchase, and purchase_lines to the database
 const createNewPurchase = asyncHandler(async (req, res) => {
-  // destructure the reqest body
+  // destructure the request body
   const { employeeId, customerId, paymentType, items, total } = req.body;
 
   // test If I am getting the values from the frontend
@@ -47,6 +48,22 @@ const createNewPurchase = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('Missing form data. Cannot make purchase');
   }
+  // check if any item's cartQty is greater than the quantity in stock
+  items.forEach(async (item) => {
+    if (item.cartQty > item.quantity) {
+      // shorten the length of the tool name if necessary
+      let shortenedText = '<Cart_Item_Name>';
+      if (item.name !== undefined || item.name > 20) {
+        shortenedText = item.name.substring(0, 20).concat('...');
+      }
+      res.status(400);
+      throw new Error(
+        `Inventory Stock Error: Cannot purchase more than ${
+          item.quantity
+        } of ${shortenedText.substring(0, 20)}`
+      );
+    }
+  });
 
   // add payment to database
   const tempPayment = new Payment(paymentType, total, customerId);
@@ -59,10 +76,7 @@ const createNewPurchase = asyncHandler(async (req, res) => {
 
   // add purchase lines to database
   items.forEach(async (item, index) => {
-    /*  
-      add 1 to index because javascript is zero indexed
-      make sure to use cartQty, not quantity in stock
-    */
+    // add 1 to index because JS is zero indexed
     const purchaseLine = new PurchaseLine(
       purchaseId,
       index + 1,
@@ -70,6 +84,10 @@ const createNewPurchase = asyncHandler(async (req, res) => {
       item.cartQty
     );
     await purchaseLine.create();
+
+    // subtract the purchased quantitie from the tool
+    const newQuantity = item.quantity - item.cartQty;
+    await Tool.updateQuantity(item.toolId, newQuantity);
   });
 
   res.status(200).send('Purchase added successfully!');

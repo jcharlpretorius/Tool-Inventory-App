@@ -9,7 +9,7 @@ const findRecentSales = async () => {
       INNER JOIN SALES_ASSOCIATE SA  ON E.Employee_ID = SA.Employee_ID 
       INNER JOIN PURCHASE PU ON SA.Employee_ID = PU.Sales_Associate_Id 
       INNER JOIN PAYMENT PA ON PU.Payment_ID = PA.Payment_ID
-  ORDER BY Purchase_Date DESC
+  ORDER BY Purchase_Date DESC, Payment_ID DESC
   `;
 
   const [queryResult, _] = await db.execute(sql);
