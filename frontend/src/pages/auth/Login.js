@@ -5,7 +5,11 @@ import Card from '../../components/card/Card';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { SET_LOGIN, SET_FIRSTNAME } from '../../redux/features/auth/authSlice';
+import {
+  SET_LOGIN,
+  SET_FIRSTNAME,
+  SET_EMPLOYEE_ID,
+} from '../../redux/features/auth/authSlice';
 import { loginUser, validateEmail } from '../../services/authService';
 import Loader from '../../components/loader/Loader';
 
@@ -52,6 +56,7 @@ const Login = () => {
       const data = await loginUser(employeeData);
       await dispatch(SET_LOGIN(true)); // set login status to true
       await dispatch(SET_FIRSTNAME(data.firstName)); // set the firstName of the employee
+      await dispatch(SET_EMPLOYEE_ID(data.employeeId));
       // maybe also set the employee ID
       navigate('/inventory'); // redirect the employee to the inventory page
 

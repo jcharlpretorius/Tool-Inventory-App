@@ -8,14 +8,18 @@ import {
 import { SpinnerImg } from '../../loader/Loader';
 import { FaEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { ImEye } from 'react-icons/im';
-import { BsTrash } from 'react-icons/bs';
+import { BsTrash, BsCartPlus } from 'react-icons/bs';
+import { MdLocalShipping } from 'react-icons/md';
 import Search from '../../search/Search';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css for confirm delete
 import { deleteTool, getTools } from '../../../redux/features/tool/toolSlice';
 import { Link } from 'react-router-dom';
+import { ADD_ITEM } from '../../../redux/features/cart/cartSlice';
 
 const ToolList = ({ tools, isLoading }) => {
+  // console.log(`typeof tool ${typeof tools}`);
+
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState('');
@@ -54,6 +58,11 @@ const ToolList = ({ tools, isLoading }) => {
     });
   };
 
+  const addToCart = (tool) => {
+    console.log(`add to cart id: ${tool.toolId}`);
+    dispatch(ADD_ITEM(tool));
+  };
+
   // use effect that get triggered everytime the search changes
   useEffect(() => {
     dispatch(FILTER_TOOLS({ tools, search }));
@@ -89,7 +98,7 @@ const ToolList = ({ tools, isLoading }) => {
                   <th>price</th>
                   <th>quantity</th>
                   <th>Value</th>
-                  <th>Manage Tools</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -128,6 +137,21 @@ const ToolList = ({ tools, isLoading }) => {
                           <Link to={`/edit-tool/${toolId}`}>
                             <FaEdit size={22} color={'#00cc00'} />
                           </Link>
+                        </span>
+                        <span className="addCartBtn">
+                          <BsCartPlus
+                            size={23}
+                            color={'#7a0099'}
+                            onClick={() => addToCart(tool)}
+                          />
+                        </span>
+                        {/* Actions below should only be available for managers */}
+                        <span className="addOrderBtn">
+                          <MdLocalShipping
+                            size={23}
+                            color={'#f27100'}
+                            // onClick={() => confirmDelete(toolId)}
+                          />
                         </span>
                         <span className="delete">
                           <BsTrash
