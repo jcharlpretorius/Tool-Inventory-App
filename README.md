@@ -1,6 +1,8 @@
 # Toolshop app
 
-Instructions to run
+Instructions to run:
+
+Clone the repository onto your local machine
 
 **Set up Database:**
 
@@ -32,19 +34,21 @@ DB_PASSWORD=<your mysql password>
 
 **Install node modules:**
 
-cd into backend directory run this command:
+cd into backend directory run this command in your terminal:
 
 `npm install`
 
+Repeat the above step, but in the frontend directory.
+
 **Start the backend server:**
 
-cd into backend directory run this command:
+cd into backend directory and run this command:
 
 `npm run backend`
 
 **Start the React frontend:**
 
-cd into frontend directory run this command:
+cd into frontend directory and run this command:
 
 `npm run start`
 
@@ -55,6 +59,7 @@ The application should open automatically in your browser (if using VSCode), oth
 Not all have been tested yet. You must use a sales associate login to make purchases. Some routes are protected in the backend
 
 **Manager Logins**
+
 Messi:
 
 `email: lmessi@gmail.com`
@@ -74,6 +79,7 @@ Zlatan Ibrahimovic:
 `password: password123`
 
 **Sales Associate Logins**
+
 Cristiano Ronaldo:
 
 `email: cristiano.ronaldo@yahoo.com`
