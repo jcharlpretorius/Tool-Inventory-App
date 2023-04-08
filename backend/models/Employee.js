@@ -29,10 +29,9 @@ class Employee {
         Last_Name,
         Phone_Number,
         Email,
-        Password, 
-        Role
+        Password
       )
-      VALUES(?,?,?,?,?,?,?)
+      VALUES(?,?,?,?,?,?)
     `;
     const payload = [
       this.firstName,
@@ -41,7 +40,6 @@ class Employee {
       this.phoneNumber,
       this.email,
       this.password,
-      this.role,
     ];
 
     // we can use the await syntax because of the pool.promise() in db.js
@@ -81,7 +79,6 @@ class Employee {
     const phoneNumber = queryResult[0].Phone_Number;
     const email = queryResult[0].Email;
     const password = queryResult[0].Password;
-    const role = queryResult[0].Role;
 
     const employee = new Employee(
       firstName,
@@ -89,11 +86,11 @@ class Employee {
       lastName,
       phoneNumber,
       email,
-      password,
-      role
+      password
     );
     // add id attribute
-    employee.employeeId = queryResult[0].Employee_ID;
+    employee.employeeId = employeeId;
+
     // set employee's role if they are a manager
     await employee.setRole();
     return employee;

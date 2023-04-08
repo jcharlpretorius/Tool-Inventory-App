@@ -7,7 +7,8 @@ import Sidebar from './components/sidebar/Sidebar';
 import Inventory from './pages/inventory/Inventory';
 import Layout from './components/layout/Layout';
 import ToolDetail from './components/tool/toolDetail/ToolDetail';
-import Sales from './pages/sales/Sales';
+import RecentSales from './pages/sales/RecentSales';
+import TopSales from './pages/sales/TopSales';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,6 +22,8 @@ import Cart from './components/cart/Cart';
 import { LOAD_CART } from './redux/features/cart/cartSlice';
 import Checkout from './pages/checkout/Checkout';
 import Customer from './pages/customer/Customer';
+import CustomerDetail from './components/customer/customerDetail/CustomerDetail';
+import EditCustomer from './pages/editCustomer/EditCustomer';
 
 // makes sure you are able to save the credentials of employee, whenever you make a request
 axios.defaults.withCredentials = true;
@@ -37,6 +40,9 @@ function App() {
     }
     loginStatus();
 
+    // dispatch(getRecentSales());
+    // dispatch(getTopSalesMen());
+
     // load the cart from local storage
     dispatch(LOAD_CART());
   }, [dispatch]);
@@ -46,8 +52,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        {/* <Route path="/cart" element={<Cart />}></Route> */}
 
+        {/* Tool Routeus */}
         <Route
           path="/inventory"
           element={
@@ -88,6 +94,7 @@ function App() {
             </Sidebar>
           }
         />
+        {/* Logged in Employee routes */}
         <Route
           path="employee-profile"
           element={
@@ -108,6 +115,7 @@ function App() {
             </Sidebar>
           }
         />
+        {/* Checkout routes */}
         <Route
           path="/cart"
           element={
@@ -128,6 +136,7 @@ function App() {
             </Sidebar>
           }
         />
+        {/* Customer routes */}
         <Route
           path="/customer"
           element={
@@ -139,11 +148,42 @@ function App() {
           }
         />
         <Route
-          path="/sales"
+          path="/customer-details/:id"
           element={
             <Sidebar>
               <Layout>
-                <Sales />
+                <CustomerDetail />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-customer/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditCustomer />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        {/* Sales Routes */}
+        <Route
+          path="/recent-sales"
+          element={
+            <Sidebar>
+              <Layout>
+                <RecentSales />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/top-sales"
+          element={
+            <Sidebar>
+              <Layout>
+                <TopSales />
               </Layout>
             </Sidebar>
           }

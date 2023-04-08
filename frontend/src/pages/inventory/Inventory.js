@@ -28,7 +28,7 @@ const Inventory = () => {
 
   return (
     <div>
-      <h2>Inventory</h2>
+      {/* <h2>Inventory</h2> */}
       <ToolList tools={tools} isLoading={isLoading} />
     </div>
   );

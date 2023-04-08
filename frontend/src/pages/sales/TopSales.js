@@ -2,23 +2,23 @@ import React, { useEffect } from 'react';
 import useRedirectLoggedOutEmployee from '../../customHooks/useRedirectLoggedOutEmployee';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/features/auth/authSlice';
-import { getCustomers } from '../../redux/features/customer/customerSlice';
-import CustomerList from '../../components/customer/customerList/CustomerList';
+import TopSalesList from '../../components/sales/salesList/TopSalesList';
+import { getTopSalesMen } from '../../redux/features/sales/salesSlice';
 
-const Customer = () => {
+const TopSales = () => {
   useRedirectLoggedOutEmployee('/'); // redirect logged out employees to the home page
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   // destruct redux states
-  const { customers, isLoading, isError, message } = useSelector(
-    (state) => state.customer
+  const { topSales, isError, isLoading, message } = useSelector(
+    (state) => state.sales
   );
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      dispatch(getCustomers());
+      dispatch(getTopSalesMen());
     }
 
     if (isError) {
@@ -28,10 +28,10 @@ const Customer = () => {
 
   return (
     <div>
-      {/* <h2>Customers</h2> */}
-      <CustomerList customers={customers} isLoading={isLoading} />
+      <h2>Top Sales Associates</h2>
+      <TopSalesList topSales={topSales} isLoading={isLoading} />
     </div>
   );
 };
 
-export default Customer;
+export default TopSales;

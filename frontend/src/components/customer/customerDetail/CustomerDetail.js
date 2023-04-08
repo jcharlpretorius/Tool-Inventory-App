@@ -1,37 +1,29 @@
 import React, { useEffect } from 'react';
-import './ToolDetail.scss';
+import './CustomerDetail.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import useRedirectLoggedOutEmployee from '../../../customHooks/useRedirectLoggedOutEmployee';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getTool } from '../../../redux/features/tool/toolSlice';
+import { getCustomer } from '../../../redux/features/customer/customerSlice';
 import { selectIsLoggedIn } from '../../../redux/features/auth/authSlice';
 import Card from '../../card/Card';
 import { SpinnerImg } from '../../loader/Loader';
 
-const ToolDetail = () => {
+const CustomerDetail = () => {
   useRedirectLoggedOutEmployee('/'); // redirect logged out employees to the home page
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { id } = useParams(); // get the id first
+  const { id } = useParams(); // get the customer id from the http parameters
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  // get the single tool
-  const { tool, isLoading, isError, message } = useSelector(
-    (state) => state.tool
+  // deconstruct state
+  const { customer, isLoading, isError, message } = useSelector(
+    (state) => state.customer
   );
-
-  // Get the status of the tool in the inventory
-  const inStockStatus = (quantity) => {
-    if (quantity > 0) {
-      return <span className="--color-success">In Stock</span>;
-    }
-    return <span className="--color-danger">Out of Stock</span>;
-  };
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      dispatch(getTool(id));
+      dispatch(getCustomer(id));
     }
 
     if (isError) {
@@ -41,50 +33,43 @@ const ToolDetail = () => {
 
   return (
     <div>
-      <div className="tool-detail">
-        <h3 className="--mt">Tool Details</h3>
+      <div className="customer-detail">
+        <h3 className="--mt">Customer Information</h3>
         <Card cardClass="card">
           {isLoading && <SpinnerImg />}
-          {tool && (
+          {customer && (
             <div className="detail">
-              <h4>Availability: {inStockStatus(tool.quantity)}</h4>
-              <hr />
               <h4>
-                <span className="badge">Name:</span> &nbsp; {tool.name}
+                Name: {customer.firstName}&nbsp;{customer.minit}
+                {customer.minit ? '.' : <></>}
+                &nbsp;{customer.lastName}
               </h4>
+              <hr />
               <p>
-                <b>Tool Id: </b> {tool.toolId}
+                <b>Customer ID: </b> {customer.customerId}
               </p>
               <p>
-                <b>Tool Type: </b> {tool.toolType}
+                <b>Email: </b> {customer.email}
               </p>
               <p>
-                <b>Price: </b> {'$'}
-                {tool.price}
-              </p>
-              <p>
-                <b>Quantity in stock: </b> {tool.quantity}
-              </p>
-              <p>
-                <b>Total value in stock: </b> {'$'}
-                {tool.quantity * tool.price}
+                <b>Address: </b> {customer.address}
               </p>
               <div className="--my --flex-between --flex-dir-column">
                 <button
                   onClickCapture={() => {
-                    navigate(`/edit-tool/${id}`);
+                    navigate(`/edit-customer/${id}`);
                   }}
                   className="--btn --btn-primary"
                 >
-                  Edit Tool
+                  Edit Customer Info
                 </button>
                 <button
                   onClickCapture={() => {
-                    navigate('/inventory');
+                    navigate('/customer');
                   }}
                   className="--btn --btn-primary"
                 >
-                  Back to Inventory
+                  Back to Customers
                 </button>
               </div>
             </div>
@@ -95,4 +80,4 @@ const ToolDetail = () => {
   );
 };
 
-export default ToolDetail;
+export default CustomerDetail;

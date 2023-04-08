@@ -13,35 +13,30 @@ import { MdLocalShipping } from 'react-icons/md';
 import Search from '../../search/Search';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css for confirm delete
-// import { deleteTool, getTools } from '../../../redux/features/tool/toolSlice';
-import { Link } from 'react-router-dom';
 import {
   deleteCustomer,
   getCustomers,
 } from '../../../redux/features/customer/customerSlice';
-// import { ADD_ITEM } from '../../../redux/features/cart/cartSlice';
+import { Link } from 'react-router-dom';
 
 const CustomerList = ({ customers, isLoading }) => {
-  // console.log(`typeof tool ${typeof tools}`);
-
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState('');
-  // make another slice if necessayr
   const filteredCustomers = useSelector(selectFilderedCustomers);
 
   // Used to shorten long strings
   const shortenText = (text, n) => {
     if (text.length > n) {
       const shortenedText = text.substring(0, n).concat('...');
-      return shortenText;
+      return shortenedText;
     }
     return text;
   };
 
   const delCust = async (id) => {
     // to call an action in redux we have to dispatch it
-    console.log(`Delete CustomerId: ${id}`);
+    // console.log(`Delete CustomerId: ${id}`);
     await dispatch(deleteCustomer(id));
     await dispatch(getCustomers()); // refresh the customers displayed on the page
   };
@@ -57,18 +52,12 @@ const CustomerList = ({ customers, isLoading }) => {
         },
         {
           label: 'Cancel',
-          // onClick: () => alert('Click No'),
         },
       ],
     });
   };
 
-  // const addToCart = (tool) => {
-  //   console.log(`add to cart id: ${tool.toolId}`);
-  //   dispatch(ADD_ITEM(tool));
-  // };
-
-  // use effect that get triggered everytime the search changes
+  // use effect that get triggered on mount and everytime the search changes
   useEffect(() => {
     dispatch(FILTER_CUSTOMERS({ customers, search }));
   }, [customers, search, dispatch]);
@@ -79,7 +68,7 @@ const CustomerList = ({ customers, isLoading }) => {
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
-            <h3>Customers</h3>
+            <h2>Customers</h2>
           </span>
           <span>
             <Search
@@ -98,7 +87,7 @@ const CustomerList = ({ customers, isLoading }) => {
                 <tr>
                   <th>Customer ID</th>
                   <th>First Name</th>
-                  <th>Middle Initial</th>
+                  <th>Init.</th>
                   <th>Last Name</th>
                   <th>Address</th>
                   <th>Email</th>
@@ -106,9 +95,8 @@ const CustomerList = ({ customers, isLoading }) => {
                 </tr>
               </thead>
               <tbody>
-                {/* map through the filtered tools */}
-                {/* {filteredTools.map((tool, index) => { */}
-                {filteredCustomers.map((customer, index) => {
+                {/* map through the filtered customer */}
+                {filteredCustomers.map((customer) => {
                   const {
                     customerId,
                     firstName,
@@ -124,9 +112,10 @@ const CustomerList = ({ customers, isLoading }) => {
                       <td>{minit}</td>
                       <td>{shortenText(lastName, 20)}</td>
                       <td>{shortenText(address, 20)}</td>
-                      <td>{email}</td>
+                      <td>{shortenText(email, 40)}</td>
+                      {/* Actions */}
                       <td className="icons">
-                        {/* <span className="eye">
+                        <span className="eye">
                           <Link to={`/customer-details/${customerId}`}>
                             <ImEye size={25} color={'#0099ff'} />
                           </Link>
@@ -135,7 +124,8 @@ const CustomerList = ({ customers, isLoading }) => {
                           <Link to={`/edit-customer/${customerId}`}>
                             <FaEdit size={22} color={'#00cc00'} />
                           </Link>
-                        </span> */}
+                        </span>
+                        {/* Only managers should see delete a customer*/}
                         <span className="delete">
                           <BsTrash
                             size={23}

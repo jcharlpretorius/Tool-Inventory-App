@@ -39,7 +39,7 @@ const Cart = () => {
   const shortenText = (text, n) => {
     if (text !== undefined || text.length > n) {
       const shortenedText = text.substring(0, n).concat('...');
-      return shortenText;
+      return shortenedText;
     }
     return text;
   };
@@ -212,23 +212,4 @@ const Cart = () => {
 
 export default Cart;
 {
-  /* <div>
-<h2>Shopping Cart</h2>
-<ul>
-  {items.map((item) => (
-    <li key={item.toolId}>
-      <span>
-        {item.name} - ${item.price.toFixed(2)}
-      </span>
-      <span>{item.quantity}</span>
-      <button onClick={() => handleRemoveItem(item.toolId)}>
-        Remove
-      </button>
-    </li>
-  ))}
-</ul>
-<p>Total: ${total.toFixed(2)}</p>
-<button onClick={handleClearCart}>Clear Cart</button>
-</div>
-); */
 }

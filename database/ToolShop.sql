@@ -27,7 +27,7 @@ CREATE TABLE MANAGER (
 DROP TABLE IF EXISTS SALES_ASSOCIATE;
 CREATE TABLE SALES_ASSOCIATE (
     Employee_ID     INT NOT NULL,
-    Hourly_Pay      DECIMAL(4,2),
+    Commission_Rate DECIMAL(4,2),
     PRIMARY KEY (Employee_ID),
     FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE
 );
@@ -173,7 +173,7 @@ INSERT INTO CUSTOMER_PHONE_NUMBERS VALUES
 INSERT INTO EMPLOYEE VALUES 
     (1, 'Lionel', ' ', 'Messi', '+37 2354272', 'lmessi@gmail.com', '$2a$10$uP.4eRVDKtoeidHzafp6aepOpD3axqG4BnM6eI2QXcdGw6Ko.JXRK'),
     (2, 'Cristiano', ' ', 'Ronaldo', '+962 4563832', 'cristiano.ronaldo@yahoo.com', '$2a$10$eeOY7Eqi4hZZPX7c1Gwt0uDhFinrVl2jz6YcCNlEgOYUiErQdoceC'),
-    (3, 'Neymar', ' ', 'Junior', '+37 247562659', 'neymaj@yahoo.com', '2a$10$Aw.qL4r2gFWn0bd7vt7FqedbrQTWp5drtvAhTgSt6E4ZLN./W3Kpy'),
+    (3, 'Neymar', ' ', 'Junior', '+37 247562659', 'neymaj@yahoo.com', '$2a$10$7PAjCT9xzn4BX01Rwnnqz.P.dkF3zVeF4dkmiXAgg0hl2OcgrnGXm'),
     (4, 'Diego', ' ', 'Maradona', '+44 8765349', 'diegomaradona@gmail.com', '$2a$10$aSh2KIid.s5pX0GD8xHaIeQkKONCX93OeNp3Dcp9WIOQBdAeg1RMW'),
     (5, 'Zlatan', ' ', 'Ibrahimovic', '+1 23541272', 'zlatanibrah@hotmail.com', '$2a$10$/qzRZf./TlY5j87w43mfZe2SRQcVFlh9COgmJt4la8ED9MDAqTi7K'),
     (6, 'Robert', ' ', 'Lewandowski', '+1 5054272', 'rlewandowski@hotmail.com', '$2a$10$0jUKjeV1TxcX9HWXNCca0.kpZCU6e5IMrhoWhtcoHjRFjBuMLXzS6'),
@@ -209,13 +209,13 @@ INSERT INTO SUPPLIER VALUES
 -- SALES_ASSOCIATE
 
 INSERT INTO SALES_ASSOCIATE VALUES
-    (2, 4.0),
-    (4, 4.0),
-    (6, 4.5),
-    (7, 5.0),
-    (8, 5.0),
-    (9, 5.0),
-    (10, 3.5);
+    (2, 0.08),
+    (4, 0.05),
+    (6, 0.03),
+    (7, 0.06),
+    (8, 0.06),
+    (9, 0.07),
+   (10, 0.07);
 
 
 -- TOOL

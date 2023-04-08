@@ -21,7 +21,16 @@ const menu = [
   {
     title: 'Sales',
     icon: <FaFileInvoiceDollar />,
-    path: '/sales',
+    children: [
+      {
+        title: 'Recent Sales',
+        path: '/recent-sales',
+      },
+      {
+        title: 'Top Sales',
+        path: '/top-sales',
+      },
+    ],
   },
   {
     title: 'Customers',

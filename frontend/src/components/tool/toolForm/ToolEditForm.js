@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import './ToolForm.scss';
 import Card from '../../card/Card';
 
-const ToolForm = ({
+const ToolEditForm = ({
   tool,
   description,
   setDescription,
@@ -12,7 +12,7 @@ const ToolForm = ({
   saveTool,
 }) => {
   return (
-    <div className="add-tool">
+    <div className="tool-form">
       <Card cardClass={'card'}>
         <form onSubmit={saveTool}>
           {/* Maybe remove toolid later and replace with generated sku? */}
@@ -81,7 +81,7 @@ const ToolForm = ({
 };
 
 // react quill rich text editor
-ToolForm.modules = {
+ToolEditForm.modules = {
   toolbar: [
     [{ header: '1' }, { header: '2' }, { font: [] }],
     [{ size: [] }],
@@ -97,7 +97,7 @@ ToolForm.modules = {
     ['clean'],
   ],
 };
-ToolForm.formats = [
+ToolEditForm.formats = [
   'header',
   'font',
   'size',
@@ -118,4 +118,4 @@ ToolForm.formats = [
   'align',
 ];
 
-export default ToolForm;
+export default ToolEditForm;

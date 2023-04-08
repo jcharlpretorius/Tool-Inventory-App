@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const { ROLE } = require('../data/data');
 const Employee = require('../models/employee');
 const camelizeKeys = require('../utilities/camelize');
+const SalesAssociate = require('../models/SalesAssociate');
 
 // Generate a jwt token for login
 const generateToken = (id) => {
@@ -22,26 +23,40 @@ const getAllEmployees = asyncHandler(async (req, res) => {
 const getEmployee = asyncHandler(async (req, res) => {
   // note the difference in getting id from req instead of params
   // we used the employee set in the req object by the authEmp middleware
-  const employee = await Employee.findById(req.employee.employeeId);
+  let employee = await Employee.findById(req.employee.employeeId);
 
   // check if employee doesn't exist -> this should never actually happen
   if (!employee) {
     res.status(400);
     throw new Error('employee not found');
   }
+
+  // convert keys to camel case
+  employee = camelizeKeys(employee);
   res.status(200).json(employee);
 });
 
-// Create new employee -> this isn't working completely
+// Create new employee -> this isn't working completely//
+// you need to accept a role, and if role = Sales then add to sales
+// or just make it so only Sales associates can be created
 const registerEmployee = asyncHandler(async (req, res) => {
   // potentially change source of info from req.body to a form.
-  const { firstName, minit, lastName, phoneNumber, email, password } = req.body;
+  const {
+    firstName,
+    minit,
+    lastName,
+    phoneNumber,
+    email,
+    commission,
+    password,
+  } = req.body;
 
   // Validation -> check anything you set as NOT NULL in schema
   if (!firstName || !lastName || !email || !password) {
     res.status(400);
     throw new Error('Please fill in all the required fields');
   }
+
   // do we need additional logic here to validate values recieved from body?
 
   // check if employee email already exits
@@ -76,6 +91,11 @@ const registerEmployee = asyncHandler(async (req, res) => {
   // You could update this so that password is not sent back to frontend
   const newEmployee = await employee.create();
 
+  // Creatn new sales associate
+  const sa = new SalesAssociate(newEmployee.employeeId, commission);
+  // add employee to sales associate table. Kinda wack but ok
+  const newSalesAssociate = await sa.create();
+
   res.status(201).json(newEmployee);
 });
 
@@ -95,10 +115,6 @@ const updateEmployee = asyncHandler(async (req, res) => {
     throw new Error(`No employee with id: ${employeeId} exists`);
   }
 
-  // Update employee
-  // You could get all the values from the front end and use a getemployee query
-  // to fill the fields automatically (for quality of life improvement)
-  // do validation on the front end too.
   const updatedEmployee = await Employee.update(
     employeeId,
     firstName,
@@ -107,6 +123,7 @@ const updateEmployee = asyncHandler(async (req, res) => {
     phoneNumber,
     email
   );
+
   res.status(200).json(updatedEmployee);
 });
 
@@ -200,17 +217,13 @@ const loginStatus = asyncHandler(async (req, res) => {
 });
 
 // Add password
-// Method for adding a password to Employees who don't already have a password
-// Only exists to add dummy data to the database, should be removed eventualy
+// Method for getting a a hashed password to Employees who don't already have a password
+// Only exists to add dummy data to the database, can be removed eventualy
 const addPassword = asyncHandler(async (req, res) => {
   const { id } = req.params.id;
   const { password } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  // const employee = Employee.findById(id);
-
-  // console.log(`Name: ${employee.firstName}`);
-  // console.log();
   console.log(`Password: ${password}`);
   console.log(`Hashed password: ${hashedPassword}`);
 
