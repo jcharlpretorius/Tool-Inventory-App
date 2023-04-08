@@ -8,7 +8,9 @@ Paste the contents of [ToolShop.sql](database/ToolShop.sql) into MySQL workbench
 
 **Set up Backend:**
 
-create a file in backend directory called `.env`
+Note: Environment variables node_modules included in .gitignore
+
+Create a file in backend directory called `.env`
 
 Copy the following code, replaceing the relevant \<placeholder> environment variables for your MySQL connection:
 
@@ -59,6 +61,12 @@ Messi:
 
 `password: lmessi123`
 
+Neymar:
+
+`email: neymaj@yahoo.com`
+
+`password: red99`
+
 Zlatan Ibrahimovic:
 
 `email: zlatanibrah@hotmail.com`
@@ -107,9 +115,3 @@ Wayne Rooney
 `email: wrooney1880@gmail.com`
 
 `password: wrooney`
-
-Neymar: (invalid password)
-
-`email: neymaj@yahoo.com`
-
-`password: red99`

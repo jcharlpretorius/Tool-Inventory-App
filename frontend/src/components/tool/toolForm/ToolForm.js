@@ -12,7 +12,7 @@ const ToolForm = ({
   saveTool,
 }) => {
   return (
-    <div className="add-tool">
+    <div className="tool-form">
       <Card cardClass={'card'}>
         <form onSubmit={saveTool}>
           {/* Maybe remove toolid later and replace with generated sku? */}

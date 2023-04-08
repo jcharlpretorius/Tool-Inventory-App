@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './ToolDetail.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import useRedirectLoggedOutEmployee from '../../../customHooks/useRedirectLoggedOutEmployee';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getTool } from '../../../redux/features/tool/toolSlice';
 import { selectIsLoggedIn } from '../../../redux/features/auth/authSlice';
 import Card from '../../card/Card';
@@ -11,6 +11,7 @@ import { SpinnerImg } from '../../loader/Loader';
 const ToolDetail = () => {
   useRedirectLoggedOutEmployee('/'); // redirect logged out employees to the home page
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { id } = useParams(); // get the id first
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -52,7 +53,7 @@ const ToolDetail = () => {
                 <span className="badge">Name:</span> &nbsp; {tool.name}
               </h4>
               <p>
-                <b>ToolId: </b> {tool.toolId}
+                <b>Tool Id: </b> {tool.toolId}
               </p>
               <p>
                 <b>Tool Type: </b> {tool.toolType}
@@ -68,6 +69,24 @@ const ToolDetail = () => {
                 <b>Total value in stock: </b> {'$'}
                 {tool.quantity * tool.price}
               </p>
+              <div className="--my --flex-between --flex-dir-column">
+                <button
+                  onClickCapture={() => {
+                    navigate(`/edit-tool/${id}`);
+                  }}
+                  className="--btn --btn-primary"
+                >
+                  Edit Tool
+                </button>
+                <button
+                  onClickCapture={() => {
+                    navigate('/inventory');
+                  }}
+                  className="--btn --btn-primary"
+                >
+                  Back to Inventory
+                </button>
+              </div>
             </div>
           )}
         </Card>

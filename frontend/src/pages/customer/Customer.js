@@ -28,7 +28,7 @@ const Customer = () => {
 
   return (
     <div>
-      <h2>Customer</h2>
+      {/* <h2>Customers</h2> */}
       <CustomerList customers={customers} isLoading={isLoading} />
     </div>
   );

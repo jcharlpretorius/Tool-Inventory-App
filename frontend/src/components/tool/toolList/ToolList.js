@@ -29,14 +29,14 @@ const ToolList = ({ tools, isLoading }) => {
   const shortenText = (text, n) => {
     if (text.length > n) {
       const shortenedText = text.substring(0, n).concat('...');
-      return shortenText;
+      return shortenedText;
     }
     return text;
   };
 
   const delTool = async (id) => {
     // to call an action in redux we have to dispatch it
-    console.log(`Delete ToolId: ${id}`);
+    // console.log(`Delete ToolId: ${id}`);
     await dispatch(deleteTool(id));
     await dispatch(getTools()); // refresh the tools displayed on the page
   };
@@ -63,7 +63,7 @@ const ToolList = ({ tools, isLoading }) => {
     dispatch(ADD_ITEM(tool));
   };
 
-  // use effect that get triggered everytime the search changes
+  // triggered on mount and everytime the search changes
   useEffect(() => {
     dispatch(FILTER_TOOLS({ tools, search }));
   }, [tools, search, dispatch]);
@@ -74,7 +74,7 @@ const ToolList = ({ tools, isLoading }) => {
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
-            <h3>Tools in Inventory</h3>
+            <h2>Tools in Inventory</h2>
           </span>
           <span>
             <Search
@@ -103,7 +103,7 @@ const ToolList = ({ tools, isLoading }) => {
               </thead>
               <tbody>
                 {/* map through the filtered tools */}
-                {filteredTools.map((tool, index) => {
+                {filteredTools.map((tool) => {
                   const {
                     toolId,
                     price,
@@ -125,8 +125,13 @@ const ToolList = ({ tools, isLoading }) => {
                       <td>{quantity}</td>
                       <td>
                         {'$'}
-                        {quantity * price}
+                        {(quantity * price).toFixed(2)}
                       </td>
+                      {/* Actions 
+                        Managers should see add, delete, edit, and add to order
+                        Sales associates should see view details (eye) and add to cart
+                      */}
+
                       <td className="icons">
                         <span className="eye">
                           <Link to={`/tool-details/${toolId}`}>
