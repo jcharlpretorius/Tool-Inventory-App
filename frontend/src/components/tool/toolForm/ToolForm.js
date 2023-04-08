@@ -35,6 +35,37 @@ const ToolForm = ({
             required
           />
           <label>Tool Type:</label>
+          {/* <div>
+            <input class="input flex-item" type="text" list="toolType" />
+            <datalist id="toolType">
+              <option>Volvo</option>
+              <option>Saab</option>
+              <option>Mercedes</option>
+              <option>Audi</option>
+            </datalist>
+            <div class="arrow"></div>
+          </div> */}
+          <select name="toolType" id="toolType">
+            <option value="Electric Tool" selected>
+              Electric Tool
+            </option>
+            <option value="Cordless Tool">Cordless Tool</option>
+            <option value="Hand Tool">Hand Tool</option>
+            <option value="Gas Powered Tool">Gas Powered Tool</option>
+            <option value="Automotive Tool">Automotive Tool</option>
+            <option value="Garden Tool">Garden Tool</option>
+            <option value="Safety Tool">Safety Tool</option>
+            <option value="Wood Working Tool">Wood Working Tool</option>
+          </select>
+          {/* <input
+            type="text"
+            placeholder="Tool Type"
+            name="toolType"
+            value={tool?.toolType}
+            onChange={handleInputChange}
+            required
+          /> */}
+          {/* <label>Tool Type:</label>
           <input
             type="text"
             placeholder="Tool Type"
@@ -42,7 +73,7 @@ const ToolForm = ({
             value={tool?.toolType}
             onChange={handleInputChange}
             required
-          />
+          /> */}
           <label>Tool Price:</label>
           <input
             type="text"
