@@ -92,6 +92,11 @@ section {
   display: flex;
 }
 
+.--flex-dir-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .--align-center {
   display: flex;
   align-items: center;
