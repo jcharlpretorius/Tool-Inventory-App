@@ -16,6 +16,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css for conf
 import { deleteTool, getTools } from '../../../redux/features/tool/toolSlice';
 import { Link } from 'react-router-dom';
 import { ADD_ITEM } from '../../../redux/features/cart/cartSlice';
+import { toast } from 'react-toastify';
 
 const ToolList = ({ tools, isLoading }) => {
   // console.log(`typeof tool ${typeof tools}`);
@@ -59,7 +60,12 @@ const ToolList = ({ tools, isLoading }) => {
   };
 
   const addToCart = (tool) => {
-    console.log(`add to cart id: ${tool.toolId}`);
+    // console.log(`add to cart id: ${tool.toolId}`);
+    // check if out of stock
+    if (tool.quantity === 0) {
+      toast.error(`${shortenText(tool.name, 20)} is out of stock`);
+      return;
+    }
     dispatch(ADD_ITEM(tool));
   };
 
@@ -97,7 +103,7 @@ const ToolList = ({ tools, isLoading }) => {
                   <th>Supplier ID</th>
                   <th>price</th>
                   <th>quantity</th>
-                  <th>Value</th>
+                  <th>Inventory Value</th>
                   <th>Actions</th>
                 </tr>
               </thead>

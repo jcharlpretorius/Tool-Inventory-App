@@ -75,7 +75,10 @@ const cartSlice = createSlice({
       const itemId = action.payload;
       const itemToIncrement = state.items.find((i) => i.toolId === itemId);
 
-      if (itemToIncrement) {
+      if (
+        itemToIncrement &&
+        itemToIncrement.cartQty < itemToIncrement.quantity
+      ) {
         itemToIncrement.cartQty++;
         state.total += itemToIncrement.price;
       }
