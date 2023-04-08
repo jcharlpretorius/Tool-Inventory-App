@@ -1,4 +1,4 @@
-import './ToolList.scss';
+import './SalesList.scss';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -69,7 +69,7 @@ const ToolList = ({ tools, isLoading }) => {
   }, [tools, search, dispatch]);
 
   return (
-    <div className="tool-list">
+    <div className="sales-list">
       <hr />
       <div className="table">
         <div className="--flex-between --flex-dir-column">
@@ -126,40 +126,6 @@ const ToolList = ({ tools, isLoading }) => {
                       <td>
                         {'$'}
                         {quantity * price}
-                      </td>
-                      <td className="icons">
-                        <span className="eye">
-                          <Link to={`/tool-details/${toolId}`}>
-                            <ImEye size={25} color={'#0099ff'} />
-                          </Link>
-                        </span>
-                        <span className="edit">
-                          <Link to={`/edit-tool/${toolId}`}>
-                            <FaEdit size={22} color={'#00cc00'} />
-                          </Link>
-                        </span>
-                        <span className="addCartBtn">
-                          <BsCartPlus
-                            size={23}
-                            color={'#7a0099'}
-                            onClick={() => addToCart(tool)}
-                          />
-                        </span>
-                        {/* Actions below should only be available for managers */}
-                        <span className="addOrderBtn">
-                          <MdLocalShipping
-                            size={23}
-                            color={'#f27100'}
-                            // onClick={() => confirmDelete(toolId)}
-                          />
-                        </span>
-                        <span className="delete">
-                          <BsTrash
-                            size={23}
-                            color={'#cc2900'}
-                            onClick={() => confirmDelete(toolId)}
-                          />
-                        </span>
                       </td>
                     </tr>
                   );

@@ -12,6 +12,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const firstName = useSelector(selectFirstName);
+
   // logout function
   const logout = async () => {
     await logoutEmployee();

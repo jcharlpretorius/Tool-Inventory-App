@@ -1,7 +1,9 @@
 const asyncHandler = require('express-async-handler');
 const Purchase = require('../models/purchase');
+const Payment = require('../models/Payment');
 const Employee = require('../models/employee');
 const camelizeKeys = require('../utilities/camelize');
+const PurchaseLine = require('../models/PurchaseLine');
 
 // Get all purchases
 const getAllPurchases = asyncHandler(async (req, res) => {
@@ -26,25 +28,51 @@ const getPurchase = asyncHandler(async (req, res) => {
   res.status(200).json(purchase);
 });
 
-// Create new purchase
-// Should this include payment?
+// this method adds a payment, a purchase, and purchase_lines to the database
 const createNewPurchase = asyncHandler(async (req, res) => {
-  const employee = await Employee.findById(req.employee.employeeId);
-  const { paymentId } = req.body; // where from frontend are we sending the paymentID?
+  // destructure the reqest body
+  const { employeeId, customerId, paymentType, items, total } = req.body;
 
-  // Validation -> check anything you set as NOT NULL in schema
-  if (!paymentId) {
+  // test If I am getting the values from the frontend
+  console.log(`Inside purchase Controller`);
+  console.log(`employeeId: ${employeeId}`);
+  console.log(`customerId: ${customerId}`);
+  console.log(`paymentType: ${paymentType}`);
+  console.log(`total: ${total}`);
+  // items are a list of tools with an extra attribute: cartQty
+  console.log(items);
+
+  // validation -> no empty field
+  if (!employeeId || !customerId || !paymentType || !items || !total) {
     res.status(400);
-    throw new Error('Please fill in all the required fields');
+    throw new Error('Missing form data. Cannot make purchase');
   }
 
-  // Create new purchase
-  const purchase = new Purchase(employee.employeeId, paymentId);
-  const newPurchase = await purchase.create();
+  // add payment to database
+  const tempPayment = new Payment(paymentType, total, customerId);
+  const payment = await tempPayment.create(); // this payment object has the id as well
 
-  res.status(201).json(newPurchase);
+  // add purchase to database
+  const tempPurchase = new Purchase(employeeId, payment.paymentId);
+  const purchase = await tempPurchase.create();
+  const purchaseId = purchase.purchaseId;
 
-  // what happens when I add a payment? what is the order of operations to complete a customer's purchase?
+  // add purchase lines to database
+  items.forEach(async (item, index) => {
+    /*  
+      add 1 to index because javascript is zero indexed
+      make sure to use cartQty, not quantity in stock
+    */
+    const purchaseLine = new PurchaseLine(
+      purchaseId,
+      index + 1,
+      item.toolId,
+      item.cartQty
+    );
+    await purchaseLine.create();
+  });
+
+  res.status(200).send('Purchase added successfully!');
 });
 
 module.exports = {

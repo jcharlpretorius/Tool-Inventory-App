@@ -19,7 +19,9 @@ class Payment {
     `;
     const payload = [this.paymentType, this.amount, this.customerId];
     const [newPayment, _] = await db.execute(sql, payload);
-    return newPayment;
+    const paymentId = newPayment.insertId; // extract primary key from auto increment
+    this.paymentId = paymentId;
+    return this;
   }
 
   // Find all payments
@@ -33,8 +35,20 @@ class Payment {
   // Find payment by id
   static async findById(paymentId) {
     let sql = `SELECT * FROM PAYMENT WHERE Payment_ID = ?;`;
-    const [payment, _] = await db.execute(sql, [paymentId]);
-    return payment[0];
+    const [queryResult, _] = await db.execute(sql, [paymentId]);
+
+    // check if payment exists
+    if (!queryResult[0]) {
+      throw new Error(`Cannot find payment with id: ${paymentId}`);
+    }
+    // parse the query result
+    const paymentType = queryResult[0].Payment_Type;
+    const amount = queryResult[0].Amount;
+    const customerId = queryResult[0].Customer_ID;
+
+    const payment = new Payment(paymentType, amount, customerId);
+    payment.paymentId = queryResult[0].Payment_ID;
+    return payment;
   }
 }
 

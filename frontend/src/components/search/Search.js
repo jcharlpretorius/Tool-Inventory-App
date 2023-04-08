@@ -8,7 +8,7 @@ const Search = ({ value, onChange }) => {
       <AiOutlineSearch size={18} className={styles.icon} />
       <input
         type="text"
-        placeholder="Search tools"
+        placeholder="Search "
         value={value}
         onChange={onChange}
       />

@@ -1,20 +1,11 @@
-import { AiOutlineDashboard } from 'react-icons/ai';
+import { AiOutlineDashboard, AiOutlineShoppingCart } from 'react-icons/ai';
 import { MdOutlineAddBox, MdAccountBox } from 'react-icons/md';
-import { FaWarehouse } from 'react-icons/fa';
+import { FaWarehouse, FaFileInvoiceDollar } from 'react-icons/fa';
+import { HiUserGroup } from 'react-icons/hi';
 
 const menu = [
   {
-    title: 'Inventory',
-    icon: <FaWarehouse />,
-    path: '/inventory',
-  },
-  {
-    title: 'Add Tool',
-    icon: <MdOutlineAddBox />,
-    path: '/add-tool',
-  },
-  {
-    title: 'Emloyee Account',
+    title: 'Employee Account',
     icon: <MdAccountBox />,
     children: [
       {
@@ -26,6 +17,31 @@ const menu = [
         path: '/edit-employee-profile',
       },
     ],
+  },
+  {
+    title: 'Sales',
+    icon: <FaFileInvoiceDollar />,
+    path: '/sales',
+  },
+  {
+    title: 'Customers',
+    icon: <HiUserGroup />,
+    path: '/customer',
+  },
+  {
+    title: 'Inventory',
+    icon: <FaWarehouse />,
+    path: '/inventory',
+  },
+  {
+    title: 'Add Tool',
+    icon: <MdOutlineAddBox />,
+    path: '/add-tool',
+  },
+  {
+    title: 'Cart',
+    icon: <AiOutlineShoppingCart />,
+    path: '/cart',
   },
 ];
 

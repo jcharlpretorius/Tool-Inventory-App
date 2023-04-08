@@ -12,7 +12,10 @@ class Order {
     let yyyy = d.getFullYear();
     let mm = d.getMonth() + 1; // add 1 because month is zero indexed
     let dd = d.getDate(); // day in the year
-    this.orderDate = `${yyyy}-${mm}--${dd}`;
+    // concatenate 0 infront of month and date if required
+    mm = ('0' + mm).slice(-2);
+    dd = ('0' + dd).slice(-2);
+    this.orderDate = `${yyyy}-${mm}-${dd}`;
 
     let sql = `
       INSERT INTO ORDER(

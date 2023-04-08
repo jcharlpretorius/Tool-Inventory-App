@@ -109,9 +109,9 @@ const toolSlice = createSlice({
   name: 'tool',
   initialState,
   reducers: {
-    CALC_STORE_VALUE(state, action) {
-      console.log('store value'); // temporary, just so it isn't empty for now
-    },
+    // CALC_STORE_VALUE(state, action) {
+    //   console.log('store value'); // temporary, just so it isn't empty for now
+    // },
   },
   // where we are going to store the responses we get from asyncThunk
   extraReducers: (builder) => {
@@ -206,7 +206,7 @@ const toolSlice = createSlice({
   },
 });
 
-export const { CALC_STORE_VALUE } = toolSlice.actions;
+// export const { CALC_STORE_VALUE } = toolSlice.actions;
 
 export const selectIsLoading = (state) => state.tool.isLoading;
 export const selectTool = (state) => state.tool.tool;

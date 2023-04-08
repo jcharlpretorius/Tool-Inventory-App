@@ -13,8 +13,11 @@ class Purchase {
     let yyyy = d.getFullYear();
     let mm = d.getMonth() + 1; // add 1 because month is zero indexed
     let dd = d.getDate(); // day in the year
+    // concatenate 0 infront of month and date if required
+    mm = ('0' + mm).slice(-2);
+    dd = ('0' + dd).slice(-2);
 
-    this.purchaseDate = `${yyyy}-${mm}--${dd}`;
+    this.purchaseDate = `${yyyy}-${mm}-${dd}`;
 
     let sql = `
       INSERT INTO PURCHASE(
@@ -25,11 +28,10 @@ class Purchase {
       VALUES(?,?,?)
     `;
 
-    const payload = [purchaseDate, this.salesAssociateId, this.paymentID];
-    const [newPayment, _] = await db.execute(sql, payload);
-    const purchaseId = newPayment.insertId; // extract primary key
+    const payload = [this.purchaseDate, this.salesAssociateId, this.paymentId];
+    const [newPurchase, _] = await db.execute(sql, payload);
+    const purchaseId = newPurchase.insertId; // extract primary key
     this.purchaseId = purchaseId;
-
     return this;
   }
 
