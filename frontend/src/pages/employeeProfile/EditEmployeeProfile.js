@@ -85,6 +85,7 @@ const EditEmployeeProfile = () => {
                 name="firstName"
                 value={profile?.firstName}
                 onChange={handleInputChange}
+                required
               />
             </p>
             <p>
@@ -103,6 +104,7 @@ const EditEmployeeProfile = () => {
                 name="lastName"
                 value={profile?.lastName}
                 onChange={handleInputChange}
+                required
               />
             </p>
             <p>
@@ -121,6 +123,7 @@ const EditEmployeeProfile = () => {
                 name="email"
                 value={profile?.email}
                 onChange={handleInputChange}
+                required
               />
             </p>
             <p>

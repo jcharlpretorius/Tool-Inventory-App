@@ -19,13 +19,13 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css for conf
 import { SpinnerImg } from '../loader/Loader';
 import './Cart.scss';
 import useRedirectLoggedOutEmployee from '../../customHooks/useRedirectLoggedOutEmployee';
+import useRedirectIncorrectRoleEmployee from '../../customHooks/useRedirectIncorrectRoleEmployee';
 
 //{ items, total }
-const Cart = () => {
-  useRedirectLoggedOutEmployee('/');
+const Cart = ({ allowedRole }) => {
+  // useRedirectLoggedOutEmployee('/');
+  useRedirectIncorrectRoleEmployee(allowedRole, '/inventory');
 
-  // console.log(`typeof items ${typeof items}`);
-  // console.log(` items ${{ ...items }}`);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

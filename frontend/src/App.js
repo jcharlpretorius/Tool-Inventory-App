@@ -30,6 +30,10 @@ import AddCustomer from './pages/addCustomer/AddCustomer';
 axios.defaults.withCredentials = true;
 
 function App() {
+  const ROLES = {
+    SALES: 'sales',
+    MNGR: 'manager',
+  };
   const dispatch = useDispatch(); // dispatch function, for updating redux state
 
   useEffect(() => {
@@ -70,7 +74,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <AddTool />
+                <AddTool allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
@@ -90,7 +94,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <EditTool />
+                <EditTool allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
@@ -122,7 +126,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <Cart />
+                <Cart allowedRole={ROLES.SALES} />
               </Layout>
             </Sidebar>
           }
@@ -132,7 +136,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <Checkout />
+                <Checkout allowedRole={ROLES.SALES} />
               </Layout>
             </Sidebar>
           }
@@ -184,7 +188,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <RecentSales />
+                <RecentSales allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
@@ -194,14 +198,16 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <TopSales />
+                <TopSales allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
         />
+        {/* Any other routes, 404 page */}
+        {/* <Route path="*" element={<Missing />} /> */}
       </Routes>
 
-      <ToastContainer />
+      <ToastContainer position="top-left" autoClose={2000} />
     </BrowserRouter>
   );
 }

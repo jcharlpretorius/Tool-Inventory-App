@@ -10,8 +10,10 @@ import {
   selectTool,
   updateTool,
 } from '../../redux/features/tool/toolSlice';
+import useRedirectIncorrectRoleEmployee from '../../customHooks/useRedirectIncorrectRoleEmployee';
 
-const EditTool = () => {
+const EditTool = ({ allowedRole }) => {
+  useRedirectIncorrectRoleEmployee(allowedRole, '/inventory');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();

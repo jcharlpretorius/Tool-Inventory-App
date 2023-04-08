@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import styles from './auth.module.scss';
 import { FiLogIn } from 'react-icons/fi';
 import Card from '../../components/card/Card';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import {
   SET_LOGIN,
   SET_FIRSTNAME,
   SET_EMPLOYEE_ID,
+  SET_EMPLOYEE_ROLE,
 } from '../../redux/features/auth/authSlice';
 import { loginUser, validateEmail } from '../../services/authService';
 import Loader from '../../components/loader/Loader';
@@ -22,6 +23,9 @@ const initialState = {
 const Login = () => {
   const dispatch = useDispatch(); // redux hook, returns a ref to the dispatch funcion
   const navigate = useNavigate(); // lets you navigate programattically, maybe better to use 'redirect'?
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/'; // keep track of where the user is going
+
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setformData] = useState(initialState);
   const { email, password } = formData;
@@ -57,8 +61,10 @@ const Login = () => {
       await dispatch(SET_LOGIN(true)); // set login status to true
       await dispatch(SET_FIRSTNAME(data.firstName)); // set the firstName of the employee
       await dispatch(SET_EMPLOYEE_ID(data.employeeId));
-      // maybe also set the employee ID
+      await dispatch(SET_EMPLOYEE_ROLE(data.role));
+
       navigate('/inventory'); // redirect the employee to the inventory page
+      // navigate(from, { replace: true });
 
       // to stop displaying the loading icon
       setIsLoading(false);

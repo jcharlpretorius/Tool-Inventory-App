@@ -7,6 +7,8 @@ import {
   selectIsLoadingCustomer,
 } from '../../redux/features/customer/customerSlice';
 import Loader from '../../components/loader/Loader';
+import useRedirectIncorrectRoleEmployee from '../../customHooks/useRedirectIncorrectRoleEmployee';
+import useRedirectLoggedOutEmployee from '../../customHooks/useRedirectLoggedOutEmployee';
 
 const initialState = {
   firstName: '',
@@ -17,6 +19,8 @@ const initialState = {
 };
 
 const AddCustomer = () => {
+  // useRedirectIncorrectRoleEmployee('manager', '/customer');
+  useRedirectLoggedOutEmployee('/');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
