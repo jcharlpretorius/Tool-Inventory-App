@@ -1,31 +1,36 @@
-// const asyncHandler = require('express-async-handler');
-// const Purchase = require('../models/purchase');
-// const Payment = require('../models/Payment');
-// const Employee = require('../models/employee');
-// const camelizeKeys = require('../utilities/camelize');
+const asyncHandler = require('express-async-handler');
+const Purchase = require('../models/purchase');
+const Payment = require('../models/Payment');
+const Employee = require('../models/employee');
+const { findRecentSales, findTopSalesMen } = require('../models/Sales');
+const camelizeKeys = require('../utilities/camelize');
 
-// const makePurchase = asyncHandler(async (req, res) => {
-//   // destructure the reqest body
-//   const { employeeId, customerId, paymentType, items, total } = req.body;
+// Note that the Sales model is different. It is not a class
 
-//   // validation -> no empty field
-//   if (!employeeId || !customerId || !paymentType || !items || !total) {
-//     res.status(400);
-//     throw new Error('Missing form data. Cannot make purchase');
-//   }
+const getRecentSales = asyncHandler(async (req, res) => {
+  let sales = await findRecentSales();
 
-//   // add payment to database
-//   const tempPayment = new Payment(paymentType, total, customerId);
-//   const payment = await payment.create(); // this payment object has the id as well
+  if (!sales) {
+    res.status(400);
 
-//   // add purchase to database
-//   const tempPurchase = new Purchase();
-//   const purchase = await purchase.create();
+    throw new Error('No sales found');
+  }
+  sales = camelizeKeys(sales);
 
-//   // items are a list of tools with an extra attribute: cartQty
-//   console.log(items);
+  // console.log(`Sales: ${JSON.stringify(sales)}`);
+  res.status(200).send(sales);
+});
 
-//   // add purchase lines to database
-// });
+const getTopSalesMen = asyncHandler(async (req, res) => {
+  let topSales = await findTopSalesMen();
 
-// module.exports = { makePurchase };
+  if (!topSales) {
+    res.status(400);
+    throw new Error('No sales found');
+  }
+  topSales = camelizeKeys(topSales);
+  // console.log(`topSales: ${JSON.stringify(topSales)}`);
+  res.status(200).send(topSales);
+});
+
+module.exports = { getRecentSales, getTopSalesMen };

@@ -2,23 +2,24 @@ import React, { useEffect } from 'react';
 import useRedirectLoggedOutEmployee from '../../customHooks/useRedirectLoggedOutEmployee';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/features/auth/authSlice';
-import SalesList from '../../components/sales/salesList/SalesList';
-import { getTools } from '../../redux/features/tool/toolSlice';
+import RecentSalesList from '../../components/sales/salesList/RecentSalesList';
+import { getRecentSales } from '../../redux/features/sales/salesSlice';
 
-const Sales = () => {
+const RecentSales = () => {
   useRedirectLoggedOutEmployee('/'); // redirect logged out employees to the home page
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   // destruct redux states
-  const { tools, isLoading, isError, message } = useSelector(
-    (state) => state.tool
+  const { recentSales, isError, isLoading, message } = useSelector(
+    (state) => state.sales
   );
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      dispatch(getTools());
+      dispatch(getRecentSales());
+      console.log(`In recentSales : ${JSON.stringify(recentSales)}`);
     }
 
     if (isError) {
@@ -28,10 +29,10 @@ const Sales = () => {
 
   return (
     <div>
-      <h2>Sales</h2>
-      <SalesList tools={tools} isLoading={isLoading} />
+      <h2>Recent Sales</h2>
+      <RecentSalesList recentSales={recentSales} isLoading={isLoading} />
     </div>
   );
 };
 
-export default Sales;
+export default RecentSales;

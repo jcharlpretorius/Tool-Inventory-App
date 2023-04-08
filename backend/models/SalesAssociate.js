@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 class SalesAssociate {
-  constructor(employeeId, commission) {
+  constructor(employeeId, commission = 0) {
     this.employeeId = employeeId;
     this.commission = commission;
   }
@@ -11,13 +11,13 @@ class SalesAssociate {
     let sql = `
       INSERT INTO SALES_ASSOCIATE(
         Employee_ID,
-        Hourly_Pay
+        Commission_Rate
       )
       VALUES(?,?)
     `;
     const payload = [this.employeeId, this.commission];
     const [newSaleAssociate, _] = await db.execute(sql, payload);
-    return newSaleAssociate;
+    return this;
   }
 
   // Find all salesAssociates
@@ -31,8 +31,19 @@ class SalesAssociate {
   // Find salesAssociate by id
   static async findById(employeeId) {
     let sql = `SELECT * FROM SALES_ASSOCIATE WHERE Employee_ID = ${employeeId};`;
-    const [salesAssociate, _] = await db.execute(sql);
-    return salesAssociate[0];
+    const [queryResult, _] = await db.execute(sql);
+
+    // check if salesAssociate exists
+    if (!queryResult[0]) {
+      throw new Error(`Cannot find sales associate with id: ${employeeId}`);
+    }
+
+    // parse the query result
+    const commission = queryResult[0].Commission_Rate;
+
+    const sa = new SalesAssociate(employeeId, commission);
+
+    return sa;
   }
 
   // Update sales associate commission
@@ -40,10 +51,10 @@ class SalesAssociate {
     let sql = `
     UPDATE SALES_ASSOCIATE
     SET Commission_Rate = ?
-    WHERE Hourly_Pay = ?
+    WHERE Commission_Rate = ?
     `;
     await db.execute(sql, [commission]);
-    return { employeeId, commission };
+    return { employeeId, commission }; // same thing as if we constructed a new SA
   }
 
   // Delete sales associate
