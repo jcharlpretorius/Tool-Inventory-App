@@ -23,6 +23,7 @@ router.post('/login', loginEmployee);
 router.get('/logout', logoutEmployee);
 router.get('/loggedin', loginStatus);
 
-// router.put('/addpassword/:id', addPassword); // temporary route to get password hash to update database dummy values
+// temporary route to get password hash to update database dummy values
+// router.put('/addpassword/:id', addPassword);
 
 module.exports = router;

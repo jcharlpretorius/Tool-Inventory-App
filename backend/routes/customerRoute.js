@@ -1,4 +1,5 @@
 const express = require('express');
+const { authEmp, authManager } = require('../middleWare/authMiddleware');
 const {
   getAllCustomers,
   getCustomer,
@@ -9,12 +10,12 @@ const {
 } = require('../controllers/customerController');
 
 const router = express.Router();
-
-router.get('/', getAllCustomers);
-router.post('/email', getCustomerByEmail);
-router.get('/:id', getCustomer);
-router.post('/', createNewCustomer);
-router.put('/:id', updateCustomer);
-router.delete('/:id', deleteCustomer);
+// Only managers can delete a customer
+router.get('/', authEmp, getAllCustomers);
+router.post('/email', authEmp, getCustomerByEmail);
+router.get('/:id', authEmp, getCustomer);
+router.post('/', authEmp, createNewCustomer);
+router.put('/:id', authEmp, updateCustomer);
+router.delete('/:id', authEmp, authManager, deleteCustomer);
 
 module.exports = router;

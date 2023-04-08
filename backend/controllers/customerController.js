@@ -77,7 +77,13 @@ const createNewCustomer = asyncHandler(async (req, res) => {
 const updateCustomer = asyncHandler(async (req, res) => {
   // need customerId to find customer in db
   const { id } = req.params; // customer id in params (url)
-  const { firstName, minit, lastName, address, email } = req.body;
+  let { firstName, minit, lastName, address, email } = req.body;
+
+  // Validation -> check anything you set as NOT NULL in schema
+  if (!firstName || !lastName || !email) {
+    res.status(400);
+    throw new Error('Please fill in all required fields');
+  }
 
   let customer = await Customer.findById(id);
 
@@ -85,6 +91,11 @@ const updateCustomer = asyncHandler(async (req, res) => {
   if (!customer) {
     res.status(404);
     throw new Error(`No customer with id: ${id} exists`);
+  }
+
+  // Take just the first letter if they entered more into the middle initial
+  if (minit) {
+    minit = minit.charAt(0);
   }
 
   // Update customer
@@ -99,7 +110,7 @@ const updateCustomer = asyncHandler(async (req, res) => {
     address,
     email
   );
-  res.status(200).json({ updatedCustomer });
+  res.status(200).json(updatedCustomer);
 });
 
 // Delete Customer
