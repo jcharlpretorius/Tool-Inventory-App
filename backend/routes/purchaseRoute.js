@@ -9,6 +9,6 @@ const {
 
 router.get('/', getAllPurchases); // maybe make manager protected?
 router.get('/:id', getPurchase);
-router.post('/', authEmp, createNewPurchase);
+router.post('/', authEmp, createNewPurchase); // does payment, purchase, and purchase lines
 
 module.exports = router;

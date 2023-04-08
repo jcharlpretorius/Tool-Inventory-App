@@ -23,6 +23,24 @@ const getCustomer = asyncHandler(async (req, res) => {
   res.status(200).json(camelizeKeys(customer));
 });
 
+// Get a single customer by their email
+const getCustomerByEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  console.log(`email in controller ${email}`);
+  try {
+    const customer = await Customer.findByEmail(email);
+    // check if customer doesn't exist
+    if (!customer) {
+      res.status(404);
+      throw new Error(`No customer found with email ${email}`);
+    }
+    res.status(200).json(camelizeKeys(customer));
+  } catch (error) {
+    res.status(404);
+    throw new Error(`No customer found with email ${email}`);
+  }
+});
+
 // Create new customer
 const createNewCustomer = asyncHandler(async (req, res) => {
   const { firstName, minit, lastName, address, email } = req.body;
@@ -100,6 +118,7 @@ const deleteCustomer = asyncHandler(async (req, res) => {
 module.exports = {
   getAllCustomers,
   getCustomer,
+  getCustomerByEmail,
   createNewCustomer,
   updateCustomer,
   deleteCustomer,

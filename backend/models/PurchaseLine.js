@@ -26,7 +26,7 @@ class PurchaseLine {
       this.quantity,
     ];
     const [newPurchaseLine, _] = await db.execute(sql, payload);
-    return newPurchaseLine;
+    return this;
   }
 
   // Find all allPurchaseLines in table
@@ -42,7 +42,19 @@ class PurchaseLine {
   static async findById(purchaseId) {
     let sql = `SELECT * FROM PURCHASE_LINE WHERE Purchase_ID ?;`;
     const [purchaseLines, _] = await db.execute(sql, [purchaseId]);
-    return purchaseLines[0];
+
+    // parse the query result
+    const lineNumber = queryResult[0].Line_Number;
+    const toolId = queryResult[0].Tool_ID;
+    const quantity = queryResult[0].Quantity;
+
+    const purchaseLine = new PurchaseLine(
+      purchaseId,
+      lineNumber,
+      toolId,
+      quantity
+    );
+    return purchaseLine;
   }
 }
 

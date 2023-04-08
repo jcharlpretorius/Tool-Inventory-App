@@ -154,10 +154,10 @@ const loginEmployee = asyncHandler(async (req, res) => {
   }
 
   if (employee && passwordIsCorrect) {
-    const { emplyeeId, firstName, minit, lastName, phoneNumber, email, role } =
+    const { employeeId, firstName, minit, lastName, phoneNumber, email, role } =
       employee;
     res.status(200).json({
-      emplyeeId,
+      employeeId,
       firstName,
       minit,
       lastName,

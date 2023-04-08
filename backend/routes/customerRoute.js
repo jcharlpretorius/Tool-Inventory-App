@@ -2,6 +2,7 @@ const express = require('express');
 const {
   getAllCustomers,
   getCustomer,
+  getCustomerByEmail,
   createNewCustomer,
   updateCustomer,
   deleteCustomer,
@@ -10,6 +11,7 @@ const {
 const router = express.Router();
 
 router.get('/', getAllCustomers);
+router.post('/email', getCustomerByEmail);
 router.get('/:id', getCustomer);
 router.post('/', createNewCustomer);
 router.put('/:id', updateCustomer);

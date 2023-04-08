@@ -101,6 +101,29 @@ class Customer {
     const [emails, _] = await db.execute(sql, payload);
     return emails;
   }
+
+  // Find customer by email
+  static async findByEmail(email) {
+    let customerQuery = `SELECT * FROM CUSTOMER WHERE Email = ?;`;
+    const [queryResult, customerFieldData] = await db.execute(customerQuery, [
+      email,
+    ]);
+    // check if customer exists
+    if (!queryResult[0]) {
+      console.log('Customer does not exist');
+      throw new Error(`Cannot find customer with email ${email}`);
+    }
+
+    const firstName = queryResult[0].First_Name;
+    const minit = queryResult[0].Minit;
+    const lastName = queryResult[0].Last_Name;
+    const address = queryResult[0].Address;
+
+    const customer = new Customer(firstName, minit, lastName, address, email);
+    // add id attribute
+    customer.customerId = queryResult[0].Customer_ID;
+    return customer;
+  }
 }
 
 module.exports = Customer;
