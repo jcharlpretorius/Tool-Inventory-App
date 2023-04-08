@@ -24,6 +24,7 @@ import Checkout from './pages/checkout/Checkout';
 import Customer from './pages/customer/Customer';
 import CustomerDetail from './components/customer/customerDetail/CustomerDetail';
 import EditCustomer from './pages/editCustomer/EditCustomer';
+import AddCustomer from './pages/addCustomer/AddCustomer';
 
 // makes sure you are able to save the credentials of employee, whenever you make a request
 axios.defaults.withCredentials = true;
@@ -53,7 +54,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
 
-        {/* Tool Routeus */}
+        {/* Tool Routes */}
         <Route
           path="/inventory"
           element={
@@ -143,6 +144,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <Customer />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/add-customer"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddCustomer />
               </Layout>
             </Sidebar>
           }

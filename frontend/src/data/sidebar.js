@@ -1,5 +1,9 @@
 import { AiOutlineDashboard, AiOutlineShoppingCart } from 'react-icons/ai';
-import { MdOutlineAddBox, MdAccountBox } from 'react-icons/md';
+import {
+  MdOutlineAddBox,
+  MdAccountBox,
+  MdOutlinePersonAddAlt,
+} from 'react-icons/md';
 import { FaWarehouse, FaFileInvoiceDollar } from 'react-icons/fa';
 import { HiUserGroup } from 'react-icons/hi';
 
@@ -36,6 +40,11 @@ const menu = [
     title: 'Customers',
     icon: <HiUserGroup />,
     path: '/customer',
+  },
+  {
+    title: 'Add Customer',
+    icon: <MdOutlinePersonAddAlt />,
+    path: '/add-customer',
   },
   {
     title: 'Inventory',
