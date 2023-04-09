@@ -7,6 +7,7 @@ import {
   selectIsLoading,
 } from '../../redux/features/tool/toolSlice';
 import Loader from '../../components/loader/Loader';
+import useRedirectIncorrectRoleEmployee from '../../customHooks/useRedirectIncorrectRoleEmployee';
 
 const initialState = {
   toolId: '',
@@ -17,7 +18,8 @@ const initialState = {
   supplierId: '',
 };
 
-const AddTool = () => {
+const AddTool = ({ allowedRole }) => {
+  useRedirectIncorrectRoleEmployee(allowedRole, '/inventory');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

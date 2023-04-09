@@ -1,5 +1,9 @@
 import { AiOutlineDashboard, AiOutlineShoppingCart } from 'react-icons/ai';
-import { MdOutlineAddBox, MdAccountBox } from 'react-icons/md';
+import {
+  MdOutlineAddBox,
+  MdAccountBox,
+  MdOutlinePersonAddAlt,
+} from 'react-icons/md';
 import { FaWarehouse, FaFileInvoiceDollar } from 'react-icons/fa';
 import { HiUserGroup } from 'react-icons/hi';
 
@@ -19,6 +23,32 @@ const menu = [
     ],
   },
   {
+    title: 'Inventory',
+    icon: <FaWarehouse />,
+    path: '/inventory',
+  },
+
+  {
+    title: 'Cart',
+    icon: <AiOutlineShoppingCart />,
+    path: '/cart',
+  },
+  {
+    title: 'Customers',
+    icon: <HiUserGroup />,
+    path: '/customer',
+  },
+  {
+    title: 'Add Customer',
+    icon: <MdOutlinePersonAddAlt />,
+    path: '/add-customer',
+  },
+  {
+    title: 'Add Tool',
+    icon: <MdOutlineAddBox />,
+    path: '/add-tool',
+  },
+  {
     title: 'Sales',
     icon: <FaFileInvoiceDollar />,
     children: [
@@ -31,26 +61,6 @@ const menu = [
         path: '/top-sales',
       },
     ],
-  },
-  {
-    title: 'Customers',
-    icon: <HiUserGroup />,
-    path: '/customer',
-  },
-  {
-    title: 'Inventory',
-    icon: <FaWarehouse />,
-    path: '/inventory',
-  },
-  {
-    title: 'Add Tool',
-    icon: <MdOutlineAddBox />,
-    path: '/add-tool',
-  },
-  {
-    title: 'Cart',
-    icon: <AiOutlineShoppingCart />,
-    path: '/cart',
   },
 ];
 

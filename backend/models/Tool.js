@@ -66,7 +66,7 @@ class Tool {
 
     return new Tool(toolId, price, toolType, quantity, name, supplierId);
   }
-  // Update tool
+  // Update entire tool
   static async update(toolId, price, toolType, quantity, name, supplierId) {
     let sql = `
     UPDATE TOOL
@@ -87,6 +87,19 @@ class Tool {
   static async delete(toolId) {
     let sql = `DELETE FROM TOOL WHERE Tool_ID = ?;`;
     await db.execute(sql, [toolId]);
+    return;
+  }
+
+  // Update tool quantity
+  static async updateQuantity(toolId, quantity) {
+    let sql = `
+    UPDATE TOOL
+    SET 
+    Quantity = ?
+    WHERE Tool_ID = ?
+    `;
+    const payload = [quantity, toolId];
+    await db.execute(sql, payload);
     return;
   }
 }

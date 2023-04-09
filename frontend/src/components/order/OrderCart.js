@@ -17,15 +17,15 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css for confirm delete
 import { SpinnerImg } from '../loader/Loader';
-import './Cart.scss';
+import './OrderCart.scss';
 import useRedirectLoggedOutEmployee from '../../customHooks/useRedirectLoggedOutEmployee';
-import useRedirectIncorrectRoleEmployee from '../../customHooks/useRedirectIncorrectRoleEmployee';
 
 //{ items, total }
-const Cart = ({ allowedRole }) => {
-  // useRedirectLoggedOutEmployee('/');
-  useRedirectIncorrectRoleEmployee(allowedRole, '/inventory');
+const Cart = () => {
+  useRedirectLoggedOutEmployee('/');
 
+  // console.log(`typeof items ${typeof items}`);
+  // console.log(` items ${{ ...items }}`);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -96,7 +96,7 @@ const Cart = ({ allowedRole }) => {
   }, [items, totalItemsQty, totalPrice, setTotalItemsQty, setTotalPrice]);
 
   return (
-    <div className="cart">
+    <div className="order-cart">
       <hr />
       <div className="table">
         <div className="--flex-between --flex-dir-column">

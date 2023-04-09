@@ -13,7 +13,7 @@ const CheckOutForm = ({
   confirmPayment,
 }) => {
   return (
-    <div className="add-tool">
+    <div className="checkout">
       <Card cardClass={'card'}>
         <form onSubmit={confirmPayment}>
           <label>Customer Email:</label>
@@ -24,14 +24,6 @@ const CheckOutForm = ({
             onChange={handleInputChange}
             required
           />
-          {/* <label>Customer ID:</label>
-          <input
-            type="text"
-            placeholder="Customer ID"
-            name="customerId"
-            onChange={handleInputChange}
-            required
-          /> */}
           <label>Payment Type:</label>
           <select
             name="paymentType"
@@ -61,7 +53,3 @@ const CheckOutForm = ({
 };
 
 export default CheckOutForm;
-
-// {!isLoading && items === null ? (
-//   <p>Cannot Checkout! Cart is empty</p>
-// ) : ()}

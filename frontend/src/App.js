@@ -24,11 +24,16 @@ import Checkout from './pages/checkout/Checkout';
 import Customer from './pages/customer/Customer';
 import CustomerDetail from './components/customer/customerDetail/CustomerDetail';
 import EditCustomer from './pages/editCustomer/EditCustomer';
+import AddCustomer from './pages/addCustomer/AddCustomer';
 
 // makes sure you are able to save the credentials of employee, whenever you make a request
 axios.defaults.withCredentials = true;
 
 function App() {
+  const ROLES = {
+    SALES: 'sales',
+    MNGR: 'manager',
+  };
   const dispatch = useDispatch(); // dispatch function, for updating redux state
 
   useEffect(() => {
@@ -53,7 +58,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
 
-        {/* Tool Routeus */}
+        {/* Tool Routes */}
         <Route
           path="/inventory"
           element={
@@ -69,7 +74,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <AddTool />
+                <AddTool allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
@@ -89,7 +94,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <EditTool />
+                <EditTool allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
@@ -121,7 +126,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <Cart />
+                <Cart allowedRole={ROLES.SALES} />
               </Layout>
             </Sidebar>
           }
@@ -131,7 +136,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <Checkout />
+                <Checkout allowedRole={ROLES.SALES} />
               </Layout>
             </Sidebar>
           }
@@ -143,6 +148,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <Customer />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/add-customer"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddCustomer />
               </Layout>
             </Sidebar>
           }
@@ -173,7 +188,7 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <RecentSales />
+                <RecentSales allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
@@ -183,14 +198,16 @@ function App() {
           element={
             <Sidebar>
               <Layout>
-                <TopSales />
+                <TopSales allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
         />
+        {/* Any other routes, 404 page */}
+        {/* <Route path="*" element={<Missing />} /> */}
       </Routes>
 
-      <ToastContainer />
+      <ToastContainer position="top-left" autoClose={2000} />
     </BrowserRouter>
   );
 }

@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/features/auth/authSlice';
 import RecentSalesList from '../../components/sales/salesList/RecentSalesList';
 import { getRecentSales } from '../../redux/features/sales/salesSlice';
+import useRedirectIncorrectRoleEmployee from '../../customHooks/useRedirectIncorrectRoleEmployee';
 
-const RecentSales = () => {
-  useRedirectLoggedOutEmployee('/'); // redirect logged out employees to the home page
+const RecentSales = ({ allowedRole }) => {
+  // useRedirectLoggedOutEmployee('/'); // redirect logged out employees to the home page
+  useRedirectIncorrectRoleEmployee(allowedRole, '/inventory');
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);

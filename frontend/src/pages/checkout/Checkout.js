@@ -27,10 +27,12 @@ import useRedirectLoggedOutEmployee from '../../customHooks/useRedirectLoggedOut
 import { getLoggedInEmployee } from '../../services/authService';
 
 import { toast } from 'react-toastify';
+import useRedirectIncorrectRoleEmployee from '../../customHooks/useRedirectIncorrectRoleEmployee';
 // import { getCustomerByEmail } from '../../redux/features/customer/customerService';
 
-const Checkout = () => {
-  useRedirectLoggedOutEmployee('/');
+const Checkout = ({ allowedRole }) => {
+  // useRedirectLoggedOutEmployee('/');
+  useRedirectIncorrectRoleEmployee(allowedRole, '/inventory');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

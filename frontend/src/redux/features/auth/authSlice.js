@@ -4,11 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 // try to read the employee information in local storage
 const firstName = JSON.parse(localStorage.getItem('firstName'));
 const employeeId = JSON.parse(localStorage.getItem('employeeId'));
+const role = JSON.parse(localStorage.getItem('role'));
 
 const initialState = {
   isLoggedIn: false,
   firstName: firstName ? firstName : '',
   employeeId: employeeId ? employeeId : '',
+  role: role ? role : 'sales', // either 'sales' or 'manager'
   employee: {
     firstName: '',
     minit: '',
@@ -34,6 +36,10 @@ const authSlice = createSlice({
       localStorage.setItem('employeeId', JSON.stringify(action.payload));
       state.employeeId = action.payload;
     },
+    SET_EMPLOYEE_ROLE(state, action) {
+      localStorage.setItem('role', JSON.stringify(action.payload));
+      state.role = action.payload;
+    },
     SET_EMPLOYEE(state, action) {
       const profile = action.payload;
       state.employee.employeeId = profile.employeeId;
@@ -47,13 +53,18 @@ const authSlice = createSlice({
   },
 });
 
-export const { SET_LOGIN, SET_FIRSTNAME, SET_EMPLOYEE_ID, SET_EMPLOYEE } =
-  authSlice.actions;
+export const {
+  SET_LOGIN,
+  SET_FIRSTNAME,
+  SET_EMPLOYEE_ID,
+  SET_EMPLOYEE_ROLE,
+  SET_EMPLOYEE,
+} = authSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectFirstName = (state) => state.auth.firstName;
 export const selectEmployeeId = (state) => state.auth.employeeId;
-export const selectRole = (state) => state.auth.role;
+export const selectEmployeeRole = (state) => state.auth.role;
 export const selectEmployee = (state) => state.auth.employee;
 
 export default authSlice.reducer;
