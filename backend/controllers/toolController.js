@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const Tool = require('../models/tool');
+const Tool = require('../models/Tool');
 const camelizeKeys = require('../utilities/camelize');
 
 // Get all tools

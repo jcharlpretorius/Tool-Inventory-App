@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { ROLE } = require('../data/data');
-const Employee = require('../models/employee');
+const Employee = require('../models/Employee');
 const camelizeKeys = require('../utilities/camelize');
 const SalesAssociate = require('../models/SalesAssociate');
 

@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const Customer = require('../models/customer');
+const Customer = require('../models/Customer');
 const camelizeKeys = require('../utilities/camelize');
 
 // Get all customers
