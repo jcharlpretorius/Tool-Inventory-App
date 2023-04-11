@@ -70,7 +70,7 @@ CREATE TABLE PURCHASE (
     Payment_ID           INT,
     PRIMARY KEY(Purchase_ID),
     FOREIGN KEY (Sales_Associate_ID) REFERENCES SALES_ASSOCIATE(Employee_ID) ON DELETE SET NULL,
-    FOREIGN KEY (Payment_ID) REFERENCES PAYMENT(Payment_ID) ON DELETE CASCADE
+    FOREIGN KEY (Payment_ID) REFERENCES PAYMENT(Payment_ID) ON DELETE SET NULL
 );
  
 DROP TABLE IF EXISTS SUPPLIER;
@@ -97,7 +97,7 @@ DROP TABLE IF EXISTS PURCHASE_LINE;
 CREATE TABLE PURCHASE_LINE (
     Purchase_ID     INT NOT NULL,
     Line_Number     INT,
-    Tool_ID         INT NOT NULL,
+    Tool_ID         INT,
     Quantity        INT NOT NULL,
     PRIMARY KEY (Purchase_ID, Line_Number),
     FOREIGN KEY (Purchase_ID) REFERENCES PURCHASE(Purchase_ID) ON DELETE CASCADE,
@@ -117,11 +117,11 @@ CREATE TABLE ORDERS (
 DROP TABLE IF EXISTS ORDER_LINE;
 CREATE TABLE ORDER_LINE (
     Order_Id            INT NOT NULL,
-    Line_Number             INT,
-    Tool_ID             INT NOT NULL,
+    Line_Number         INT,
+    Tool_ID             INT,
     Quantity            INT NOT NULL,
     PRIMARY KEY (Order_Id, Line_Number),
-    FOREIGN KEY (Order_Id) REFERENCES ORDERS(Order_Id) ON DELETE SET NULL,
+    FOREIGN KEY (Order_Id) REFERENCES ORDERS(Order_Id) ON DELETE CASCADE,
     FOREIGN KEY (Tool_ID) REFERENCES TOOL(Tool_ID) ON DELETE SET NULL
 );
 
@@ -181,9 +181,8 @@ INSERT INTO EMPLOYEE VALUES
     (8, 'Kareem', ' ', 'Benzema', '+1 7384272', 'benzema.kareem@yahoo.com', '2a$10$e3QBgzTUVROriJvNjYlrheEOXCsGkeFdtGDhOagJ1JAc/dWFyt6j2'),
     (9, 'Andy', ' ', 'Roberts', '+1 8354772', 'aroberts44@gmail.com', '$2a$10$OCviT5hqwdTkOVzxX8sQgeabaGmcaPqJsxFhPLOcf.13RYYW/5qHK'),
     (10, 'Wayne', ' ', 'Rooney', '+1 9356272', 'wrooney1880@gmail.com', '$2a$10$uMt/9IA8/BUJ1MiTXJJ2se/573fuEdZ9nJZGJ7497LNT60vWUKWFW');
-
-
--- Manager 
+    
+    -- Manager
 
 INSERT INTO MANAGER VALUES
     (1, 20000.00),
