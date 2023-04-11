@@ -21,7 +21,6 @@ import './Cart.scss';
 import useRedirectLoggedOutEmployee from '../../customHooks/useRedirectLoggedOutEmployee';
 import useRedirectIncorrectRoleEmployee from '../../customHooks/useRedirectIncorrectRoleEmployee';
 
-//{ items, total }
 const Cart = ({ allowedRole }) => {
   // useRedirectLoggedOutEmployee('/');
   useRedirectIncorrectRoleEmployee(allowedRole, '/inventory');
@@ -37,7 +36,7 @@ const Cart = ({ allowedRole }) => {
 
   // Used to shorten long strings such as tool name
   const shortenText = (text, n) => {
-    if (text !== undefined || text.length > n) {
+    if (text !== undefined && text.length > n) {
       const shortenedText = text.substring(0, n).concat('...');
       return shortenedText;
     }
@@ -125,9 +124,6 @@ const Cart = ({ allowedRole }) => {
               >
                 Check Out
               </button>
-              {/* <a href="/checkout">
-                <button className="--btn --btn-success">Check Out</button>
-              </a> */}
             </span>
           </div>
         </div>
@@ -141,15 +137,13 @@ const Cart = ({ allowedRole }) => {
                   <th>Tool ID</th>
                   <th>Name</th>
                   <th>Type</th>
-                  {/* <th>Supplier ID</th> */}
                   <th>Cart quantity</th>
                   <th>Price</th>
-                  {/* <th>Value</th> */}
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {items.map((tool, index) => {
+                {items.map((tool) => {
                   const {
                     toolId,
                     price,
@@ -211,5 +205,3 @@ const Cart = ({ allowedRole }) => {
 };
 
 export default Cart;
-{
-}

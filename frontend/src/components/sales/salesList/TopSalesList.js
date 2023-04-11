@@ -5,7 +5,7 @@ import { SpinnerImg } from '../../loader/Loader';
 const TopSalesList = ({ topSales, isLoading }) => {
   // Used to shorten long strings such as tool name
   const shortenText = (text, n) => {
-    if (text.length > n) {
+    if (text !== undefined && text.length > n) {
       const shortenedText = text.substring(0, n).concat('...');
       return shortenedText;
     }
