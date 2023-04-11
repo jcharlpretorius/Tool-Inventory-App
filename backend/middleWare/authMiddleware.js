@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
-const Employee = require('../models/employee');
+const Employee = require('../models/Employee');
 const { ROLE } = require('../data/data');
 
 // Middleware for restricting access to logged in Employees

@@ -32,6 +32,8 @@ DB_PASSWORD=<your mysql password>
 
 ```
 
+**Make sure you have Node.js and Node Package Manager(npm) installed before continuing**
+
 **Install node modules:**
 
 cd into backend directory run this command in your terminal:
@@ -60,6 +62,12 @@ Not all have been tested yet. You must use a sales associate login to make purch
 
 **Manager Logins**
 
+Generic:
+
+`email: manager@gmail.com`
+
+`password: manager`
+
 Messi:
 
 `email: lmessi@gmail.com`
@@ -79,6 +87,12 @@ Zlatan Ibrahimovic:
 `password: password123`
 
 **Sales Associate Logins**
+
+Generic:
+
+`email: sales@gmail.com`
+
+`password: sales`
 
 Cristiano Ronaldo:
 

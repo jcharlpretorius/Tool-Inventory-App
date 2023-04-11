@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
-const Purchase = require('../models/purchase');
+const Purchase = require('../models/Purchase');
 const Payment = require('../models/Payment');
-const Employee = require('../models/employee');
+const Employee = require('../models/Employee');
 const Tool = require('../models/Tool');
 const camelizeKeys = require('../utilities/camelize');
 const PurchaseLine = require('../models/PurchaseLine');
@@ -35,13 +35,13 @@ const createNewPurchase = asyncHandler(async (req, res) => {
   const { employeeId, customerId, paymentType, items, total } = req.body;
 
   // test If I am getting the values from the frontend
-  console.log(`Inside purchase Controller`);
-  console.log(`employeeId: ${employeeId}`);
-  console.log(`customerId: ${customerId}`);
-  console.log(`paymentType: ${paymentType}`);
-  console.log(`total: ${total}`);
+  // console.log(`Inside purchase Controller`);
+  // console.log(`employeeId: ${employeeId}`);
+  // console.log(`customerId: ${customerId}`);
+  // console.log(`paymentType: ${paymentType}`);
+  // console.log(`total: ${total}`);
   // items are a list of tools with an extra attribute: cartQty
-  console.log(items);
+  // console.log(items);
 
   // validation -> no empty field
   if (!employeeId || !customerId || !paymentType || !items || !total) {
@@ -53,7 +53,7 @@ const createNewPurchase = asyncHandler(async (req, res) => {
     if (item.cartQty > item.quantity) {
       // shorten the length of the tool name if necessary
       let shortenedText = '<Cart_Item_Name>';
-      if (item.name !== undefined || item.name > 20) {
+      if (item.name !== undefined && item.name > 20) {
         shortenedText = item.name.substring(0, 20).concat('...');
       }
       res.status(400);
@@ -85,7 +85,7 @@ const createNewPurchase = asyncHandler(async (req, res) => {
     );
     await purchaseLine.create();
 
-    // subtract the purchased quantitie from the tool
+    // subtract the purchased quantities from the tool
     const newQuantity = item.quantity - item.cartQty;
     await Tool.updateQuantity(item.toolId, newQuantity);
   });

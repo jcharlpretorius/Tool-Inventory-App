@@ -5,7 +5,7 @@ import { SpinnerImg } from '../../loader/Loader';
 const RecentSalesList = ({ recentSales, isLoading }) => {
   // Used to shorten long strings such as tool name
   const shortenText = (text, n) => {
-    if (text.length > n) {
+    if (text !== undefined && text.length > n) {
       const shortenedText = text.substring(0, n).concat('...');
       return shortenedText;
     }
@@ -32,7 +32,7 @@ const RecentSalesList = ({ recentSales, isLoading }) => {
                   <th>Employee ID</th>
                   <th>First Name</th>
                   <th>Last Name</th>
-                  <th>Commission Rate</th>
+                  {/* <th>Commission Rate</th> */}
                   <th>PurchaseDate</th>
                   <th>Payment ID</th>
                   <th>Amount</th>
@@ -54,7 +54,7 @@ const RecentSalesList = ({ recentSales, isLoading }) => {
                       <td>{employeeId}</td>
                       <td>{shortenText(firstName, 20)}</td>
                       <td>{shortenText(lastName, 20)}</td>
-                      <td>{Number(commissionRate).toFixed(2)}</td>
+                      {/* <td>{Number(commissionRate).toFixed(2)}</td> */}
                       <td>{purchaseDate.slice(0, 10)}</td>
                       <td>{paymentId}</td>
                       <td>

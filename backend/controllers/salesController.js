@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
-const Purchase = require('../models/purchase');
+const Purchase = require('../models/Purchase');
 const Payment = require('../models/Payment');
-const Employee = require('../models/employee');
+const Employee = require('../models/Employee');
 const { findRecentSales, findTopSalesMen } = require('../models/Sales');
 const camelizeKeys = require('../utilities/camelize');
 

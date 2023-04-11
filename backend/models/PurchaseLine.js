@@ -41,7 +41,7 @@ class PurchaseLine {
   // Can be several purchase lines associated with a single purchase_ID
   static async findById(purchaseId) {
     let sql = `SELECT * FROM PURCHASE_LINE WHERE Purchase_ID ?;`;
-    const [purchaseLines, _] = await db.execute(sql, [purchaseId]);
+    const [queryResult, _] = await db.execute(sql, [purchaseId]);
 
     // parse the query result
     const lineNumber = queryResult[0].Line_Number;

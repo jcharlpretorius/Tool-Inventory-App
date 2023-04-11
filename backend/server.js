@@ -38,7 +38,7 @@ app.use('/api/employees', employeeRoute);
 app.use('/api/tools', toolRoute);
 app.use('/api/purchases', purchaseRoute);
 app.use('/api/sales', salesRoute);
-app.use('/api/orderss', orderRoute);
+app.use('/api/orders', orderRoute);
 
 // Error Middleware
 app.use(errorHandler);

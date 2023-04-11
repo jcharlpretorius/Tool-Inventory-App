@@ -20,8 +20,8 @@ class OrderLine {
       VALUES(?,?,?,?)
     `;
     const payload = [this.orderId, this.lineNumber, this.toolId, this.quantity];
-    const [newPurchaseLine, _] = await db.execute(sql, payload);
-    return newPurchaseLine;
+    const [newOrderLine, _] = await db.execute(sql, payload);
+    return this;
   }
 
   // Find all allOrderLines in table
@@ -36,8 +36,15 @@ class OrderLine {
   // Can be several order lines associated with a single orderId
   static async findById(orderId) {
     let sql = `SELECT * FROM ORDER_LINE WHERE Order_ID =?};`;
-    const [orderLines, _] = await db.execute(sql, [orderId]);
-    return orderLines[0];
+    const [queryResult, _] = await db.execute(sql, [orderId]);
+
+    // parse the query result
+    const lineNumber = queryResult[0].Line_Number;
+    const toolId = queryResult[0].Tool_ID;
+    const quantity = queryResult[0].Quantity;
+
+    const orderLine = new OrderLine(orderId, lineNumber, toolId, quantity);
+    return orderLine;
   }
 }
 
