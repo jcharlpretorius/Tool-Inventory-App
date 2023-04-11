@@ -7,8 +7,8 @@ const {
   createNewPurchase,
 } = require('../controllers/purchaseController');
 
-router.get('/', getAllPurchases); // maybe make manager protected?
-router.get('/:id', getPurchase);
+router.get('/', authEmp, getAllPurchases); // maybe make manager protected?
+router.get('/:id', authEmp, getPurchase);
 router.post('/', authEmp, createNewPurchase); // does payment, purchase, and purchase lines
 
 module.exports = router;

@@ -7,8 +7,8 @@ const {
   createNewOrder,
 } = require('../controllers/orderController');
 
-router.get('/', getAllOrders);
-router.get('/:id', getOrder);
-router.post('/', authEmp, createNewOrder);
+router.get('/', authEmp, authManager, getAllOrders);
+router.get('/:id', authEmp, authManager, getOrder);
+router.post('/', authEmp, authManager, createNewOrder);
 
 module.exports = router;
