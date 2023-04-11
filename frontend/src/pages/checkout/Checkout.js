@@ -39,16 +39,9 @@ const Checkout = ({ allowedRole }) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
   const customers = useSelector(selectCustomers);
-  // const customers =
-  // const [cart, setcart] = useState(initialState);
 
   // employee state
-  // const employee = useSelector(selectEmployee);
   const employeeId = useSelector(selectEmployeeId);
-  const employeeFirstName = useSelector(selectFirstName);
-
-  // get customer from state
-  // const customer = useSelector(selectCustomer);
 
   // destructure cart state
   const { items, total, paymentType } = useSelector((state) => state.cart);
@@ -134,13 +127,8 @@ const Checkout = ({ allowedRole }) => {
         items={items}
         total={total}
         employeeId={employeeId}
-        // customer={customer}
         handleInputChange={handleInputChange}
         confirmPayment={confirmPayment}
-        // tool={tool}
-        // description={description}
-        // setDescription={setDescription}
-        // saveTool={saveTool}
       />
     </div>
   );

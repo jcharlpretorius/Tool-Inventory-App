@@ -25,6 +25,7 @@ import Customer from './pages/customer/Customer';
 import CustomerDetail from './components/customer/customerDetail/CustomerDetail';
 import EditCustomer from './pages/editCustomer/EditCustomer';
 import AddCustomer from './pages/addCustomer/AddCustomer';
+import OrderCart from './components/order/OrderCart';
 
 // makes sure you are able to save the credentials of employee, whenever you make a request
 axios.defaults.withCredentials = true;
@@ -199,6 +200,17 @@ function App() {
             <Sidebar>
               <Layout>
                 <TopSales allowedRole={ROLES.MNGR} />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        {/* Orders Routes */}
+        <Route
+          path="/order"
+          element={
+            <Sidebar>
+              <Layout>
+                <OrderCart allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }

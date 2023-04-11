@@ -18,12 +18,13 @@ class Order {
     this.orderDate = `${yyyy}-${mm}-${dd}`;
 
     let sql = `
-      INSERT INTO ORDER(
+      INSERT INTO ORDERS(
         Order_Date,
         Manager_ID
       )
       VALUES(?,?)
     `;
+
     const payload = [this.orderDate, this.managerId];
     const [newOrder, _] = await db.execute(sql, payload);
     const orderId = newOrder.insertId; // extract primary key
@@ -34,7 +35,7 @@ class Order {
 
   // Find all orders
   static async findAll() {
-    let sql = 'SELECT * FROM ORDER;';
+    let sql = 'SELECT * FROM ORDERS;';
 
     const [orders, _] = await db.execute(sql);
     return orders;
@@ -42,7 +43,7 @@ class Order {
 
   // Find order by id
   static async findById(orderId) {
-    let sql = `SELECT * FROM ORDER WHERE Order_ID =?};`;
+    let sql = `SELECT * FROM ORDERS WHERE Order_ID =?};`;
     const [queryResult, _] = await db.execute(sql, [orderId]);
 
     // check if order exists
@@ -65,7 +66,7 @@ class Order {
 
   // Delete Order
   static async delete(orderId) {
-    let sql = `DELETE FROM ORDER WHERE Order_ID = ?;`;
+    let sql = `DELETE FROM ORDERS WHERE Order_ID = ?;`;
     await db.execute(sql, [orderId]);
     return;
   }

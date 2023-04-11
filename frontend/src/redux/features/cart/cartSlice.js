@@ -13,7 +13,6 @@ const initialState = {
 export const makePurchase = createAsyncThunk(
   'cart/makePurchase',
   async (formData, thunkAPI) => {
-    console.log(`inside cart slice`);
     try {
       return await cartService.makePurchase(formData);
     } catch (error) {

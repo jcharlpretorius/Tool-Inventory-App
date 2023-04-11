@@ -6,6 +6,7 @@ import {
 } from 'react-icons/md';
 import { FaWarehouse, FaFileInvoiceDollar } from 'react-icons/fa';
 import { HiUserGroup } from 'react-icons/hi';
+import { FiTruck } from 'react-icons/fi';
 
 const menu = [
   {
@@ -61,6 +62,11 @@ const menu = [
         path: '/top-sales',
       },
     ],
+  },
+  {
+    title: 'Order',
+    icon: <FiTruck />,
+    path: '/order',
   },
 ];
 

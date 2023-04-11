@@ -8,7 +8,7 @@ import {
 import { SpinnerImg } from '../../loader/Loader';
 import { FaEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { ImEye } from 'react-icons/im';
-import { BsTrash, BsCartPlus } from 'react-icons/bs';
+import { BsTrash, BsCartPlus, BsTruck } from 'react-icons/bs';
 import { MdLocalShipping } from 'react-icons/md';
 import Search from '../../search/Search';
 import { confirmAlert } from 'react-confirm-alert';
@@ -17,10 +17,9 @@ import { deleteTool, getTools } from '../../../redux/features/tool/toolSlice';
 import { Link } from 'react-router-dom';
 import { ADD_ITEM } from '../../../redux/features/cart/cartSlice';
 import { toast } from 'react-toastify';
+import { ADD_ORDER_ITEM } from '../../../redux/features/orderCart/orderCartSlice';
 
 const ToolList = ({ tools, isLoading }) => {
-  // console.log(`typeof tool ${typeof tools}`);
-
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState('');
@@ -28,7 +27,7 @@ const ToolList = ({ tools, isLoading }) => {
 
   // Used to shorten long strings such as tool name
   const shortenText = (text, n) => {
-    if (text.length > n) {
+    if (text !== undefined && text.length > n) {
       const shortenedText = text.substring(0, n).concat('...');
       return shortenedText;
     }
@@ -60,13 +59,15 @@ const ToolList = ({ tools, isLoading }) => {
   };
 
   const addToCart = (tool) => {
-    // console.log(`add to cart id: ${tool.toolId}`);
-    // check if out of stock
     if (tool.quantity === 0) {
       toast.error(`${shortenText(tool.name, 20)} is out of stock`);
       return;
     }
     dispatch(ADD_ITEM(tool));
+  };
+
+  const addToOrder = (tool) => {
+    dispatch(ADD_ORDER_ITEM(tool));
   };
 
   // triggered on mount and everytime the search changes
@@ -158,10 +159,10 @@ const ToolList = ({ tools, isLoading }) => {
                         </span>
                         {/* Actions below should only be available for managers */}
                         <span className="addOrderBtn">
-                          <MdLocalShipping
+                          <BsTruck
                             size={23}
-                            color={'#f27100'}
-                            // onClick={() => confirmDelete(toolId)}
+                            color={'#000000'}
+                            onClick={() => addToOrder(tool)}
                           />
                         </span>
                         <span className="delete">
