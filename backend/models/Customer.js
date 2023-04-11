@@ -38,7 +38,7 @@ class Customer {
 
   // Find all customers
   static async findAll() {
-    let sql = 'SELECT * FROM CUSTOMER;';
+    let sql = 'SELECT * FROM CUSTOMER ORDER BY First_Name;';
 
     // destructure to pull out just 1st array, don't want the field data
     const [customers, _] = await db.execute(sql);
