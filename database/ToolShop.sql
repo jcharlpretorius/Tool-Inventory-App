@@ -76,8 +76,11 @@ CREATE TABLE PURCHASE (
 DROP TABLE IF EXISTS SUPPLIER;
 CREATE TABLE SUPPLIER (
     Supplier_ID     INT NOT NULL,
+    Name            VARCHAR(50) ,
     Phone_Number    VARCHAR(20),
     Address         VARCHAR(100),
+    Email           VARCHAR(50),
+    UNIQUE(Email),
     PRIMARY KEY (Supplier_ID)
 );
 
@@ -193,16 +196,16 @@ INSERT INTO MANAGER VALUES
 -- SUPPLIER
 
 INSERT INTO SUPPLIER VALUES
-    (1, '+1 62321893','New York'),
-    (2, '+1 39874923','DC Washington'),
-    (3, '+44 24525467','London'),
-    (4, '+1 29857933','New York'),
-    (5, '+37 23786585','Paris'),
-    (6, '+1 29384332','New York'),
-    (7, '+1 234769245','Florida'),
-    (8, '+44 93874904','Manchester'),
-    (9, '+1 215548589','Boston'),
-    (10, '+1 34547883','New York');
+    (1, 'Bills Best Tools', '+1 62321893','New York', 'billsbest@gmail.com'),
+    (2, 'MasterCraft', '+1 39874923','DC Washington', 'supplies@mastercraft.com'),
+    (3, 'DM Industries', '+44 24525467','London', 'dmindustries@gmail.com'),
+    (4, 'Iron Product Inc', '+1 29857933','New York', 'ironinc@ironproducts.com'),
+    (5, 'GGS Manufacturing', '+37 23786585','Paris', 'orders@ggs.com'),
+    (6, 'Wiley Inc', '+1 29384332','New York', 'orders@wiley.com'),
+    (7, 'Fiskars', '+1 234769245','Florida', 'retailorders@fiskars.com'),
+    (8, 'McDouglas Manufacturing', '+44 93874904','Manchester', 'info@mcdouglas.com'),
+    (9, 'Stanley Tools', '+1 215548589','Boston', 'stanley@stanleytools.com'),
+    (10, 'Cheeroy Manufacturing Ltd',  '+1 34547883','New York', 'cheeroymanufacturing@gmail.com');
 
 
 -- SALES_ASSOCIATE

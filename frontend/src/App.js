@@ -26,6 +26,10 @@ import CustomerDetail from './components/customer/customerDetail/CustomerDetail'
 import EditCustomer from './pages/editCustomer/EditCustomer';
 import AddCustomer from './pages/addCustomer/AddCustomer';
 import OrderCart from './components/order/OrderCart';
+import Supplier from './pages/supplier/Supplier';
+import AddSupplier from './pages/addSupplier/AddSupplier';
+import SupplierDetail from './components/supplier/supplierDetail/SupplierDetail';
+import EditSupplier from './pages/editSupplier/EditSupplier';
 
 // makes sure you are able to save the credentials of employee, whenever you make a request
 axios.defaults.withCredentials = true;
@@ -204,13 +208,54 @@ function App() {
             </Sidebar>
           }
         />
-        {/* Orders Routes */}
+        {/* Orders Route */}
         <Route
           path="/order"
           element={
             <Sidebar>
               <Layout>
                 <OrderCart allowedRole={ROLES.MNGR} />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        {/* Supplier Routes */}
+        <Route
+          path="/supplier"
+          element={
+            <Sidebar>
+              <Layout>
+                <Supplier allowedRole={ROLES.MNGR} />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/add-supplier"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddSupplier allowedRole={ROLES.MNGR} />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/supplier-details/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <SupplierDetail allowedRole={ROLES.MNGR} />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/edit-supplier/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditSupplier allowedRole={ROLES.MNGR} />
               </Layout>
             </Sidebar>
           }
