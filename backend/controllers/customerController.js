@@ -17,7 +17,7 @@ const getCustomer = asyncHandler(async (req, res) => {
   // check if customer doesn't exist
   if (!customer) {
     res.status(404);
-    throw new Error('Customers not found');
+    throw new Error('Customer not found');
   }
 
   res.status(200).json(camelizeKeys(customer));

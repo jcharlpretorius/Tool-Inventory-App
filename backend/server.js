@@ -11,6 +11,7 @@ const toolRoute = require('./routes/toolRoute');
 const purchaseRoute = require('./routes/purchaseRoute');
 const salesRoute = require('./routes/salesRoute');
 const orderRoute = require('./routes/orderRoute');
+const supplierRoute = require('./routes/supplierRoute');
 
 // instanciate express app
 const app = express();
@@ -39,6 +40,7 @@ app.use('/api/tools', toolRoute);
 app.use('/api/purchases', purchaseRoute);
 app.use('/api/sales', salesRoute);
 app.use('/api/orders', orderRoute);
+app.use('/api/suppliers', supplierRoute);
 
 // Error Middleware
 app.use(errorHandler);

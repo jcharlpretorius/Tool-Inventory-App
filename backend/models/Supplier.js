@@ -33,8 +33,14 @@ class Supplier {
   // Find supplier by id
   static async findById(supplierId) {
     let sql = `SELECT * FROM SUPPLIER WHERE Supplier_ID = ?;`;
-    const [supplier, _] = await db.execute(sql[supplierId]);
-    return supplier[0];
+    const [queryResult, _] = await db.execute(sql[supplierId]);
+    // parse the query result
+
+    const supplierId = queryResult[0].Supplier_ID;
+    const phone = queryResult[0].Phone;
+    const address = queryResult[0].Address;
+
+    return new Supplier(supplierId, phone, address);
   }
 
   // Update supplier
@@ -48,7 +54,7 @@ class Supplier {
     `;
     const payload = [phone, address, supplierId];
     await db.execute(sql, payload);
-    return { supplierId, phone, address };
+    return new Supplier(supplierId, phone, address);
   }
 
   // Delete supplier
