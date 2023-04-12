@@ -19,7 +19,6 @@ const initialState = {
 };
 
 const AddCustomer = () => {
-  // useRedirectIncorrectRoleEmployee('manager', '/customer');
   useRedirectLoggedOutEmployee('/');
   const dispatch = useDispatch();
   const navigate = useNavigate();

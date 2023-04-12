@@ -7,8 +7,10 @@ import orderCartReducer from '../redux/features/orderCart/orderCartSlice';
 import customerSlice from './features/customer/customerSlice';
 import customerFilterSlice from './features/customer/customerFilterSlice';
 import salesSlice from './features/sales/salesSlice';
+import supplierSlice from './features/supplier/supplierSlice';
+import supplierFilterSlice from './features/supplier/supplierFilterSlice';
 
-// this is where we store the redux states
+// this is where we store all of the redux states
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +22,7 @@ export const store = configureStore({
     customer: customerSlice,
     customerFilter: customerFilterSlice,
     sales: salesSlice,
+    supplier: supplierSlice,
+    supplierFilter: supplierFilterSlice,
   },
 });

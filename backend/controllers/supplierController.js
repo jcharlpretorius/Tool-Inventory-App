@@ -25,8 +25,11 @@ const getSupplier = asyncHandler(async (req, res) => {
 
 // Create new supplier
 const createNewSupplier = asyncHandler(async (req, res) => {
-  const { supplierId, phone, address } = req.body;
+  const { supplierId, name, phoneNumber, address, email } = req.body;
 
+  console.log(`supplierId: ${supplierId}`);
+  console.log(`type: ${typeof supplierId}`);
+  console.log(`phoneNumber: ${phoneNumber}`);
   // Validation -> check anything you set as NOT NULL in schema
   if (!supplierId) {
     res.status(400);
@@ -37,30 +40,29 @@ const createNewSupplier = asyncHandler(async (req, res) => {
   // verify email is correct format
 
   // check if supplier  already exits
-  const tempSupplier = await Supplier.findById(supplierId);
-  if (tempSupplier) {
-    res.status(400);
+  // const tempSupplier = await Supplier.findById(supplierId);
+  // if (tempSupplier) {
+  //   res.status(400);
 
-    throw new Error(`Supplier has already been added.`);
-  }
+  //   throw new Error(`Supplier has already been added.`);
+  // }
 
   // Create new supplier
-  const supplier = new Supplier(supplierId, phone, address);
-  const newSupplier = await supplier.create();
+  const supplier = new Supplier(supplierId, name, phoneNumber, address, email);
 
+  const newSupplier = await supplier.create();
+  // // check if error
+  if (!newSupplier) {
+    res.status(400);
+    throw new Error('Failed to add supplier');
+  }
   res.status(201).json(camelizeKeys(newSupplier));
 });
 
 // update supplier information
 const updateSupplier = asyncHandler(async (req, res) => {
   const { id } = req.params; // supplier id in params (url)
-  let { phone, address } = req.body;
-
-  // Validation -> check anything you set as NOT NULL in schema
-  if (!firstName || !lastName || !email) {
-    res.status(400);
-    throw new Error('Please fill in all required fields');
-  }
+  let { name, phoneNumber, address, email } = req.body;
 
   let supplier = await Supplier.findById(id);
 
@@ -71,7 +73,13 @@ const updateSupplier = asyncHandler(async (req, res) => {
   }
 
   // Update supplier
-  const updatedSupplier = await Supplier.update(id, phone, address);
+  const updatedSupplier = await Supplier.update(
+    id,
+    name,
+    phoneNumber,
+    address,
+    email
+  );
   res.status(200).json(updatedSupplier);
 });
 

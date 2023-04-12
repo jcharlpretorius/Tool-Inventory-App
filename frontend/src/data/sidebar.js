@@ -3,6 +3,7 @@ import {
   MdOutlineAddBox,
   MdAccountBox,
   MdOutlinePersonAddAlt,
+  MdOutlineFactory,
 } from 'react-icons/md';
 import { FaWarehouse, FaFileInvoiceDollar } from 'react-icons/fa';
 import { HiUserGroup } from 'react-icons/hi';
@@ -62,6 +63,16 @@ const menu = [
         path: '/top-sales',
       },
     ],
+  },
+  {
+    title: 'Suppliers',
+    icon: <MdOutlineFactory />,
+    path: '/supplier',
+  },
+  {
+    title: 'Add Supplier',
+    icon: <MdOutlineAddBox />,
+    path: '/add-supplier',
   },
   {
     title: 'Order',
