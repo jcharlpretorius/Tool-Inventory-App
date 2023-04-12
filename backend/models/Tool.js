@@ -1,12 +1,21 @@
 const db = require('../config/db');
 
 class Tool {
-  constructor(toolId, price, toolType, quantity, name, supplierId) {
+  constructor(
+    toolId,
+    price,
+    toolType,
+    quantity,
+    name,
+    description,
+    supplierId
+  ) {
     this.toolId = toolId;
     this.price = price;
     this.toolType = toolType;
     this.quantity = quantity;
     this.name = name;
+    this.description = description;
     this.supplierId = supplierId;
   }
 
@@ -19,9 +28,10 @@ class Tool {
         Tool_Type,
         Quantity,
         Name,
+        Description,
         Supplier_ID
       )
-      VALUES(?,?,?,?,?,?)
+      VALUES(?,?,?,?,?,?,?)
     `;
     const payload = [
       this.toolId,
@@ -29,6 +39,7 @@ class Tool {
       this.toolType,
       this.quantity,
       this.name,
+      this.description,
       this.supplierId,
     ];
     const [newTool, _] = await db.execute(sql, payload);
@@ -62,12 +73,29 @@ class Tool {
     const toolType = queryResult[0].Tool_Type;
     const quantity = queryResult[0].Quantity;
     const name = queryResult[0].Name;
+    const description = queryResult[0].Description;
     const supplierId = queryResult[0].Supplier_ID;
 
-    return new Tool(toolId, price, toolType, quantity, name, supplierId);
+    return new Tool(
+      toolId,
+      price,
+      toolType,
+      quantity,
+      name,
+      description,
+      supplierId
+    );
   }
   // Update entire tool
-  static async update(toolId, price, toolType, quantity, name, supplierId) {
+  static async update(
+    toolId,
+    price,
+    toolType,
+    quantity,
+    name,
+    description,
+    supplierId
+  ) {
     let sql = `
     UPDATE TOOL
     SET 
@@ -75,12 +103,29 @@ class Tool {
     Tool_Type = ?, 
     Quantity = ?, 
     Name = ?, 
+    Description = ?,
     Supplier_ID = ?
     WHERE Tool_ID = ?
     `;
-    const payload = [price, toolType, quantity, name, supplierId, toolId];
+    const payload = [
+      price,
+      toolType,
+      quantity,
+      name,
+      description,
+      supplierId,
+      toolId,
+    ];
     await db.execute(sql, payload);
-    return new Tool(toolId, price, toolType, quantity, name, supplierId);
+    return new Tool(
+      toolId,
+      price,
+      toolType,
+      quantity,
+      name,
+      description,
+      supplierId
+    );
   }
 
   // Delete tool

@@ -102,7 +102,7 @@ const CustomerList = ({ suppliers, isLoading }) => {
                       <td>{shortenText(name, 20)}</td>
                       <td>{phoneNumber}</td>
                       <td>{shortenText(address, 20)}</td>
-                      <td>{shortenText(email, 20)}</td>
+                      <td>{shortenText(email, 35)}</td>
                       {/* Actions */}
                       <td className="icons">
                         <span className="eye">

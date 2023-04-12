@@ -50,7 +50,10 @@ const EditTool = ({ allowedRole }) => {
       price: tool?.price,
       toolType: tool?.toolType,
       quantity: tool?.quantity,
+      description: description,
     };
+
+    console.log(`in edit tool description : ${description}`);
     await dispatch(updateTool({ toolId: id, formData }));
     await dispatch(getTools());
 

@@ -7,6 +7,7 @@ import { getTool } from '../../../redux/features/tool/toolSlice';
 import { selectIsLoggedIn } from '../../../redux/features/auth/authSlice';
 import Card from '../../card/Card';
 import { SpinnerImg } from '../../loader/Loader';
+import DOMPurify from 'dompurify';
 
 const ToolDetail = () => {
   useRedirectLoggedOutEmployee('/'); // redirect logged out employees to the home page
@@ -68,6 +69,16 @@ const ToolDetail = () => {
               <p>
                 <b>Total value in stock: </b> {'$'}
                 {tool.quantity * tool.price}
+              </p>
+              <hr />
+              <p>
+                <b>Description: </b>
+                {/* {tool.description} */}
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(tool.description),
+                  }}
+                ></div>
               </p>
               <div className="--my --flex-between --flex-dir-column">
                 <button

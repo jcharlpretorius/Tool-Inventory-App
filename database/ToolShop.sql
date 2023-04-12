@@ -91,6 +91,7 @@ CREATE TABLE TOOL (
     Tool_Type           VARCHAR(50) NOT NULL,
     Quantity            INT DEFAULT 0 NOT NULL,
     Name                VARCHAR(50),
+    Description         VARCHAR(255),
     Supplier_ID         INT,
     PRIMARY KEY (Tool_ID),
     FOREIGN KEY (Supplier_ID) REFERENCES SUPPLIER(Supplier_ID) ON DELETE SET NULL
@@ -223,21 +224,21 @@ INSERT INTO SALES_ASSOCIATE VALUES
 -- TOOL
 
 INSERT INTO TOOL VALUES
-    (101, 30.0, 'Mechanical', 12, 'Strippers', 2),
-    (102, 20.0, 'Mechanical', 200, 'Pin', 3),
-    (103, 200.0, 'Electrical', 10, 'Microvave oven', 4),
-    (104, 10.0, 'Mechanical', 45, 'Scrapper', 5),
-    (105, 30.0, 'Mechanical', 12, 'Piler', 6),
-    (106, 40.0, 'Electrical', 120, 'Bulb', 7),
-    (107, 40.0, 'Electrical', 110, 'cable', 8),
-    (108, 50.0, 'Mechanical', 59, 'Screw Driver', 2),
-    (109, 60.0, 'Electrical', 12, 'Strippers', 1),
-    (110, 70.0, 'Mechanical', 25, 'HackSaw', 3),
-    (111, 35.0, 'Mechanical', 29, 'Wire Cutter', 4),
-    (112, 45.0, 'Mechanical', 75, 'Wrench', 9),
-    (113, 55.0, 'Electrical', 122, 'Heat Gun', 10),
-    (114, 67.5, 'Mechanical', 34, 'Hand Drill', 10),
-    (115, 75.0, 'Electrical', 44, 'Electric Cutter', 8);
+    (101, 30.0, 'Mechanical', 12, 'Strippers', 'Removing insulation from wires and cables', 2),
+    (102, 20.0, 'Mechanical', 200, 'Pin', 'Fastening and holding materials together', 3),
+    (103, 200.0, 'Electrical', 10, 'Microvave oven', 'For cooking and re-heating food', 4),
+    (104, 10.0, 'Mechanical', 45, 'Scrapper', 'Excellent for removing paint or other materials from surfaces', 5),
+    (105, 30.0, 'Mechanical', 12, 'Pliers', 'Tool for bending and cutting small diameter wire', 6),
+    (106, 40.0, 'Electrical', 120, 'Bulb', '60 Watt incandescent light blub', 7),
+    (107, 40.0, 'Electrical', 110, 'cable', '20A electrical power cable', 8),
+    (108, 50.0, 'Mechanical', 59, 'Screw Driver', 'Phillips screw driver', 2),
+    (109, 60.0, 'Electrical', 12, 'Strippers', 'Electric wire strippers',  1),
+    (110, 70.0, 'Mechanical', 25, 'HackSaw', '18in fine toothed hack saw',  3),
+    (111, 35.0, 'Mechanical', 29, 'Tin Snips', 'Snips for cutting sheet metal', 4),
+    (112, 45.0, 'Mechanical', 75, 'Wrench', 'Large pipe wrench', 9),
+    (113, 55.0, 'Electrical', 122, 'Heat Gun', '1500W Yellow heatgun', 10),
+    (114, 67.5, 'Mechanical', 34, 'Hand Drill', 'Stardard 18V cordless hand drill', 10),
+    (115, 75.0, 'Electrical', 44, 'Vice Grips', 'Rubber coated handles, medium jaws', 8);
 
 
 
