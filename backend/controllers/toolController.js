@@ -26,7 +26,8 @@ const getTool = asyncHandler(async (req, res) => {
 
 // Create new tool
 const createNewTool = asyncHandler(async (req, res) => {
-  let { toolId, price, toolType, quantity, name, supplierId } = req.body;
+  let { toolId, price, toolType, quantity, name, description, supplierId } =
+    req.body;
   // Validation -> check anything you set as NOT NULL in schema
   if (!toolId || !toolType || !name || !price || !supplierId) {
     const message = 'Please fill in all the required fields';
@@ -52,7 +53,15 @@ const createNewTool = asyncHandler(async (req, res) => {
   }
 
   // Create new tool
-  const tool = new Tool(toolId, price, toolType, quantity, name, supplierId);
+  const tool = new Tool(
+    toolId,
+    price,
+    toolType,
+    quantity,
+    name,
+    description,
+    supplierId
+  );
   const newTool = await tool.create();
 
   res.status(201).json(camelizeKeys(newTool));
@@ -61,7 +70,7 @@ const createNewTool = asyncHandler(async (req, res) => {
 // update tool
 const updateTool = asyncHandler(async (req, res) => {
   const { id } = req.params; // tool id in params (url)
-  let { price, toolType, quantity, name } = req.body;
+  let { price, toolType, quantity, name, description } = req.body;
 
   const tool = await Tool.findById(id);
 
@@ -76,6 +85,7 @@ const updateTool = asyncHandler(async (req, res) => {
   price = price ?? tool.price;
   quantity = quantity ?? tool.quantity;
   name = name ?? tool.name;
+  description = description ?? tool.description;
   toolType = toolType ?? tool.toolType;
 
   // parse numerical values
@@ -95,6 +105,7 @@ const updateTool = asyncHandler(async (req, res) => {
     toolType,
     quantity,
     name,
+    description,
     tool.supplierId // from the database
   );
   res.status(200).json(camelizeKeys(updatedTool));

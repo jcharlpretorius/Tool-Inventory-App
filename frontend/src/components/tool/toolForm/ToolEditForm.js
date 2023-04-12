@@ -59,15 +59,14 @@ const ToolEditForm = ({
             value={tool?.quantity}
             onChange={handleInputChange}
           />
-
-          {/* <label>Tool Description:</label>
+          <label>Tool Description:</label>
           <ReactQuill
             theme="snow"
             value={description}
             onChange={setDescription}
-            modules={ToolForm.modules}
-            formats={ToolForm.formats}
-          /> */}
+            modules={ToolEditForm.modules}
+            formats={ToolEditForm.formats}
+          />
 
           <div className="--my">
             <button type="submit" className="--btn --btn-primary">

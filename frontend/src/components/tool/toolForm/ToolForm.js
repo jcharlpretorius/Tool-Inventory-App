@@ -101,14 +101,14 @@ const ToolForm = ({
             onChange={handleInputChange}
             required
           />
-          {/* <label>Tool Description:</label>
+          <label>Tool Description:</label>
           <ReactQuill
             theme="snow"
             value={description}
             onChange={setDescription}
             modules={ToolForm.modules}
             formats={ToolForm.formats}
-          /> */}
+          />
 
           <div className="--my">
             <button type="submit" className="--btn --btn-primary">

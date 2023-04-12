@@ -12,6 +12,7 @@ const createTool = async (formData) => {
 // Get all tools
 const getTools = async () => {
   const response = await axios.get(API_URL);
+  // console.log(`response.data: ${JSON.stringify(response.data)}`);
   return response.data;
 };
 
