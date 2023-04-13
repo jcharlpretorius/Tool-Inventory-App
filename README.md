@@ -58,15 +58,9 @@ The application should open automatically in your browser (if using VSCode), oth
 
 **Logins**
 
-Not all have been tested yet. You must use a sales associate login to make purchases. Some routes are protected in the backend
+You must use a sales associate login to make purchases. Some routes are protected in the backend
 
 **Manager Logins**
-
-Generic:
-
-`email: manager@gmail.com`
-
-`password: manager`
 
 Messi:
 
@@ -87,12 +81,6 @@ Zlatan Ibrahimovic:
 `password: password123`
 
 **Sales Associate Logins**
-
-Generic:
-
-`email: sales@gmail.com`
-
-`password: sales`
 
 Cristiano Ronaldo:
 
