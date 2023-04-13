@@ -1,12 +1,11 @@
 import React from 'react';
-import { FaToolbox, FaTools } from 'react-icons/fa'; // add first 2 characters after the forward slash
+import { FaTools } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Home.scss';
 import {
   ShowOnLogin,
   ShowOnLogout,
 } from '../../components/protect/HiddenLinks';
-// import heroImg from '../../assets/inv-img.png';
 
 const Home = () => {
   return (
@@ -19,33 +18,30 @@ const Home = () => {
         <ul className="home-links">
           <ShowOnLogout>
             <li>
-              <button className="--btn --btn-primary">
+              <button className="--btn --btn-home">
                 <Link to="/login">Login</Link>
               </button>
             </li>
           </ShowOnLogout>
           <ShowOnLogin>
             <li>
-              <button className="--btn --btn-primary {">
+              <button className="--btn --btn-home {">
                 <Link to="/inventory">Dashboard</Link>
               </button>
             </li>
           </ShowOnLogin>
         </ul>
       </nav>
-      {/* HERO SECTION */}
-      <section className="container hero">
-        <div className="hero-text">
+      {/* INFO SECTION */}
+      <section className="container info">
+        <div className="info-text">
           <h2>Toolshop Inventory Management App</h2>
-          <p>
-            Inventory management system to make orders from suppliers, process
-            purchases for customers, and manage products in the inventory
-          </p>
+          <h4>
+            An inventory management system to manage information about products
+            in stock, sales, customer, employees, and suppliers. Easily make
+            orders from suppliers and process purchases for customers
+          </h4>
         </div>
-        {/* removed image for now */}
-        {/* <div className="hero-image">
-          <img src={heroImg} alt="Toolshop" />
-        </div> */}
       </section>
     </div>
   );

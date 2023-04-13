@@ -20,7 +20,7 @@
 
   --color-primary: #58a1f0;
   --color-success: #0fa231;
-  --color-danger: rgb(220, 74, 37);
+  --color-action: rgb(220, 74, 37);
 }
 
 * {
@@ -202,7 +202,7 @@ p {
 .--color-primary {
   color: #58a1f0;
 }
-.--color-danger {
+.--color-action {
   color: rgb(220, 74, 37);
 }
 .--color-success {
@@ -323,6 +323,10 @@ p {
   width: 100%;
 }
 
+.--btn-home {
+  color: #fff;
+  background: #000000;
+}
 .--btn-primary {
   color: #fff;
   background: #58a1f0;
@@ -332,9 +336,9 @@ p {
   border: 1px solid #fff;
   background: transparent;
 }
-.--btn-danger {
+.--btn-action {
   color: #fff;
-  background: rgb(220, 74, 37);
+  background: rgb(241, 100, 43);
 }
 
 .--btn-success {

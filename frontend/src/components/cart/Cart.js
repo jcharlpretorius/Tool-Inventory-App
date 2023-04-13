@@ -105,7 +105,7 @@ const Cart = ({ allowedRole }) => {
           <div className="--flex-between --flex-dir-column">
             <span>
               <button
-                className="--btn --btn-danger"
+                className="--btn --btn-action"
                 onClick={() => confirmClearCart()}
               >
                 Clear Cart

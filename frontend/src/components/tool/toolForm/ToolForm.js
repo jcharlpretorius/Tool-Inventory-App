@@ -34,7 +34,7 @@ const ToolForm = ({
             onChange={handleInputChange}
             required
           />
-          <label>Tool Type:</label>
+          {/* <label>Tool Type:</label> */}
           {/* <div>
             <input class="input flex-item" type="text" list="toolType" />
             <datalist id="toolType">
@@ -45,7 +45,7 @@ const ToolForm = ({
             </datalist>
             <div class="arrow"></div>
           </div> */}
-          <select name="toolType" id="toolType">
+          {/* <select name="toolType" id="toolType">
             <option value="Electric Tool" selected>
               Electric Tool
             </option>
@@ -56,7 +56,7 @@ const ToolForm = ({
             <option value="Garden Tool">Garden Tool</option>
             <option value="Safety Tool">Safety Tool</option>
             <option value="Wood Working Tool">Wood Working Tool</option>
-          </select>
+          </select> */}
           {/* <input
             type="text"
             placeholder="Tool Type"
@@ -65,7 +65,7 @@ const ToolForm = ({
             onChange={handleInputChange}
             required
           /> */}
-          {/* <label>Tool Type:</label>
+          <label>Tool Type:</label>
           <input
             type="text"
             placeholder="Tool Type"
@@ -73,7 +73,7 @@ const ToolForm = ({
             value={tool?.toolType}
             onChange={handleInputChange}
             required
-          /> */}
+          />
           <label>Tool Price:</label>
           <input
             type="text"
@@ -121,8 +121,7 @@ const ToolForm = ({
   );
 };
 
-// If you add description to the tool, use this
-// react quill rich text editor
+// react quill rich text editor -> for tool description
 ToolForm.modules = {
   toolbar: [
     [{ header: '1' }, { header: '2' }, { font: [] }],

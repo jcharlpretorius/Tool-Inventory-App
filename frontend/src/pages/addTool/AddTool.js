@@ -36,19 +36,8 @@ const AddTool = ({ allowedRole }) => {
     setTool({ ...tool, [name]: value });
   };
 
-  // -> maybe replace INT tool id with sku?, then remove toolID form, also add description
-  // generate a sku number for our tool
-  // const generateSKU = (toolType) => {
-  //   // get the first 4 letters of the tool type
-  //   const letter = toolType.slice(0, 4).toUpperCase();
-  //   const number = Date.now(); // the current date will give us a unique number
-  //   const sku = letter + '-' + number;
-  //   return sku;
-  // };
-
   const saveTool = async (e) => {
     e.preventDefault();
-    // toolId = generateSKU(toolType);
     // add description to the tool
     const formData = {
       toolId,
@@ -56,6 +45,7 @@ const AddTool = ({ allowedRole }) => {
       toolType,
       quantity,
       name,
+      description,
       supplierId,
     };
 

@@ -27,7 +27,7 @@ const ToolDetail = () => {
     if (quantity > 0) {
       return <span className="--color-success">In Stock</span>;
     }
-    return <span className="--color-danger">Out of Stock</span>;
+    return <span className="--color-action">Out of Stock</span>;
   };
 
   useEffect(() => {

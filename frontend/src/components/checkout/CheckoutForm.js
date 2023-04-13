@@ -8,7 +8,6 @@ const CheckOutForm = ({
   items,
   total,
   employee,
-  // customer,
   handleInputChange,
   confirmPayment,
 }) => {
