@@ -4,17 +4,13 @@
   justify-content: center;
   align-items: center;
 
-  .img {
-    animation: slide-down 0.5s ease;
-  }
-
   .form {
     width: 35rem;
     padding: 1.5rem;
     animation: slide-up 0.5s ease;
-    background-color: #fff;
+    background-color: #ffffff;
     h2 {
-      color: var(--color-danger);
+      color: var(--color-action);
       text-align: center;
     }
     form {
@@ -27,19 +23,19 @@
         padding: 1rem;
         margin: 1rem auto;
         width: 100%;
-        border: 1px solid #ccc;
-        border-bottom: 3px solid #ccc;
+        border: 1px solid #cacaca;
+        border-bottom: 3px solid #cacaca;
         border-radius: 3px;
         outline: none;
 
         &:focus {
           outline: none;
-          box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-          border-bottom: 3px solid #55c57a;
+          box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1); // alpha gives nice shadow
+          border-bottom: 3px solid #59dd85;
         }
 
         &:focus:invalid {
-          border-bottom: 3px solid #ff7730;
+          border-bottom: 3px solid #e7651f;
         }
       }
       .links {
@@ -61,6 +57,7 @@
     }
   }
 
+  // sliding style
   @keyframes slide-up {
     0% {
       transform: translateY(-5rem);
@@ -80,7 +77,4 @@
 }
 
 @media screen and (max-width: 700px) {
-  .img {
-    display: none;
-  }
 }

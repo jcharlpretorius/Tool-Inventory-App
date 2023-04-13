@@ -17,6 +17,11 @@ const Header = () => {
   const logout = async () => {
     await logoutEmployee();
     await dispatch(SET_LOGIN(false));
+
+    // clear local storage:
+    // localStorage.removeItem('firstName');
+    // localStorage.removeItem('employeeId');
+    // localStorage.removeItem('role');
     navigate('/'); // redirect to the home page
   };
 
@@ -25,9 +30,9 @@ const Header = () => {
       <div className="--flex-between">
         <h3>
           <span className="--fw-thin">Welcome,&nbsp;&nbsp;</span>
-          <span className="--color-danger --fw-bold">{firstName}</span>
+          <span className="--color-action --fw-bold">{firstName}</span>
         </h3>
-        <button className="--btn --btn-danger" onClick={logout}>
+        <button className="--btn --btn-action" onClick={logout}>
           Logout
         </button>
       </div>

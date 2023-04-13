@@ -1,16 +1,17 @@
 .home {
-  background-color: #121fa4;
   min-height: 100vh;
+  background-color: #4f97f5;
 
   & nav {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     color: #fff;
     & > .logo {
       color: #fff;
     }
   }
 }
+//  login or dashboard buttons
 .home-links {
   display: flex;
   justify-content: center;
@@ -19,18 +20,19 @@
     color: #fff;
   }
   & > * {
-    margin-left: 1rem;
+    margin-left: 2rem;
     color: #fff;
   }
 }
 
-.hero {
+// info section
+.info {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.hero-text {
+.info-text {
   width: 50%;
   & > * {
     color: #fff;
@@ -39,19 +41,16 @@
   & > h2 span {
     display: block;
   }
-  & .hero-buttons a {
+  & .info-buttons a {
     color: #fff;
   }
 }
-.hero-image {
-  width: 50%;
-}
 @media screen and (max-width: 600px) {
-  .hero {
+  .info {
     flex-direction: column;
   }
 
-  .hero-text {
+  .info-text {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,11 +58,5 @@
     width: 100%;
     margin: auto;
     text-align: center;
-  }
-  .hero-image {
-    width: 100%;
-    &img {
-      width: 100%;
-    }
   }
 }
